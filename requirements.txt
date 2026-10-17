@@ -1,0 +1,16 @@
+﻿pandas
+numpy
+pyarrow
+scikit-learn
+lightgbm
+shap
+networkx
+langgraph
+fastapi
+uvicorn
+pydantic
+faiss-cpu
+streamlit
+python-dotenv
+google-genai
+pytest
