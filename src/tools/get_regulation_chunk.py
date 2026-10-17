@@ -26,6 +26,7 @@ class GetRegulationChunkOutput(BaseModel):
     page_start: int
     page_end: int
     text: str
+    quotable: bool  # False for OCR text: do not quote it directly
 
 
 def get_regulation_chunk(args: GetRegulationChunkInput) -> Union[GetRegulationChunkOutput, ToolError]:
@@ -36,4 +37,4 @@ def get_regulation_chunk(args: GetRegulationChunkInput) -> Union[GetRegulationCh
     return GetRegulationChunkOutput(
         evidence_id=c["evidence_id"], doc_id=c["doc_id"], title=c["title"], publisher=c["publisher"],
         year=c["year"], jurisdiction=c["jurisdiction"], page_start=c["page_start"], page_end=c["page_end"],
-        text=c["text"])
+        text=c["text"], quotable=bool(c.get("quotable", True)))

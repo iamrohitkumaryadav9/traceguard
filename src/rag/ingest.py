@@ -103,17 +103,47 @@ def _tidy(text):
     return re.sub(r"\s+", " ", text).strip()
 
 
+NUMBERED_HEADING = re.compile(r"^\d{1,2}(\.\d{1,2})?\.?\s+[A-Z][^.;:]{2,80}$")  # "5.5 Suspicious Transaction Report (STR)"
+ALLCAPS_HEADING = re.compile(r"^[A-Z][A-Z0-9 &/,'()-]{3,70}$")
+
+
+def detect_heading(first_line, paragraph):
+    """Section heading carried by a paragraph, or None. Numbered headings (at most two levels, so "3.4.1 ..."
+    paragraph numbers are not headings) and short all-caps lines count; bold text cannot be detected."""
+    line = first_line.strip()
+    m = NUMBERED_HEADING.match(line) if len(line) <= 90 else None
+    if m:
+        number, _, rest = line.partition(" ")
+        # a single-level number ("10. The following sections...") is usually a numbered paragraph, not a heading
+        if m.group(1) is None and len(rest) > 45:
+            return None
+        return _tidy(line)
+    if paragraph.strip() == line and ALLCAPS_HEADING.match(line) and len(line.split()) >= 2:
+        words = line.lower().split()
+        if not any(w in STAMP_WORDS for w in words) and not words[-1].isdigit():
+            return _tidy(line)
+    return None
+
+
 def paragraphs_from_lines(lines):
     """Heuristic paragraph split of one page's lines: bullets, short headings and short sentence-final lines break."""
+    return paragraphs_and_first_lines(lines)[0]
+
+
+def paragraphs_and_first_lines(lines):
+    """(paragraphs, first line of each paragraph). Same split as paragraphs_from_lines."""
     if not lines:
-        return []
+        return [], []
     lens = sorted(len(l.strip()) for l in lines)
     typical = lens[len(lens) // 2]
-    paras, cur = [], []
+    paras, firsts, cur = [], [], []
 
     def flush():
         if cur:
-            paras.append(_tidy(" ".join(cur)))
+            text = _tidy(" ".join(cur))
+            if text:
+                paras.append(text)
+                firsts.append(cur[0])
             cur.clear()
 
     for i, raw in enumerate(lines):
@@ -126,7 +156,7 @@ def paragraphs_from_lines(lines):
         if heading or short_end:
             flush()
     flush()
-    return [p for p in paras if p]
+    return paras, firsts
 
 
 def split_sentences(paragraph):
@@ -142,12 +172,21 @@ def split_sentences(paragraph):
 
 
 # ---------- chunking ----------
-def chunk_paragraphs(doc_id, page_paragraphs, target=TARGET_TOKENS, max_tokens=MAX_TOKENS, overlap_frac=OVERLAP_FRAC):
-    """page_paragraphs: [(page_no, [paragraph, ...]), ...] for ONE document. Returns chunk dicts."""
+def chunk_paragraphs(doc_id, page_paragraphs, target=TARGET_TOKENS, max_tokens=MAX_TOKENS, overlap_frac=OVERLAP_FRAC,
+                     page_headings=None):
+    """page_paragraphs: [(page_no, [paragraph, ...]), ...] for ONE document. Returns chunk dicts.
+
+    page_headings (optional): per page, a list parallel to that page's paragraphs holding the section heading a
+    paragraph starts (or None). It only adds a "section" field to each chunk (the nearest heading at or before
+    the chunk's first sentence); chunk boundaries and text are identical with or without it."""
     sents = []  # (text, page, paragraph_id)
-    pid = 0
-    for page, paras in page_paragraphs:
-        for para in paras:
+    section_of_para = []
+    pid, current = 0, None
+    for pi, (page, paras) in enumerate(page_paragraphs):
+        for k, para in enumerate(paras):
+            if page_headings is not None and page_headings[pi][k]:
+                current = page_headings[pi][k]
+            section_of_para.append(current)
             for s in split_sentences(para):
                 sents.append((s, page, pid))
             pid += 1
@@ -171,6 +210,7 @@ def chunk_paragraphs(doc_id, page_paragraphs, target=TARGET_TOKENS, max_tokens=M
             "evidence_id": f"reg:{doc_id}:p{min(pages)}:c{n}", "doc_id": doc_id, "n": n,
             "page_start": min(pages), "page_end": max(pages),
             "text": " ".join(sents[j][0] for j in cur), "approx_tokens": total,
+            "section": section_of_para[sents[cur[0]][2]],
         })
         n += 1
         carry, acc = [], 0  # overlap: whole trailing sentences, about overlap_tokens
@@ -199,10 +239,14 @@ def build_chunks(manifest=None):
         if sum(len(p.strip()) for p in raw) == 0:
             raise RuntimeError(f"{doc['source_file']} has no extractable text; mark it ocr: true or index: false")
         pages = clean_pages(raw)
-        page_paras = [(i + 1, paragraphs_from_lines(lines)) for i, lines in enumerate(pages)]
-        for c in chunk_paragraphs(doc["doc_id"], page_paras):
+        page_paras, page_heads = [], []
+        for i, lines in enumerate(pages):
+            paras, firsts = paragraphs_and_first_lines(lines)
+            page_paras.append((i + 1, paras))
+            page_heads.append([detect_heading(f, p) for f, p in zip(firsts, paras)])
+        for c in chunk_paragraphs(doc["doc_id"], page_paras, page_headings=page_heads):
             c.update({"title": doc["title"], "publisher": doc["publisher"], "year": doc["year"],
-                      "jurisdiction": doc["jurisdiction"]})
+                      "jurisdiction": doc["jurisdiction"], "quotable": bool(doc.get("quotable", True))})
             chunks.append(c)
     return chunks
 

@@ -53,6 +53,22 @@ RERANK_TOP = 20
 RERANK_DEFAULT = False
 
 
+# Phase 3d decisions (frozen by eval/results/retrieval_final.md; keep rules were fixed before the experiments).
+HEADERS_DEFAULT = True  # ADOPTED: hit@3 +0.053 (rule: >= +0.05) with hit@1 unchanged
+QUERY_REWRITE_DEFAULT = False  # NOT adopted: hit@3 +0.053 (rule: >= +0.10); see eval/results/retrieval_final.md
+
+
+def header_for(chunk):
+    """'<publisher> <year> - <title>' plus ' - <nearest section heading>' when a heading was detected."""
+    head = f"{chunk['publisher']} {chunk['year']} - {chunk['title']}"
+    return f"{head} - {chunk['section']}" if chunk.get("section") else head
+
+
+def index_text(chunk, headers):
+    """Text used for BM25 and embeddings. The text returned to users is always chunk['text']."""
+    return f"{header_for(chunk)}\n{chunk['text']}" if headers else chunk["text"]
+
+
 class CrossEncoderReranker:
     name = RERANK_MODEL
 
@@ -79,7 +95,7 @@ def rrf(rankings, k=RRF_K):
 
 
 class Retriever:
-    def __init__(self, chunks, embedder, embeddings=None, reranker=None):
+    def __init__(self, chunks, embedder, embeddings=None, reranker=None, index_texts=None):
         import faiss
         from rank_bm25 import BM25Okapi
 
@@ -87,8 +103,9 @@ class Retriever:
         self.embedder = embedder
         self.reranker = reranker if reranker is not None else CrossEncoderReranker()
         self.by_evidence_id = {c["evidence_id"]: i for i, c in enumerate(chunks)}
-        self.bm25 = BM25Okapi([tokenize(c["text"]) for c in chunks])
-        emb = embeddings if embeddings is not None else embedder.encode([c["text"] for c in chunks])
+        texts = index_texts if index_texts is not None else [c["text"] for c in chunks]
+        self.bm25 = BM25Okapi([tokenize(t) for t in texts])
+        emb = embeddings if embeddings is not None else embedder.encode(texts)
         self.index = faiss.IndexFlatIP(emb.shape[1])
         self.index.add(np.ascontiguousarray(emb, dtype="float32"))
 
@@ -135,23 +152,26 @@ class Retriever:
         return None if i is None else self.chunks[i]
 
 
-def _cached_embeddings(chunks, embedder):
-    digest = hashlib.sha1("\n".join(c["text"] for c in chunks).encode("utf-8")).hexdigest()[:12]
+def _cached_embeddings(texts, embedder):
+    digest = hashlib.sha1("\n".join(texts).encode("utf-8")).hexdigest()[:12]
     path = CACHE_DIR / f"emb_{embedder.name.replace('/', '_')}_{digest}.npy"
     if path.exists():
         return np.load(path)
-    emb = embedder.encode([c["text"] for c in chunks])
+    emb = embedder.encode(texts)
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     np.save(path, emb)
     return emb
 
 
-def load_retriever():
+def load_retriever(headers=None, embedder=None):
+    """headers=None uses HEADERS_DEFAULT. Pass a shared embedder to avoid loading the model twice."""
+    headers = HEADERS_DEFAULT if headers is None else headers
     if not Path(CHUNKS_PATH).exists():
         save_chunks(build_chunks())
     chunks = load_chunks()
-    embedder = SentenceTransformerEmbedder()
-    return Retriever(chunks, embedder, _cached_embeddings(chunks, embedder))
+    embedder = embedder or SentenceTransformerEmbedder()
+    texts = [index_text(c, headers) for c in chunks]
+    return Retriever(chunks, embedder, _cached_embeddings(texts, embedder), index_texts=texts)
 
 
 _RETRIEVER = None

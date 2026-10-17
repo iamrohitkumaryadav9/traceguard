@@ -34,4 +34,5 @@ documents:
     jurisdiction: India
     source_file: "VDA08012026.pdf"
     ocr: true
+    quotable: false  # OCR text has errors; a writer or critic must not quote it directly
     index: true  # OCR quality checks passed (see SOURCES.md)
