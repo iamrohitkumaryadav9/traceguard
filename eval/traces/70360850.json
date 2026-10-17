@@ -1,0 +1,402 @@
+{
+  "tx_id": 70360850,
+  "time_step": 35,
+  "status": "verified",
+  "error": null,
+  "model": "gemini-3.5-flash-lite",
+  "temperature": 0,
+  "nodes_visited": [
+    "triage",
+    "investigator",
+    "writer",
+    "critic",
+    "finalize"
+  ],
+  "counts": {
+    "tool_calls_investigator": 2,
+    "searches": 0,
+    "chunk_fetches": 0,
+    "llm_calls": 5,
+    "critic_loops": 0,
+    "tool_calls_total": 5
+  },
+  "caps": {
+    "tool_calls": 8,
+    "searches": 3,
+    "critic_loops": 2,
+    "llm_calls": 30
+  },
+  "latency_s": {
+    "total": 29.692,
+    "llm_throttle_wait": 22.39
+  },
+  "tokens": {
+    "prompt": 9294,
+    "output": 818
+  },
+  "critic_verdicts": [
+    {
+      "round": 1,
+      "item": "claim 1",
+      "text": "Transaction score is 0.999318, placing it in the high risk band and exceeding the alert threshold of 0.258181.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence explicitly confirms the score, risk band, and alert threshold."
+    },
+    {
+      "round": 1,
+      "item": "claim 2",
+      "text": "Model health check shows status ok with a window recall of 0.987261.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence shows the status is ok and window recall is 0.987261."
+    },
+    {
+      "round": 1,
+      "item": "claim 3",
+      "text": "Feature f53 pushed the score up.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence shows feature f53 raises illicit score."
+    },
+    {
+      "round": 1,
+      "item": "claim 4",
+      "text": "Feature f161 pushed the score up.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence shows feature f161 raises illicit score."
+    },
+    {
+      "round": 1,
+      "item": "claim 5",
+      "text": "Feature f132 pushed the score up.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence shows feature f132 raises illicit score."
+    },
+    {
+      "round": 1,
+      "item": "claim 6",
+      "text": "Feature f59 pushed the score up.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence shows feature f59 raises illicit score."
+    },
+    {
+      "round": 1,
+      "item": "claim 7",
+      "text": "Feature f5 pushed the score up.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence shows feature f5 raises illicit score."
+    },
+    {
+      "round": 1,
+      "item": "claim 8",
+      "text": "The transaction matched the fan_in pattern with an in degree of 10, which matched training-period data associated with a lower illicit rate.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence matches fan_in with in_degree 10 and associates it with a lower illicit rate in training data."
+    }
+  ],
+  "events": [
+    {
+      "t": 0.056,
+      "node": "triage",
+      "event": "tool_call",
+      "tool": "score_transaction",
+      "args": {
+        "tx_id": 70360850
+      },
+      "evidence_id": "score:70360850",
+      "ms": 27.5,
+      "error": null
+    },
+    {
+      "t": 0.068,
+      "node": "triage",
+      "event": "tool_call",
+      "tool": "check_model_health",
+      "args": {
+        "time_step": 35
+      },
+      "evidence_id": "health:35",
+      "ms": 11.6,
+      "error": null
+    },
+    {
+      "t": 0.068,
+      "node": "triage",
+      "event": "tool_call",
+      "tool": "match_typology",
+      "args": {
+        "tx_id": 70360850
+      },
+      "evidence_id": "typology:70360850",
+      "ms": 0.2,
+      "error": null
+    },
+    {
+      "t": 0.068,
+      "node": "triage",
+      "event": "decision",
+      "status": "investigating",
+      "risk_band": "high",
+      "health": "ok",
+      "patterns": [
+        [
+          "fan_in",
+          "lowers_risk"
+        ]
+      ]
+    },
+    {
+      "t": 0.077,
+      "node": "investigator",
+      "event": "llm_call",
+      "purpose": "tool loop"
+    },
+    {
+      "t": 5.718,
+      "node": "investigator",
+      "event": "llm_result",
+      "latency_ms": 1229.3,
+      "usage": {
+        "prompt_tokens": 1286,
+        "output_tokens": 28
+      },
+      "tool_calls": [
+        "subgraph_summary"
+      ]
+    },
+    {
+      "t": 5.721,
+      "node": "investigator",
+      "event": "tool_call",
+      "tool": "subgraph_summary",
+      "args": {
+        "radius": 2,
+        "tx_id": 70360850
+      },
+      "evidence_id": "subgraph:70360850:2",
+      "ms": 2.6,
+      "error": null
+    },
+    {
+      "t": 5.721,
+      "node": "investigator",
+      "event": "llm_call",
+      "purpose": "tool loop"
+    },
+    {
+      "t": 11.557,
+      "node": "investigator",
+      "event": "llm_result",
+      "latency_ms": 1337.4,
+      "usage": {
+        "prompt_tokens": 1471,
+        "output_tokens": 38
+      },
+      "tool_calls": [
+        "get_neighbors"
+      ]
+    },
+    {
+      "t": 11.557,
+      "node": "investigator",
+      "event": "tool_call",
+      "tool": "get_neighbors",
+      "args": {
+        "direction": "in",
+        "tx_id": 70360850,
+        "limit": 25,
+        "hops": 1
+      },
+      "evidence_id": "neighbors:70360850:1:in",
+      "ms": 0.6,
+      "error": null
+    },
+    {
+      "t": 11.558,
+      "node": "investigator",
+      "event": "llm_call",
+      "purpose": "tool loop"
+    },
+    {
+      "t": 16.987,
+      "node": "investigator",
+      "event": "llm_result",
+      "latency_ms": 929.7,
+      "usage": {
+        "prompt_tokens": 1964,
+        "output_tokens": 1
+      },
+      "tool_calls": []
+    },
+    {
+      "t": 16.99,
+      "node": "writer",
+      "event": "llm_call",
+      "purpose": "draft 1"
+    },
+    {
+      "t": 23.208,
+      "node": "writer",
+      "event": "llm_result",
+      "latency_ms": 1720.9,
+      "usage": {
+        "prompt_tokens": 1765,
+        "output_tokens": 494
+      },
+      "claims": 8,
+      "references": 0
+    },
+    {
+      "t": 23.217,
+      "node": "critic",
+      "event": "llm_call",
+      "purpose": "support check round 1"
+    },
+    {
+      "t": 29.682,
+      "node": "critic",
+      "event": "llm_result",
+      "latency_ms": 1973.1,
+      "usage": {
+        "prompt_tokens": 2808,
+        "output_tokens": 257
+      }
+    },
+    {
+      "t": 29.682,
+      "node": "critic",
+      "event": "verdicts",
+      "round": 1,
+      "items": 8,
+      "failed": 0,
+      "empty_draft": false
+    }
+  ],
+  "memo": {
+    "header": {
+      "tx_id": 70360850,
+      "time_step": 35,
+      "risk_band": "high",
+      "score": 0.999318,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.988235,
+      "thresholds": {
+        "alert": 0.258181,
+        "high": 0.788025
+      },
+      "model_health": {
+        "status": "ok",
+        "window_recall": 0.987261,
+        "reference_recall": 0.98308,
+        "n_illicit_in_window": 471
+      },
+      "generated_at": "2026-10-17T18:13:12+0530"
+    },
+    "subject": {
+      "names": "not available in dataset",
+      "addresses": "not available in dataset",
+      "amounts": "not available in dataset",
+      "dates": "not available in dataset"
+    },
+    "activity_description": [
+      {
+        "text": "Transaction score is 0.999318, placing it in the high risk band and exceeding the alert threshold of 0.258181.",
+        "evidence_ids": [
+          "score:70360850"
+        ],
+        "quote": null
+      },
+      {
+        "text": "Model health check shows status ok with a window recall of 0.987261.",
+        "evidence_ids": [
+          "health:35"
+        ],
+        "quote": null
+      },
+      {
+        "text": "Feature f53 pushed the score up.",
+        "evidence_ids": [
+          "score:70360850"
+        ],
+        "quote": null
+      },
+      {
+        "text": "Feature f161 pushed the score up.",
+        "evidence_ids": [
+          "score:70360850"
+        ],
+        "quote": null
+      },
+      {
+        "text": "Feature f132 pushed the score up.",
+        "evidence_ids": [
+          "score:70360850"
+        ],
+        "quote": null
+      },
+      {
+        "text": "Feature f59 pushed the score up.",
+        "evidence_ids": [
+          "score:70360850"
+        ],
+        "quote": null
+      },
+      {
+        "text": "Feature f5 pushed the score up.",
+        "evidence_ids": [
+          "score:70360850"
+        ],
+        "quote": null
+      },
+      {
+        "text": "The transaction matched the fan_in pattern with an in degree of 10, which matched training-period data associated with a lower illicit rate.",
+        "evidence_ids": [
+          "typology:70360850"
+        ],
+        "quote": null
+      }
+    ],
+    "evidence_table": [
+      {
+        "evidence_id": "score:70360850",
+        "tool": "score_transaction"
+      },
+      {
+        "evidence_id": "health:35",
+        "tool": "check_model_health"
+      },
+      {
+        "evidence_id": "typology:70360850",
+        "tool": "match_typology"
+      }
+    ],
+    "regulatory_references": [],
+    "limitations": [
+      "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+      "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+      "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+      "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+      "Structural patterns are resemblances only: Elliptic has no typology labels.",
+      "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+  }
+}

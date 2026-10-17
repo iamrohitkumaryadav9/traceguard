@@ -1,0 +1,109 @@
+"""Critic: deterministic checks first, then an LLM check of whether the cited evidence supports each claim."""
+import json
+from typing import List, Literal
+
+from pydantic import BaseModel
+
+from src.agents import config, prompts
+from src.agents.build import assemble
+from src.agents.checks import check_item
+from src.agents.memo import MemoClaim
+from src.agents.runtime import Deps, count_llm_call, log
+from src.agents.state import AgentState, CriticVerdict, RegReference
+
+
+class JudgeVerdict(BaseModel):
+    index: int
+    verdict: Literal["supported", "unsupported", "overstated"]
+    reason: str = ""
+
+
+class JudgeOutput(BaseModel):
+    verdicts: List[JudgeVerdict]
+
+
+def make_fetch_chunk(deps: Deps):
+    """Exact chunk text for quote checks (verification fetches are not counted against the agent's caps)."""
+    cache = {}
+
+    def fetch(eid):
+        if eid not in cache:
+            cache[eid] = deps.run_tool("get_regulation_chunk", {"evidence_id": eid})
+        return cache[eid]
+
+    return fetch
+
+
+def judge_prompt(items, ledger):
+    lines = []
+    for n, (label, text, eids) in enumerate(items):
+        ev = {e: ledger[e].output for e in eids if e in ledger}
+        s = json.dumps(ev, separators=(",", ":"))
+        lines.append(f"ITEM {n} ({label})\nCLAIM: {text}\nCITED EVIDENCE: {s if len(s) < 3500 else s[:3500] + '...'}")
+    return "\n\n".join(lines)
+
+
+def critic(state: AgentState, deps: Deps) -> AgentState:
+    state.nodes_visited.append("critic")
+    rnd = state.critic_loops + 1
+    fetch = make_fetch_chunk(deps)
+    draft = state.draft
+    items = [("claim", c.text, c.evidence_ids, c.quote) for c in draft.activity_description] + \
+            [("reference", r.paraphrase, [r.evidence_id], r.quote) for r in draft.regulatory_references]
+
+    det = [check_item(text, eids, quote, state.ledger, fetch) for _, text, eids, quote in items]
+    passing = [i for i, r in enumerate(det) if not r]
+    judged = {}
+    if passing:  # the LLM only looks at items that survived the deterministic checks
+        count_llm_call(state, deps, "critic", purpose=f"support check round {rnd}")
+        jp = judge_prompt([(items[i][0], items[i][1], items[i][2]) for i in passing], state.ledger)
+        out, info = deps.llm.structured(prompts.JUDGE, jp, JudgeOutput, purpose="critic")
+        log(state, deps, "critic", "llm_result", latency_ms=round(info.get("latency_ms", 0), 1), usage=info.get("usage", {}))
+        by_index = {v.index: v for v in out.verdicts}
+        for n, i in enumerate(passing):
+            v = by_index.get(n)
+            # a missing verdict counts as unsupported: silence is not support
+            judged[i] = (v.verdict, v.reason) if v else ("unsupported", "the reviewer returned no verdict for this item")
+
+    def reasons_for(i):
+        extra = [f"reviewer says {judged[i][0]}: {judged[i][1]}"] if i in judged and judged[i][0] != "supported" else []
+        return det[i] + extra
+
+    verdicts, failed, counters = [], [], {"claim": 0, "reference": 0}
+    for i, (kind, text, eids, quote) in enumerate(items):
+        counters[kind] += 1
+        lv, lr = judged.get(i, (None, None))
+        ok = not det[i] and lv == "supported"
+        verdicts.append(CriticVerdict(round=rnd, item=f"{kind} {counters[kind]}", text=text, ok=ok,
+                                      deterministic_reasons=det[i], llm_verdict=lv, llm_reason=lr))
+        if not ok:
+            failed.append(i)
+    state.critic_verdicts += verdicts
+    empty = not draft.activity_description
+    log(state, deps, "critic", "verdicts", round=rnd, items=len(items), failed=len(failed), empty_draft=empty)
+
+    if not failed and not empty:
+        return finish(state, deps, items, [], "verified", "verified")
+    if state.critic_loops < config.MAX_CRITIC_LOOPS:
+        state.critic_feedback = [f"{verdicts[i].item}: {items[i][1][:160]!r} -> " + "; ".join(reasons_for(i)) for i in failed]
+        if empty:
+            state.critic_feedback.append("the draft contained no claims; write the claims the evidence supports")
+        state.critic_loops += 1
+        state.status = "rewriting"
+        return state
+    removed = [f"{verdicts[i].item}: {items[i][1]} (reasons: {'; '.join(reasons_for(i))})" for i in failed]
+    keep = [items[i] for i in range(len(items)) if i not in failed]
+    return finish(state, deps, keep, removed, "partially_verified", "partially verified", empty=empty)
+
+
+def finish(state: AgentState, deps: Deps, kept_items, removed, status, verification, empty=False):
+    claims = [MemoClaim(text=t, evidence_ids=e, quote=q) for k, t, e, q in kept_items if k == "claim"]
+    refs = [RegReference(paraphrase=t, evidence_id=e[0], quote=q) for k, t, e, q in kept_items if k == "reference"]
+    notes = []
+    if status == "partially_verified":
+        notes.append(f"{len(removed)} item(s) failed the critic after {state.critic_loops} rewrite(s) and were removed.")
+        if empty:
+            notes.append("the writer produced no claims")
+    state.memo = assemble(state, deps.now_iso(), status, claims, refs, verification=verification, removed=removed, notes=notes)
+    state.status = status
+    return state

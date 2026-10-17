@@ -1,0 +1,519 @@
+{
+  "tx_id": 97870846,
+  "time_step": 40,
+  "status": "verified",
+  "error": null,
+  "model": "gemini-3.5-flash-lite",
+  "temperature": 0,
+  "nodes_visited": [
+    "triage",
+    "investigator",
+    "regulation",
+    "writer",
+    "critic",
+    "writer",
+    "critic",
+    "finalize"
+  ],
+  "counts": {
+    "tool_calls_investigator": 2,
+    "searches": 1,
+    "chunk_fetches": 0,
+    "llm_calls": 9,
+    "critic_loops": 1,
+    "tool_calls_total": 6
+  },
+  "caps": {
+    "tool_calls": 8,
+    "searches": 3,
+    "critic_loops": 2,
+    "llm_calls": 30
+  },
+  "latency_s": {
+    "total": 83.315,
+    "llm_throttle_wait": 35.89
+  },
+  "tokens": {
+    "prompt": 20235,
+    "output": 1502
+  },
+  "critic_verdicts": [
+    {
+      "round": 1,
+      "item": "claim 1",
+      "text": "The transaction scored 0.000323 with a raw_lightgbm_predict_proba score scale and was categorized within the low risk band.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The claim accurately reflects the score, score scale, and risk band found in the cited evidence."
+    },
+    {
+      "round": 1,
+      "item": "claim 2",
+      "text": "Model health check status was ok with a window recall of 0.880435 and reference recall of 0.98308 across 3 window steps.",
+      "ok": false,
+      "deterministic_reasons": [
+        "numbers not found in the cited evidence: 3"
+      ],
+      "llm_verdict": null,
+      "llm_reason": null
+    },
+    {
+      "round": 1,
+      "item": "claim 3",
+      "text": "Local feature f59 pushed the illicit score up with a shap value of 1.221432.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The cited evidence matches the feature name, group, direction, and shap value stated in the claim."
+    },
+    {
+      "round": 1,
+      "item": "claim 4",
+      "text": "Local feature f76 pushed the illicit score up with a shap value of 0.901262.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The cited evidence confirms the local feature f76, direction, and shap value mentioned in the claim."
+    },
+    {
+      "round": 1,
+      "item": "claim 5",
+      "text": "Aggregated feature f131 lowered the illicit score with a shap value of -0.870433.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The claim is fully supported by the entry for feature f131 in the cited evidence."
+    },
+    {
+      "round": 1,
+      "item": "claim 6",
+      "text": "A structural chain pattern matched with a chain length of 4, meeting the threshold of 4, and training-period data associate this pattern with a higher illicit rate.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The claim matches the chain length, threshold, and training-period association with the higher illicit rate specified in the evidence."
+    },
+    {
+      "round": 1,
+      "item": "reference 1",
+      "text": "FinCEN guidance highlights unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions.",
+      "ok": false,
+      "deterministic_reasons": [],
+      "llm_verdict": "unsupported",
+      "llm_reason": "the reviewer returned no verdict for this item"
+    },
+    {
+      "round": 2,
+      "item": "claim 1",
+      "text": "Model health check status was ok with a window recall of 0.880435 and reference recall of 0.98308.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence states status is ok, window_recall is 0.880435, and reference_recall is 0.98308."
+    },
+    {
+      "round": 2,
+      "item": "claim 2",
+      "text": "Feature f59 pushed the illicit score up.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence lists feature f59 with direction raises illicit score."
+    },
+    {
+      "round": 2,
+      "item": "claim 3",
+      "text": "Feature f131 pushed the illicit score down.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence lists feature f131 with direction lowers illicit score."
+    },
+    {
+      "round": 2,
+      "item": "claim 4",
+      "text": "A chain pattern matched with an observed illicit rate of 0.257318 and a lift of 2.221913, which training-period data associate with a higher illicit rate.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence shows a chain pattern match with observed_illicit_rate 0.257318, lift 2.221913, and notes that training-period data provide the evidence direction."
+    },
+    {
+      "round": 2,
+      "item": "reference 1",
+      "text": "FinCEN guidance mentions unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "The evidence text specifically includes the phrase 'unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions'."
+    }
+  ],
+  "events": [
+    {
+      "t": 0.06,
+      "node": "triage",
+      "event": "tool_call",
+      "tool": "score_transaction",
+      "args": {
+        "tx_id": 97870846
+      },
+      "evidence_id": "score:97870846",
+      "ms": 36.7,
+      "error": null
+    },
+    {
+      "t": 0.067,
+      "node": "triage",
+      "event": "tool_call",
+      "tool": "check_model_health",
+      "args": {
+        "time_step": 40
+      },
+      "evidence_id": "health:40",
+      "ms": 6.4,
+      "error": null
+    },
+    {
+      "t": 0.067,
+      "node": "triage",
+      "event": "tool_call",
+      "tool": "match_typology",
+      "args": {
+        "tx_id": 97870846
+      },
+      "evidence_id": "typology:97870846",
+      "ms": 0.1,
+      "error": null
+    },
+    {
+      "t": 0.067,
+      "node": "triage",
+      "event": "decision",
+      "status": "investigating",
+      "risk_band": "low",
+      "health": "ok",
+      "patterns": [
+        [
+          "chain",
+          "raises_risk"
+        ]
+      ]
+    },
+    {
+      "t": 0.071,
+      "node": "investigator",
+      "event": "llm_call",
+      "purpose": "tool loop"
+    },
+    {
+      "t": 5.65,
+      "node": "investigator",
+      "event": "llm_result",
+      "latency_ms": 1155.3,
+      "usage": {
+        "prompt_tokens": 1249,
+        "output_tokens": 28
+      },
+      "tool_calls": [
+        "subgraph_summary"
+      ]
+    },
+    {
+      "t": 5.652,
+      "node": "investigator",
+      "event": "tool_call",
+      "tool": "subgraph_summary",
+      "args": {
+        "radius": 2,
+        "tx_id": 97870846
+      },
+      "evidence_id": "subgraph:97870846:2",
+      "ms": 2.4,
+      "error": null
+    },
+    {
+      "t": 5.652,
+      "node": "investigator",
+      "event": "llm_call",
+      "purpose": "tool loop"
+    },
+    {
+      "t": 13.471,
+      "node": "investigator",
+      "event": "llm_result",
+      "latency_ms": 3320.1,
+      "usage": {
+        "prompt_tokens": 1417,
+        "output_tokens": 38
+      },
+      "tool_calls": [
+        "get_neighbors"
+      ]
+    },
+    {
+      "t": 13.471,
+      "node": "investigator",
+      "event": "tool_call",
+      "tool": "get_neighbors",
+      "args": {
+        "limit": 25,
+        "tx_id": 97870846,
+        "direction": "both",
+        "hops": 2
+      },
+      "evidence_id": "neighbors:97870846:2:both",
+      "ms": 0.5,
+      "error": null
+    },
+    {
+      "t": 13.472,
+      "node": "investigator",
+      "event": "llm_call",
+      "purpose": "tool loop"
+    },
+    {
+      "t": 19.009,
+      "node": "investigator",
+      "event": "llm_result",
+      "latency_ms": 1038.0,
+      "usage": {
+        "prompt_tokens": 1681,
+        "output_tokens": 1
+      },
+      "tool_calls": []
+    },
+    {
+      "t": 19.012,
+      "node": "regulation",
+      "event": "llm_call",
+      "purpose": "tool loop"
+    },
+    {
+      "t": 25.039,
+      "node": "regulation",
+      "event": "llm_result",
+      "latency_ms": 1528.4,
+      "usage": {
+        "prompt_tokens": 462,
+        "output_tokens": 28
+      },
+      "tool_calls": [
+        "search_regulations"
+      ]
+    },
+    {
+      "t": 51.696,
+      "node": "regulation",
+      "event": "tool_call",
+      "tool": "search_regulations",
+      "args": {
+        "query": "sequential transfers through a chain of intermediary accounts, layering of funds"
+      },
+      "evidence_id": "search:2505173356",
+      "ms": 26657.4,
+      "error": null
+    },
+    {
+      "t": 51.696,
+      "node": "regulation",
+      "event": "llm_call",
+      "purpose": "tool loop"
+    },
+    {
+      "t": 53.977,
+      "node": "regulation",
+      "event": "llm_result",
+      "latency_ms": 2280.8,
+      "usage": {
+        "prompt_tokens": 2470,
+        "output_tokens": 1
+      },
+      "tool_calls": []
+    },
+    {
+      "t": 53.981,
+      "node": "writer",
+      "event": "llm_call",
+      "purpose": "draft 1"
+    },
+    {
+      "t": 61.137,
+      "node": "writer",
+      "event": "llm_result",
+      "latency_ms": 2659.2,
+      "usage": {
+        "prompt_tokens": 4307,
+        "output_tokens": 555
+      },
+      "claims": 6,
+      "references": 1
+    },
+    {
+      "t": 61.144,
+      "node": "critic",
+      "event": "llm_call",
+      "purpose": "support check round 1"
+    },
+    {
+      "t": 67.844,
+      "node": "critic",
+      "event": "llm_result",
+      "latency_ms": 2207.1,
+      "usage": {
+        "prompt_tokens": 2435,
+        "output_tokens": 261
+      }
+    },
+    {
+      "t": 67.844,
+      "node": "critic",
+      "event": "verdicts",
+      "round": 1,
+      "items": 7,
+      "failed": 2,
+      "empty_draft": false
+    },
+    {
+      "t": 67.848,
+      "node": "writer",
+      "event": "llm_call",
+      "purpose": "draft 2"
+    },
+    {
+      "t": 74.435,
+      "node": "writer",
+      "event": "llm_result",
+      "latency_ms": 2089.7,
+      "usage": {
+        "prompt_tokens": 4435,
+        "output_tokens": 363
+      },
+      "claims": 4,
+      "references": 1
+    },
+    {
+      "t": 74.441,
+      "node": "critic",
+      "event": "llm_call",
+      "purpose": "support check round 2"
+    },
+    {
+      "t": 83.308,
+      "node": "critic",
+      "event": "llm_result",
+      "latency_ms": 4372.4,
+      "usage": {
+        "prompt_tokens": 1779,
+        "output_tokens": 227
+      }
+    },
+    {
+      "t": 83.308,
+      "node": "critic",
+      "event": "verdicts",
+      "round": 2,
+      "items": 5,
+      "failed": 0,
+      "empty_draft": false
+    }
+  ],
+  "memo": {
+    "header": {
+      "tx_id": 97870846,
+      "time_step": 40,
+      "risk_band": "low",
+      "score": 0.000323,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.0,
+      "thresholds": {
+        "alert": 0.258181,
+        "high": 0.788025
+      },
+      "model_health": {
+        "status": "ok",
+        "window_recall": 0.880435,
+        "reference_recall": 0.98308,
+        "n_illicit_in_window": 184
+      },
+      "generated_at": "2026-10-17T18:12:42+0530"
+    },
+    "subject": {
+      "names": "not available in dataset",
+      "addresses": "not available in dataset",
+      "amounts": "not available in dataset",
+      "dates": "not available in dataset"
+    },
+    "activity_description": [
+      {
+        "text": "Model health check status was ok with a window recall of 0.880435 and reference recall of 0.98308.",
+        "evidence_ids": [
+          "health:40"
+        ],
+        "quote": null
+      },
+      {
+        "text": "Feature f59 pushed the illicit score up.",
+        "evidence_ids": [
+          "score:97870846"
+        ],
+        "quote": null
+      },
+      {
+        "text": "Feature f131 pushed the illicit score down.",
+        "evidence_ids": [
+          "score:97870846"
+        ],
+        "quote": null
+      },
+      {
+        "text": "A chain pattern matched with an observed illicit rate of 0.257318 and a lift of 2.221913, which training-period data associate with a higher illicit rate.",
+        "evidence_ids": [
+          "typology:97870846"
+        ],
+        "quote": null
+      }
+    ],
+    "evidence_table": [
+      {
+        "evidence_id": "health:40",
+        "tool": "check_model_health"
+      },
+      {
+        "evidence_id": "score:97870846",
+        "tool": "score_transaction"
+      },
+      {
+        "evidence_id": "typology:97870846",
+        "tool": "match_typology"
+      },
+      {
+        "evidence_id": "reg:fincen_2003_sar_narrative:p7:c10",
+        "tool": "search_regulations"
+      }
+    ],
+    "regulatory_references": [
+      {
+        "paraphrase": "FinCEN guidance mentions unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions.",
+        "source_doc": "FinCEN 2003: Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+        "doc_id": "fincen_2003_sar_narrative",
+        "evidence_id": "reg:fincen_2003_sar_narrative:p7:c10",
+        "quotable": true,
+        "quote": "\u2022 unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions;"
+      }
+    ],
+    "limitations": [
+      "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+      "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+      "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+      "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+      "Structural patterns are resemblances only: Elliptic has no typology labels.",
+      "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+  }
+}
