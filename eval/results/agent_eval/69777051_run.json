@@ -1,0 +1,26 @@
+{
+ "tool_correctness": {
+  "r1_applicable": true,
+  "r1_ok": true,
+  "searches": 1,
+  "r2_violation": false,
+  "search_with_only_uninformative": false,
+  "search_with_lowers_risk_only": false,
+  "within_caps": true,
+  "budget_exceeded": false,
+  "agent_tool_calls": 2,
+  "invalid_argument_calls": 0
+ },
+ "critic": {
+  "rounds": 2,
+  "deterministic": {},
+  "llm": {
+   "unsupported": 1,
+   "overstated": 0
+  },
+  "false_rejection_candidates": [],
+  "rejected_items": 1
+ },
+ "reached_writer": true,
+ "required_conflict": true
+}

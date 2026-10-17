@@ -1,0 +1,259 @@
+{
+ "tx_id": 190135471,
+ "stratum": "7 late steps (43-49), band at least medium",
+ "status": "cannot_assess",
+ "error": null,
+ "time_step": 49,
+ "counts": {
+  "tool_calls_investigator": 0,
+  "searches": 0,
+  "chunk_fetches": 0,
+  "llm_calls": 0,
+  "critic_loops": 0,
+  "tool_calls_total": 3
+ },
+ "latency_s": {
+  "total": 0.047,
+  "llm_throttle_wait": 0.0
+ },
+ "tokens": {
+  "prompt": 0,
+  "output": 0
+ },
+ "nodes_visited": [
+  "triage",
+  "finalize"
+ ],
+ "critic_verdicts": [],
+ "trace": [
+  {
+   "t": 0.037,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 190135471
+   },
+   "evidence_id": "score:190135471",
+   "ms": 15.6,
+   "error": null
+  },
+  {
+   "t": 0.044,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 49
+   },
+   "evidence_id": "health:49",
+   "ms": 7.0,
+   "error": null
+  },
+  {
+   "t": 0.044,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 190135471
+   },
+   "evidence_id": "typology:190135471",
+   "ms": 0.1,
+   "error": null
+  },
+  {
+   "t": 0.044,
+   "node": "triage",
+   "event": "decision",
+   "status": "cannot_assess",
+   "risk_band": "high",
+   "health": "degraded",
+   "patterns": [
+    [
+     "fan_in",
+     "lowers_risk"
+    ]
+   ],
+   "signal_conflict": null
+  }
+ ],
+ "ledger": {
+  "score:190135471": {
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 190135471
+   },
+   "output": {
+    "tx_id": 190135471,
+    "time_step": 49,
+    "score": 0.934958,
+    "score_scale": "raw_lightgbm_predict_proba",
+    "calibrated_probability": 0.846154,
+    "alert": true,
+    "alert_threshold": 0.258181,
+    "high_threshold": 0.788025,
+    "risk_band": "high",
+    "reasons": [
+     {
+      "feature": "f2",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 1.430275,
+      "feature_value": 4.292945
+     },
+     {
+      "feature": "f59",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.947847,
+      "feature_value": -0.172894
+     },
+     {
+      "feature": "f90",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.932089,
+      "feature_value": -0.694235
+     },
+     {
+      "feature": "f132",
+      "group": "aggregated",
+      "direction": "raises illicit score",
+      "shap_value": 0.79358,
+      "feature_value": -0.188716
+     },
+     {
+      "feature": "f5",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.698834,
+      "feature_value": -0.063725
+     }
+    ],
+    "evidence_id": "score:190135471"
+   }
+  },
+  "health:49": {
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 49
+   },
+   "output": {
+    "time_step": 49,
+    "status": "degraded",
+    "window_steps": [
+     45,
+     46,
+     47
+    ],
+    "window_recall": 0.034483,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 29,
+    "lag": 2,
+    "evidence_id": "health:49"
+   }
+  },
+  "typology:190135471": {
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 190135471
+   },
+   "output": {
+    "tx_id": 190135471,
+    "time_step": 49,
+    "flags": {
+     "fan_in": true,
+     "fan_out": false,
+     "chain": false
+    },
+    "in_degree": 25,
+    "out_degree": 0,
+    "chain_len": 0,
+    "thresholds": {
+     "fan_in": 9,
+     "fan_out": 5,
+     "chain_len": 4
+    },
+    "matches": [
+     {
+      "pattern": "fan_in",
+      "evidence": "in_degree 25 >= 9",
+      "n_flagged": 1023,
+      "observed_illicit_rate": 0.018573,
+      "baseline_illicit_rate": 0.115809,
+      "lift": 0.160374,
+      "evidence_direction": "lowers_risk",
+      "retrieval_query": null,
+      "note": "In training-period data (steps 1-34) this pattern was associated with a LOWER illicit rate than the baseline, so no retrieval query is provided and the pattern must not be presented as suspicious.",
+      "caveat": "structural resemblance only; Elliptic has no typology labels. The evidence direction comes from training-period data (labeled nodes, time steps 1-34); a pattern with direction 'lowers_risk' must never be described as suspicious."
+     }
+    ],
+    "evidence_id": "typology:190135471"
+   }
+  }
+ },
+ "memo": {
+  "header": {
+   "tx_id": 190135471,
+   "time_step": 49,
+   "risk_band": null,
+   "score": null,
+   "score_scale": "raw_lightgbm_predict_proba",
+   "calibrated_probability": null,
+   "thresholds": {
+    "alert": 0.258181,
+    "high": 0.788025
+   },
+   "model_health": {
+    "status": "degraded",
+    "window_recall": 0.034483,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 29
+   },
+   "generated_at": "2026-10-17T19:17:28+0530"
+  },
+  "subject": {
+   "names": "not available in dataset",
+   "addresses": "not available in dataset",
+   "amounts": "not available in dataset",
+   "dates": "not available in dataset"
+  },
+  "signal_conflict": null,
+  "signal_conflict_evidence_ids": [],
+  "activity_description": [
+   {
+    "text": "The model cannot be relied on at time step 49: in the delayed-label window its recall was 0.034483 against a reference of 0.98308, so no risk assessment is given for this transaction.",
+    "evidence_ids": [
+     "health:49"
+    ]
+   }
+  ],
+  "evidence_table": [
+   {
+    "evidence_id": "health:49",
+    "tool": "check_model_health"
+   }
+  ],
+  "regulatory_background": [],
+  "limitations": [
+   "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+   "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+   "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+   "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+   "Structural patterns are resemblances only: Elliptic has no typology labels.",
+   "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+   "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+   "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+  ],
+  "recommendation": "refer for human review",
+  "status": "cannot_assess",
+  "verification": "not applicable",
+  "removed_claims": [],
+  "notes": []
+ },
+ "first_draft": null,
+ "signal_conflict": null,
+ "signal_conflict_evidence_ids": [],
+ "attempts": 1
+}

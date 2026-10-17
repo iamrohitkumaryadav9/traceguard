@@ -13,9 +13,9 @@ class LedgerEntry(BaseModel):
 
 
 class Claim(BaseModel):
+    """A memo claim. It has no quote field: only regulatory background may carry a quote."""
     text: str
     evidence_ids: List[str] = Field(default_factory=list)
-    quote: Optional[str] = None
 
 
 class RegReference(BaseModel):
@@ -55,6 +55,7 @@ class AgentState(BaseModel):
     status: str = "started"
     memo: Optional[SARMemo] = None
     draft: Optional[WriterOutput] = None
+    first_draft: Optional[WriterOutput] = None  # the writer's round-0 draft, recorded for the evaluation (arm A1)
     critic_verdicts: List[CriticVerdict] = Field(default_factory=list)
     critic_feedback: List[str] = Field(default_factory=list)
     trace: List[dict] = Field(default_factory=list)

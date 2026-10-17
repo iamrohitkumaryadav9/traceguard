@@ -1,0 +1,161 @@
+{
+ "case": {
+  "stratum": "3 medium band",
+  "tx_id": 199949376,
+  "time_step": 36,
+  "ground_truth": "unknown",
+  "score": 0.33322,
+  "candidates": 3236,
+  "k": 4,
+  "note": ""
+ },
+ "arm": "A2",
+ "memo": {
+  "arm": "A2",
+  "tx_id": 199949376,
+  "status": "verified",
+  "header": {
+   "tx_id": 199949376,
+   "time_step": 36,
+   "risk_band": "medium",
+   "score": 0.33322,
+   "score_scale": "raw_lightgbm_predict_proba",
+   "calibrated_probability": 0.136364,
+   "thresholds": {
+    "alert": 0.258181,
+    "high": 0.788025
+   },
+   "model_health": {
+    "status": "ok",
+    "window_recall": 0.99005,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 402
+   },
+   "generated_at": "2026-10-17T19:09:31+0530"
+  },
+  "signal_conflict": null,
+  "claims": [
+   {
+    "text": "The transaction scored 0.33322 with a raw_lightgbm_predict_proba score scale and a calibrated probability of 0.136364, placing it in the medium risk band with an alert status of true.",
+    "evidence_ids": [
+     "score:199949376"
+    ]
+   },
+   {
+    "text": "Features f53, f59, f3, f52, and f100 pushed the score up.",
+    "evidence_ids": [
+     "score:199949376"
+    ]
+   },
+   {
+    "text": "Model health check status is ok with a window recall of 0.99005, reference recall of 0.98308, and 402 illicit transactions in the window.",
+    "evidence_ids": [
+     "health:36"
+    ]
+   },
+   {
+    "text": "The transaction matched the fan_in structural pattern with an in_degree of 11, which meets the threshold of 9.",
+    "evidence_ids": [
+     "typology:199949376"
+    ]
+   },
+   {
+    "text": "In training-period data, the fan_in pattern was associated with a lower illicit rate than the baseline, indicating a lowers_risk direction.",
+    "evidence_ids": [
+     "typology:199949376"
+    ]
+   },
+   {
+    "text": "Incoming neighbor analysis found 11 incoming transactions.",
+    "evidence_ids": [
+     "neighbors:199949376:1:in"
+    ]
+   }
+  ],
+  "background": [],
+  "limitations": [
+   "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+   "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+   "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+   "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+   "Structural patterns are resemblances only: Elliptic has no typology labels.",
+   "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+   "This is a draft for a human analyst. It does not decide whether a report should be filed."
+  ],
+  "subject": {
+   "names": "not available in dataset",
+   "addresses": "not available in dataset",
+   "amounts": "not available in dataset",
+   "dates": "not available in dataset"
+  },
+  "recommendation": "refer for human review",
+  "notes": [],
+  "removed": [],
+  "verification": "verified"
+ },
+ "metrics": {
+  "groundedness": {
+   "grounded": 6,
+   "total": 6,
+   "ungrounded": []
+  },
+  "completeness": {
+   "elements": {
+    "score": {
+     "applicable": true,
+     "present": true
+    },
+    "band": {
+     "applicable": true,
+     "present": true
+    },
+    "health status": {
+     "applicable": true,
+     "present": true
+    },
+    "typology evidence with direction": {
+     "applicable": true,
+     "present": true
+    },
+    "neighbour summary": {
+     "applicable": true,
+     "present": true
+    },
+    "signal conflict": {
+     "applicable": false,
+     "present": false
+    },
+    "period note": {
+     "applicable": false,
+     "present": false
+    },
+    "limitations": {
+     "applicable": true,
+     "present": true
+    },
+    "subject fields": {
+     "applicable": true,
+     "present": true
+    }
+   },
+   "share": 1.0
+  },
+  "violations": {
+   "a_lowers_risk_called_suspicious": [],
+   "b_low_risk_while_degraded": [],
+   "c_quote_from_non_quotable": [],
+   "d_label_leak": []
+  },
+  "info_only": {
+   "quotes_not_in_stored_text": 0,
+   "claims_with_quote_field": 0
+  },
+  "cost": {
+   "llm_calls": 6,
+   "prompt_tokens": 11245,
+   "output_tokens": 857,
+   "wall_s": 34.666,
+   "wall_s_no_wait": 7.726
+  }
+ }
+}

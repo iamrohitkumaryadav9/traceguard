@@ -47,6 +47,14 @@ def test_numbers_must_match_cited_output_with_rounding():
     assert check("SHAP value -0.5435", ["score:4"]) == []
 
 
+def test_scientific_notation_scores_are_one_number_not_two():
+    tiny = {"score:7": LedgerEntry(tool="score_transaction", output={"evidence_id": "score:7", "score": 4.5e-05})}
+    assert claim_numbers("The transaction scored 4.5e-05 at step 37") == [(4.5e-05, None, False), (37.0, 0, False)]
+    assert check_item("The transaction scored 4.5e-05.", ["score:7"], None, tiny, fetch) == []
+    assert "numbers not found" in check_item("The transaction scored 4.6e-05.", ["score:7"], None, tiny, fetch)[0]
+    assert number_matches(9e-06, None, False, [9e-06]) and not number_matches(9e-06, None, False, [8e-06])
+
+
 def test_numbers_helpers():
     assert claim_numbers("feature f57 and step 41, 12,345 and 25.7%") == [(41.0, 0, False), (12345.0, 0, False), (25.7, 1, True)]
     assert number_matches(0.95, 2, False, [0.951234])

@@ -1,0 +1,157 @@
+{
+ "case": {
+  "stratum": "7 late steps (43-49), band at least medium",
+  "tx_id": 106335719,
+  "time_step": 44,
+  "ground_truth": "unknown",
+  "score": 0.820817,
+  "candidates": 4740,
+  "k": 8,
+  "note": ""
+ },
+ "arm": "A1",
+ "memo": {
+  "arm": "A1",
+  "tx_id": 106335719,
+  "status": "verified",
+  "header": {
+   "tx_id": 106335719,
+   "time_step": 44,
+   "risk_band": "high",
+   "score": 0.820817,
+   "score_scale": "raw_lightgbm_predict_proba",
+   "calibrated_probability": 0.75,
+   "thresholds": {
+    "alert": 0.258181,
+    "high": 0.788025
+   },
+   "model_health": {
+    "status": "ok",
+    "window_recall": 0.82227,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 467
+   },
+   "generated_at": "evaluation"
+  },
+  "signal_conflict": "Signal conflict: the model score 0.820817 (risk band high; evidence score:106335719) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:106335719:1:in) point in different directions.",
+  "claims": [
+   {
+    "text": "The transaction at time step 44 received a raw score of 0.820817 and a calibrated probability of 0.75, placing it in the high risk band above the alert threshold of 0.258181.",
+    "evidence_ids": [
+     "score:106335719"
+    ]
+   },
+   {
+    "text": "Features f53, f59, f2, f100, and f5 pushed the score up.",
+    "evidence_ids": [
+     "score:106335719"
+    ]
+   },
+   {
+    "text": "Model health status was ok with a window recall of 0.82227, reference recall of 0.98308, and a lag of 2 steps.",
+    "evidence_ids": [
+     "health:44"
+    ]
+   },
+   {
+    "text": "Structural typology matching found no fan-in, fan-out, or chain flags present.",
+    "evidence_ids": [
+     "typology:106335719"
+    ]
+   },
+   {
+    "text": "Graph context within two hops revealed a total of 3 neighboring nodes, with a share of 0.666667 of alerted nodes in the radius-2 subgraph.",
+    "evidence_ids": [
+     "subgraph:106335719:2",
+     "neighbors:106335719:2:both"
+    ]
+   }
+  ],
+  "background": [],
+  "limitations": [
+   "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+   "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+   "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+   "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+   "Structural patterns are resemblances only: Elliptic has no typology labels.",
+   "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+   "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+   "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+  ],
+  "subject": {
+   "names": "not available in dataset",
+   "addresses": "not available in dataset",
+   "amounts": "not available in dataset",
+   "dates": "not available in dataset"
+  },
+  "recommendation": "refer for human review",
+  "notes": [],
+  "removed": [],
+  "verification": "not applicable"
+ },
+ "metrics": {
+  "groundedness": {
+   "grounded": 5,
+   "total": 5,
+   "ungrounded": []
+  },
+  "completeness": {
+   "elements": {
+    "score": {
+     "applicable": true,
+     "present": true
+    },
+    "band": {
+     "applicable": true,
+     "present": true
+    },
+    "health status": {
+     "applicable": true,
+     "present": true
+    },
+    "typology evidence with direction": {
+     "applicable": false,
+     "present": false
+    },
+    "neighbour summary": {
+     "applicable": true,
+     "present": true
+    },
+    "signal conflict": {
+     "applicable": true,
+     "present": true
+    },
+    "period note": {
+     "applicable": true,
+     "present": true
+    },
+    "limitations": {
+     "applicable": true,
+     "present": true
+    },
+    "subject fields": {
+     "applicable": true,
+     "present": true
+    }
+   },
+   "share": 1.0
+  },
+  "violations": {
+   "a_lowers_risk_called_suspicious": [],
+   "b_low_risk_while_degraded": [],
+   "c_quote_from_non_quotable": [],
+   "d_label_leak": []
+  },
+  "info_only": {
+   "quotes_not_in_stored_text": 0,
+   "claims_with_quote_field": 0
+  },
+  "cost": {
+   "llm_calls": 5,
+   "prompt_tokens": 7363,
+   "output_tokens": 592,
+   "wall_s": 32.06,
+   "wall_s_no_wait": null
+  }
+ }
+}

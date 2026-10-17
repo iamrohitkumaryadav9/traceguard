@@ -48,10 +48,11 @@ def critic(state: AgentState, deps: Deps) -> AgentState:
     rnd = state.critic_loops + 1
     fetch = make_fetch_chunk(deps)
     draft = state.draft
-    items = [("claim", c.text, c.evidence_ids, c.quote) for c in draft.activity_description] + \
+    items = [("claim", c.text, c.evidence_ids, None) for c in draft.activity_description] + \
             [("background", r.paraphrase, [r.evidence_id], r.quote) for r in draft.regulatory_background]
 
-    det = [check_item(text, eids, quote, state.ledger, fetch) for _, text, eids, quote in items]
+    det = [check_item(text, eids, quote, state.ledger, fetch, allow_quotes=(kind == "background"))
+           for kind, text, eids, quote in items]
     # design rules on top of the per-claim checks: SHAP features in ONE claim; background only from a pattern-triggered search
     feature_claims = [i for i, it in enumerate(items) if it[0] == "claim" and FEATURE.search(it[1])]
     for i in feature_claims[1:]:
@@ -112,7 +113,7 @@ def critic(state: AgentState, deps: Deps) -> AgentState:
 
 
 def finish(state: AgentState, deps: Deps, kept_items, removed, status, verification, empty=False, conflict_failed=False):
-    claims = [MemoClaim(text=t, evidence_ids=e, quote=q) for k, t, e, q in kept_items if k == "claim"]
+    claims = [MemoClaim(text=t, evidence_ids=e) for k, t, e, q in kept_items if k == "claim"]
     refs = [RegReference(paraphrase=t, evidence_id=e[0], quote=q) for k, t, e, q in kept_items if k == "background"]
     notes = []
     if status == "partially_verified":

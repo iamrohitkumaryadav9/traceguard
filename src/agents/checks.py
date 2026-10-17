@@ -1,10 +1,11 @@
 """Deterministic critic checks. Pure functions over text and the evidence ledger: no LLM, no network."""
+import math
 import re
 from typing import Callable, Dict, List, Optional
 
 from src.agents.state import LedgerEntry
 
-NUMBER = re.compile(r"(?<![A-Za-z0-9_.:])(-?\d[\d,]*(?:\.\d+)?)(%?)")
+NUMBER = re.compile(r"(?<![A-Za-z0-9_.:])(-?\d[\d,]*(?:\.\d+)?(?:[eE][-+]?\d+)?)(%?)")  # 9e-06 is ONE number
 QUOTED = re.compile(r"[\"“]([^\"”]{12,})[\"”]")  # a quotation of 12+ characters in the text itself
 FEATURE = re.compile(r"\bf\d{1,3}\b")
 PATTERN_TERMS = {"fan_in": re.compile(r"fan[\s_-]?in", re.I), "fan_out": re.compile(r"fan[\s_-]?out", re.I),
@@ -44,7 +45,10 @@ def claim_numbers(text):
     out = []
     for m in NUMBER.finditer(text):
         raw = m.group(1).replace(",", "")
-        decimals = len(raw.split(".")[1]) if "." in raw else 0
+        if "e" in raw.lower():
+            decimals = None  # scientific notation: compared by value
+        else:
+            decimals = len(raw.split(".")[1]) if "." in raw else 0
         out.append((abs(float(raw)), decimals, m.group(2) == "%"))
     return out
 
@@ -52,7 +56,10 @@ def claim_numbers(text):
 def number_matches(value, decimals, pct, evidence_vals):
     for v in evidence_vals:
         cand = v * 100 if pct else v
-        if round(cand, decimals) == round(value, decimals):
+        if decimals is None:
+            if math.isclose(cand, value, rel_tol=1e-9, abs_tol=0.0):
+                return True
+        elif round(cand, decimals) == round(value, decimals):
             return True
     return False
 
@@ -117,9 +124,13 @@ def _norm(s):
 
 
 def check_item(text: str, evidence_ids: List[str], quote: Optional[str], ledger: Dict[str, LedgerEntry],
-               fetch_chunk: Callable[[str], dict]) -> List[str]:
-    """Reasons this claim (or regulatory paraphrase) fails the deterministic checks; empty list = passes."""
+               fetch_chunk: Callable[[str], dict], allow_quotes: bool = True) -> List[str]:
+    """Reasons this claim (or regulatory paraphrase) fails the deterministic checks; empty list = passes.
+
+    allow_quotes=False is used for activity claims: only regulatory background may carry a quote."""
     reasons = []
+    if not allow_quotes and (find_quotes(text, None) or quote):
+        reasons.append("claims cannot carry quotes: only regulatory background may quote a quotable chunk")
     # 1. citations exist in the ledger
     if not evidence_ids:
         reasons.append("uncited: the claim cites no evidence_id")

@@ -1,0 +1,168 @@
+{
+ "case": {
+  "stratum": "4 chain-flagged",
+  "tx_id": 15452133,
+  "time_step": 36,
+  "ground_truth": "unknown",
+  "score": 0.001587,
+  "candidates": 6368,
+  "k": 6,
+  "note": ""
+ },
+ "arm": "A1",
+ "memo": {
+  "arm": "A1",
+  "tx_id": 15452133,
+  "status": "verified",
+  "header": {
+   "tx_id": 15452133,
+   "time_step": 36,
+   "risk_band": "low",
+   "score": 0.001587,
+   "score_scale": "raw_lightgbm_predict_proba",
+   "calibrated_probability": 0.0,
+   "thresholds": {
+    "alert": 0.258181,
+    "high": 0.788025
+   },
+   "model_health": {
+    "status": "ok",
+    "window_recall": 0.99005,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 402
+   },
+   "generated_at": "evaluation"
+  },
+  "signal_conflict": "Signal conflict: the model score 0.001587 (risk band low; evidence score:15452133) and the structural pattern chain (evidence direction raises_risk; evidence typology:15452133) point in different directions.",
+  "claims": [
+   {
+    "text": "The transaction scored 0.001587, placing it in the low risk band with a calibrated probability of 0.0 and alert set to false.",
+    "evidence_ids": [
+     "score:15452133"
+    ]
+   },
+   {
+    "text": "Features f53, f59, f2, f163, and f138 pushed the score up.",
+    "evidence_ids": [
+     "score:15452133"
+    ]
+   },
+   {
+    "text": "Model health checks for time step 36 show status ok with window recall 0.99005 and reference recall 0.98308 across window steps 32, 33, 34 with 402 illicit instances in the window and a lag of 2.",
+    "evidence_ids": [
+     "health:36"
+    ]
+   },
+   {
+    "text": "A structural pattern analysis matched a chain pattern with a chain length of 8 and evidence direction raises_risk.",
+    "evidence_ids": [
+     "typology:15452133"
+    ]
+   },
+   {
+    "text": "The transaction subgraph contains 5 nodes and 4 edges with a density of 0.2, an in-degree of 1, an out-degree of 1, and a focal chain length of 8 within a weakly connected component size of 6393.",
+    "evidence_ids": [
+     "subgraph:15452133:2"
+    ]
+   }
+  ],
+  "background": [
+   {
+    "paraphrase": "FATF guidance discusses cases where multiple layering of fiat funds was arranged prior to virtual asset purchases by money mules.",
+    "evidence_id": "reg:fatf_2020_va_red_flags:p8:c11",
+    "quote": "In various instances, the individuals shared the same resid ential address; and most of the VA addresses were accessed from the same IP address \u2013 indicating the potential use of money mules by professional money launderers to launder the illicit proceeds. In addition, multiple layering of the fiat funds was arranged prior to the VA purchase by mules. To disguise the fund s\u2019 origin, cash w as first deposited into various accounts at different FIs across the jurisdiction. Those funds were then further transferred to various accounts held in the name of entities registered in the jurisdiction. Electronic payments were made into the accounts in smaller amounts. After that, funds were transferred to another group of accounts before reaching the mules\u2019 accounts held with local VASPs. VAs were immediately purchased and transferred to foreign VASPs. More than 150 individuals were involved in this case, responsible for transf erring a total of about USD 108 352 900 (or BTC 11,960) to multiple VA accounts held by two overseas VASPs. Source: South Africa Case Study 2. Multiple VAs and multiple transfers to foreign VASPs A local VA exchange reported that app roximately KRW 400 million (EUR ...",
+    "quotable": true
+   },
+   {
+    "paraphrase": "FinCEN guidance lists unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions as an indicator of suspicious activity.",
+    "evidence_id": "reg:fincen_2003_sar_narrative:p7:c10",
+    "quote": "\u2022 a lack of evidence of legitimate business activity, or any business operations at all, undertaken by many of the parties to the transaction(s); \u2022 unusual financial nexuses and transactions occurring among certain business types (e.g., food importer dealing with an auto parts exporter); \u2022 transactions that are not commensurate with the stated business type and/or that are unusual and unexpected in comparison with the volumes of similar businesses operating in the same locale; \u2022 unusually large numbers and/or volumes of wire transfers and/or repetitive wire transfer patterns; \u2022 unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions; \u2022 suspected shell entities; \u2022 bulk cash and monetary instrument transactions; \u2022 unusual mixed deposits of money orders, third party checks, payroll checks, etc., into a business account; \u2022 transactions being conducted in bursts of activities within a short period of time, especially in previously dormant accounts; \u2022 transactions and/or volumes of aggregate activity inconsistent with the expected purpose of the account and expected levels and types of account activity conveyed ...",
+    "quotable": true
+   }
+  ],
+  "limitations": [
+   "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+   "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+   "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+   "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+   "Structural patterns are resemblances only: Elliptic has no typology labels.",
+   "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+   "This is a draft for a human analyst. It does not decide whether a report should be filed."
+  ],
+  "subject": {
+   "names": "not available in dataset",
+   "addresses": "not available in dataset",
+   "amounts": "not available in dataset",
+   "dates": "not available in dataset"
+  },
+  "recommendation": "refer for human review",
+  "notes": [],
+  "removed": [],
+  "verification": "not applicable"
+ },
+ "metrics": {
+  "groundedness": {
+   "grounded": 7,
+   "total": 7,
+   "ungrounded": []
+  },
+  "completeness": {
+   "elements": {
+    "score": {
+     "applicable": true,
+     "present": true
+    },
+    "band": {
+     "applicable": true,
+     "present": true
+    },
+    "health status": {
+     "applicable": true,
+     "present": true
+    },
+    "typology evidence with direction": {
+     "applicable": true,
+     "present": true
+    },
+    "neighbour summary": {
+     "applicable": true,
+     "present": true
+    },
+    "signal conflict": {
+     "applicable": true,
+     "present": true
+    },
+    "period note": {
+     "applicable": false,
+     "present": false
+    },
+    "limitations": {
+     "applicable": true,
+     "present": true
+    },
+    "subject fields": {
+     "applicable": true,
+     "present": true
+    }
+   },
+   "share": 1.0
+  },
+  "violations": {
+   "a_lowers_risk_called_suspicious": [],
+   "b_low_risk_while_degraded": [],
+   "c_quote_from_non_quotable": [],
+   "d_label_leak": []
+  },
+  "info_only": {
+   "quotes_not_in_stored_text": 0,
+   "claims_with_quote_field": 0
+  },
+  "cost": {
+   "llm_calls": 6,
+   "prompt_tokens": 12626,
+   "output_tokens": 1273,
+   "wall_s": 35.574,
+   "wall_s_no_wait": null
+  }
+ }
+}

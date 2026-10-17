@@ -32,4 +32,6 @@ def writer(state: AgentState, deps: Deps) -> AgentState:
     log(state, deps, "writer", "llm_result", latency_ms=round(info.get("latency_ms", 0), 1), usage=info.get("usage", {}),
         claims=len(out.activity_description), background=len(out.regulatory_background))
     state.draft = out
+    if state.first_draft is None:  # recording only: the first draft, before any critic feedback
+        state.first_draft = out.model_copy(deep=True)
     return state

@@ -5,6 +5,7 @@ llm.structured(system, prompt, schema, purpose) -> BaseModel. Tests supply a scr
 (tests/fakes.py) with the same two methods, so no test ever touches the network.
 """
 import os
+import re
 import time
 from dataclasses import dataclass, field
 from typing import List, Optional
@@ -48,6 +49,10 @@ def tool_specs_for(tools, hidden_args=config.HIDDEN_TOOL_ARGS):
     return specs
 
 
+class DailyQuotaExceeded(RuntimeError):
+    """The API reports the DAILY quota is used up: waiting a minute will not help, so it is not retried."""
+
+
 class GeminiLLM:
     """Gemini through google-genai: temperature 0, manual tool loop, throttled to the free-tier rate limit."""
 
@@ -62,12 +67,13 @@ class GeminiLLM:
         if self._client is None:
             from dotenv import load_dotenv
             from google import genai
+            from google.genai import types
 
             load_dotenv()
             key = os.environ.get("GEMINI_API_KEY")
             if not key or key == "your_key_here":
                 raise RuntimeError("GEMINI_API_KEY is not set (put it in .env)")
-            self._client = genai.Client(api_key=key)
+            self._client = genai.Client(api_key=key, http_options=types.HttpOptions(timeout=config.HTTP_TIMEOUT_MS))
         return self._client
 
     def _generate(self, contents, config_obj):
@@ -86,7 +92,9 @@ class GeminiLLM:
                 self._last_call = time.monotonic()
                 last = e
                 msg = str(e)
-                pause = config.RATE_LIMIT_WAIT_S if ("429" in msg or "RESOURCE_EXHAUSTED" in msg) else 2 ** attempt
+                if ("429" in msg or "RESOURCE_EXHAUSTED" in msg) and re.search(r"per ?day|daily", msg, re.I):
+                    raise DailyQuotaExceeded(msg[:200]) from e
+                pause =config.RATE_LIMIT_WAIT_S if ("429" in msg or "RESOURCE_EXHAUSTED" in msg) else 2 ** attempt
                 time.sleep(pause)
                 self.throttle_wait_s += pause
         raise RuntimeError(f"Gemini call failed after retries: {type(last).__name__}")

@@ -10,6 +10,7 @@ MAX_CHUNK_FETCHES = 3  # get_regulation_chunk calls by the regulation node per r
 MAX_CRITIC_LOOPS = 2  # rewrites after a failed critic round
 MAX_LLM_CALLS = 30  # every LLM call in a run, all nodes
 
+HTTP_TIMEOUT_MS = 120_000  # a Gemini request that takes longer than this fails and is retried, instead of hanging forever
 MIN_CALL_INTERVAL_S = 4.5  # the free tier allows 15 requests per minute per model
 RATE_LIMIT_WAIT_S = 62
 

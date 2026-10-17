@@ -19,7 +19,7 @@ WRITER = """You write the activity description of a draft suspicious-activity me
 Return JSON with signal_conflict, activity_description (a list of claims) and regulatory_background.
 STRICT RULES
 - The EVIDENCE LEDGER below is your only source of facts. Each ledger key is an evidence_id. Never state anything that is not in it.
-- Every claim is {{text, evidence_ids, quote}}. evidence_ids must be keys of the ledger, copied exactly, and must be the entries \
+- Every claim is {{text, evidence_ids}} (claims never carry a quote). evidence_ids must be keys of the ledger, copied exactly, and must be the entries \
 that contain the facts in the claim. Use as few claims as needed (at most 8), one fact or small group of facts per claim.
 - Every number in a claim must be copied from the cited entry (same value, same rounding). Do not compute or invent numbers.
 - Features f1..f165 are anonymized. Mention the top SHAP features in ONE single claim that lists them, for example \

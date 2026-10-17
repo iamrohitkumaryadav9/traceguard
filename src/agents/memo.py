@@ -40,7 +40,6 @@ class SubjectFields(BaseModel):
 class MemoClaim(BaseModel):
     text: str
     evidence_ids: List[str]
-    quote: Optional[str] = None  # verbatim text from a quotable regulation chunk, if any
 
 
 class EvidenceRow(BaseModel):
@@ -100,8 +99,7 @@ def memo_to_markdown(m: SARMemo):
         lines += [f"**{m.signal_conflict}** `[{', '.join(m.signal_conflict_evidence_ids)}]`", ""]
     lines += ["**Activity description**", ""]
     for i, c in enumerate(m.activity_description, 1):
-        q = f' Quote: "{c.quote}"' if c.quote else ""
-        lines.append(f"{i}. {c.text}{q} `[{', '.join(c.evidence_ids)}]`")
+        lines.append(f"{i}. {c.text} `[{', '.join(c.evidence_ids)}]`")
     if not m.activity_description:
         lines.append("(no verified claims)")
     lines += ["", "**Regulatory background (context, not evidence about this transaction)**", ""]
