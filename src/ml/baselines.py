@@ -1,4 +1,4 @@
-"""Phase 2a baselines. Run from the project root: python -m src.ml.baselines
+﻿"""Phase 2a baselines. Run from the project root: python -m src.ml.baselines
 
 Stage 1 fits each model on steps 1-29, early-stops / picks the F1 threshold on steps 30-34.
 Stage 2 (final_test) evaluates each model on steps 35-49 exactly once.
@@ -52,19 +52,24 @@ def feature_sets(df):
     return {"local": local, "all": cols}
 
 
-def make_models(y_fit):
+def lgb_params(y_fit):
+    """Fixed LightGBM settings shared by all LightGBM models (2a and 2b)."""
     spw = float((y_fit == 0).sum() / (y_fit == 1).sum())
-    lgb_params = dict(
+    return dict(
         n_estimators=2000, learning_rate=0.05, num_leaves=31, min_child_samples=20,
         subsample=0.8, subsample_freq=1, colsample_bytree=0.8, scale_pos_weight=spw,
         random_state=SEED, deterministic=True, force_row_wise=True, n_jobs=4, verbose=-1,
     )
+
+
+def make_models(y_fit):
+    lgb_params_ = lgb_params(y_fit)
     return {
         "LogReg (local)": ("local", make_pipeline(
             StandardScaler(),
             LogisticRegression(class_weight="balanced", max_iter=2000, random_state=SEED))),
-        "LightGBM (local)": ("local", lgb.LGBMClassifier(**lgb_params)),
-        "LightGBM (all)": ("all", lgb.LGBMClassifier(**lgb_params)),
+        "LightGBM (local)": ("local", lgb.LGBMClassifier(**lgb_params_)),
+        "LightGBM (all)": ("all", lgb.LGBMClassifier(**lgb_params_)),
     }
 
 

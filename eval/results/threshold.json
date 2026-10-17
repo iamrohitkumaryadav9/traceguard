@@ -1,0 +1,39 @@
+{
+  "model": "LightGBM (165 + structural)",
+  "trained_on_time_steps": [
+    1,
+    29
+  ],
+  "validation_time_steps": [
+    30,
+    34
+  ],
+  "score": "raw LightGBM predict_proba (trained with scale_pos_weight; not calibrated)",
+  "default_cost_ratio_C": 10,
+  "default_threshold": 0.3797995464524431,
+  "calibrated_probability_at_default_threshold": 0.25,
+  "thresholds_by_C": {
+    "5": {
+      "threshold": 0.3797995464524431,
+      "val_cost": 81.0
+    },
+    "10": {
+      "threshold": 0.3797995464524431,
+      "val_cost": 141.0
+    },
+    "20": {
+      "threshold": 0.19936283007862698,
+      "val_cost": 242.0
+    }
+  },
+  "cost_assumptions": {
+    "false_alert_cost": 1,
+    "missed_illicit_cost_C": [
+      5,
+      10,
+      20
+    ],
+    "note": "ASSUMPTIONS, not measured business costs. Threshold chosen on validation only."
+  },
+  "validation_illicit_prevalence": 0.1682322801024765
+}

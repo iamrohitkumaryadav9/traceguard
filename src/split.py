@@ -12,6 +12,8 @@ TEST_STEPS = (35, 49)
 FIT_STEPS = (1, 29)
 VAL_STEPS = (30, 34)
 
+SHUTDOWN_STEP = 43  # test steps >= this are "post-shutdown", earlier test steps "pre-shutdown"
+
 
 def assign_split(nodes):
     """Add a 'split' column: train / test for labeled nodes, 'unlabeled' otherwise."""
