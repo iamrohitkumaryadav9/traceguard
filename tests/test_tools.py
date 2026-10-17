@@ -112,6 +112,20 @@ def test_typology_evidence_fields(ctx):
     assert "training-period" in fi.caveat
 
 
+def test_lowers_risk_pattern_has_no_retrieval_query(ctx):
+    from src.tools.typology import LOWERS_RISK_NOTE
+
+    ctx.typology_stats["fan_in"]["evidence_direction"] = "lowers_risk"
+    ctx.typology_stats["chain"]["evidence_direction"] = "raises_risk"
+    fi = match_typology(MatchTypologyInput(tx_id=4)).matches[0]
+    assert fi.evidence_direction == "lowers_risk"
+    assert fi.retrieval_query is None and fi.note == LOWERS_RISK_NOTE
+    ch = match_typology(MatchTypologyInput(tx_id=12)).matches[0]
+    assert ch.evidence_direction == "raises_risk" and ch.retrieval_query and ch.note is None
+    ctx.typology_stats["chain"]["evidence_direction"] = "uninformative"
+    assert match_typology(MatchTypologyInput(tx_id=12)).matches[0].retrieval_query  # uninformative keeps the query
+
+
 def test_evidence_direction_rule():
     from src.tools.context import evidence_direction
 

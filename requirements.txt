@@ -21,3 +21,6 @@ pypdf
 rank-bm25
 pyyaml
 sentence-transformers
+
+rapidocr
+onnxruntime

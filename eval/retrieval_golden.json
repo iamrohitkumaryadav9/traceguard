@@ -158,5 +158,69 @@
     "expected_doc_id": null,
     "acceptable_doc_ids": [],
     "must_contain": []
+  },
+  {
+    "id": "ind_1",
+    "type": "in_scope",
+    "question": "Does a firm have to wait for a minimum transaction value before reporting something suspicious to the Indian FIU?",
+    "expected_doc_id": "fiuind_2026_vda_guidelines",
+    "acceptable_doc_ids": [],
+    "must_contain": ["irrespective of the amount"]
+  },
+  {
+    "id": "ind_2",
+    "type": "in_scope",
+    "question": "May a compliance officer tell a customer that a report about their activity has gone to the authorities?",
+    "expected_doc_id": "fiuind_2026_vda_guidelines",
+    "acceptable_doc_ids": [],
+    "must_contain": ["tipping off"]
+  },
+  {
+    "id": "ind_3",
+    "type": "in_scope",
+    "question": "When one Indian platform sends crypto to another, can the sender and recipient details be supplied after the transfer has gone through?",
+    "expected_doc_id": "fiuind_2026_vda_guidelines",
+    "acceptable_doc_ids": [],
+    "must_contain": ["post-facto"]
+  },
+  {
+    "id": "ind_4",
+    "type": "in_scope",
+    "question": "What extra restrictions may an Indian platform place on transfers to or from self-custody wallets?",
+    "expected_doc_id": "fiuind_2026_vda_guidelines",
+    "acceptable_doc_ids": [],
+    "must_contain": ["additional limitations"]
+  },
+  {
+    "id": "ind_5",
+    "type": "in_scope",
+    "question": "How should an Indian reporting entity treat services that blend coins together to hide where they came from?",
+    "expected_doc_id": "fiuind_2026_vda_guidelines",
+    "acceptable_doc_ids": [],
+    "must_contain": ["not be facilitated"]
+  },
+  {
+    "id": "oos_4",
+    "type": "out_of_scope",
+    "question": "What is the maximum prison sentence for tax evasion in Germany?",
+    "expected_doc_id": null,
+    "acceptable_doc_ids": [],
+    "must_contain": []
+  },
+  {
+    "id": "oos_5",
+    "type": "out_of_scope",
+    "question": "Which consensus algorithm does Ethereum use after the merge?",
+    "expected_doc_id": null,
+    "acceptable_doc_ids": [],
+    "must_contain": []
+  },
+  {
+    "id": "oos_6",
+    "type": "out_of_scope",
+    "question": "How long must a bank in Singapore keep customer records under local law?",
+    "expected_doc_id": null,
+    "acceptable_doc_ids": [],
+    "must_contain": []
   }
 ]

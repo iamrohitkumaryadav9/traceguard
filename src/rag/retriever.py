@@ -46,6 +46,28 @@ class SentenceTransformerEmbedder:
                                              show_progress_bar=False), dtype="float32")
 
 
+RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+RERANK_TOP = 20
+# Decision rule fixed before the ablation: the reranker becomes the default only if it raises hit@1 by at
+# least 0.10 over plain hybrid on the extended golden set. Set from the result in eval/results/retrieval.md.
+RERANK_DEFAULT = False
+
+
+class CrossEncoderReranker:
+    name = RERANK_MODEL
+
+    def __init__(self, model_name=RERANK_MODEL):
+        self.model_name = model_name
+        self._model = None
+
+    def score(self, query, texts):
+        if self._model is None:
+            from sentence_transformers import CrossEncoder
+
+            self._model = CrossEncoder(self.model_name, device="cpu")
+        return [float(s) for s in self._model.predict([(query, t) for t in texts], show_progress_bar=False)]
+
+
 def rrf(rankings, k=RRF_K):
     """Reciprocal rank fusion. rankings: lists of item ids, best first. Returns [(id, score)] best first.
     Ties break on the smaller id so the result is deterministic."""
@@ -57,12 +79,13 @@ def rrf(rankings, k=RRF_K):
 
 
 class Retriever:
-    def __init__(self, chunks, embedder, embeddings=None):
+    def __init__(self, chunks, embedder, embeddings=None, reranker=None):
         import faiss
         from rank_bm25 import BM25Okapi
 
         self.chunks = chunks
         self.embedder = embedder
+        self.reranker = reranker if reranker is not None else CrossEncoderReranker()
         self.by_evidence_id = {c["evidence_id"]: i for i, c in enumerate(chunks)}
         self.bm25 = BM25Okapi([tokenize(c["text"]) for c in chunks])
         emb = embeddings if embeddings is not None else embedder.encode([c["text"] for c in chunks])
@@ -82,9 +105,10 @@ class Retriever:
         n = len(self.chunks)
         zeros = np.zeros(n, dtype="float32")
         bm, dense = zeros, zeros  # a mode only computes the scorers it needs (keeps latency comparisons fair)
-        if mode in ("bm25", "hybrid"):
+        rerank = mode == "hybrid+rerank"
+        if mode in ("bm25", "hybrid", "hybrid+rerank"):
             bm = np.asarray(self.bm25.get_scores(tokenize(query)))
-        if mode in ("dense", "hybrid"):
+        if mode in ("dense", "hybrid", "hybrid+rerank"):
             sims, ids = self.index.search(self.embedder.encode([query], is_query=True), n)
             dense = np.zeros(n, dtype="float32")
             dense[ids[0]] = sims[0]
@@ -99,6 +123,10 @@ class Retriever:
             ordered = [(i, float(dense[i])) for i in ranking(dense)]
         else:
             ordered = rrf([ranking(bm), ranking(dense)])
+            if rerank:  # re-order the top RERANK_TOP hybrid results with a cross-encoder
+                head = ordered[:RERANK_TOP]
+                ce = self.reranker.score(query, [self.chunks[i]["text"] for i, _ in head])
+                ordered = sorted(((i, s) for (i, _), s in zip(head, ce)), key=lambda x: (-x[1], x[0]))
         return [{"index": i, "score": float(s), "bm25_score": float(bm[i]), "dense_score": float(dense[i])}
                 for i, s in ordered[:k]]
 

@@ -39,6 +39,34 @@ def extract_pages(pdf_path):
     return [p.extract_text() or "" for p in PdfReader(str(pdf_path)).pages]
 
 
+STAMP_WORDS = {"unit", "india", "pre", "prt", "dre"}  # fragments of the FIU-IND round stamp picked up by OCR
+
+
+def denoise_ocr_page(text):
+    """Drop OCR noise from stamps: symbol-only lines, short non-ASCII lines and stamp-word lines
+    (optionally followed by the page number) among the last few lines of a page."""
+    lines = text.split("\n")
+    keep = []
+    last = [i for i, l in enumerate(lines) if l.strip()][-5:]
+    for i, l in enumerate(lines):
+        s = l.strip()
+        if i in last and s:
+            words = s.lower().split()
+            if not re.search(r"[A-Za-z0-9]", s):
+                continue  # only symbols, e.g. stars
+            if len(s) <= 6 and any(ord(c) > 127 for c in s):
+                continue  # stray CJK-looking glyphs from the stamp
+            if words and all(w in STAMP_WORDS or w.isdigit() for w in words) and any(w in STAMP_WORDS for w in words):
+                digits = [w for w in words if w.isdigit()]
+                if digits:
+                    keep.append(digits[0])  # keep a page number that was glued to stamp text
+                continue
+            if any(ord(c) > 127 for c in s) and len(s) <= 12 and any(w in STAMP_WORDS for w in words):
+                continue
+        keep.append(l)
+    return "\n".join(keep)
+
+
 def _norm_key(line):
     return re.sub(r"[\d-\s]+", " ", line).strip().lower()
 
@@ -162,9 +190,14 @@ def build_chunks(manifest=None):
     for doc in manifest:
         if not doc.get("index", True):
             continue
-        raw = extract_pages(PDF_DIR / doc["source_file"])
+        if doc.get("ocr"):
+            from src.rag.ocr import load_ocr_pages
+
+            raw = [denoise_ocr_page(p) for p in load_ocr_pages(doc)]
+        else:
+            raw = extract_pages(PDF_DIR / doc["source_file"])
         if sum(len(p.strip()) for p in raw) == 0:
-            raise RuntimeError(f"{doc['source_file']} has no extractable text; mark it index: false")
+            raise RuntimeError(f"{doc['source_file']} has no extractable text; mark it ocr: true or index: false")
         pages = clean_pages(raw)
         page_paras = [(i + 1, paragraphs_from_lines(lines)) for i, lines in enumerate(pages)]
         for c in chunk_paragraphs(doc["doc_id"], page_paras):

@@ -2,7 +2,7 @@
 
 An ML model flags suspicious Bitcoin transactions, and a team of LLM agents investigates each flag and drafts a grounded report. A critic agent then checks every claim in the report against the collected evidence. The project uses real data from the Elliptic Bitcoin dataset.
 
-Status: Phase 3b (agent tools and regulation retrieval done; agents not started)
+Status: Phase 3c (tools, regulation retrieval incl. the India document, reranker ablation done; agents not started)
 
 ## Results (Phase 2)
 
@@ -42,6 +42,8 @@ Plain Python functions in [src/tools/](src/tools/) with Pydantic inputs and outp
 
 **Typology evidence direction.** `match_typology` now attaches, per matched pattern, the illicit rate among labeled nodes in steps 1-34 only, the baseline rate, the lift and an `evidence_direction` (`raises_risk`, `lowers_risk` or `uninformative`) from a rule fixed in advance: the 95% Wilson interval of the flagged rate lies entirely above, entirely below, or around the baseline. Current values: chain `raises_risk`, fan_in and fan_out `lowers_risk`. A `lowers_risk` pattern must never be described as suspicious.
 
-## Regulation retrieval (Phase 3b)
+## Regulation retrieval (Phase 3b and 3c)
 
-Three PDFs are indexed from `data/raw/regulations/` (gitignored): the FinCEN 2019 CVC advisory, the FinCEN 2003 SAR narrative guidance and the FATF 2020 virtual-assets red-flag report ([src/rag/SOURCES.md](src/rag/SOURCES.md), [src/rag/manifest.yaml](src/rag/manifest.yaml)). A fourth PDF (`VDA08012026.pdf`) is image-only and is not indexed. No Indian document is indexed yet. Chunks are about 250 tokens with about 15% overlap and an evidence id like `reg:<doc_id>:p<page>:c<n>` (physical PDF page). Retrieval is BM25 plus dense vectors (BAAI/bge-small-en-v1.5 in FAISS) fused with reciprocal rank fusion. Tools: `search_regulations`, `get_regulation_chunk`. Evaluation on a 20-question golden set: [eval/results/retrieval.md](eval/results/retrieval.md). The set is small (17 scored questions), so differences between modes are noisy.
+Four documents are indexed from `data/raw/regulations/` (gitignored): the FinCEN 2019 CVC advisory, the FinCEN 2003 SAR narrative guidance, the FATF 2020 virtual-assets red-flag report and the FIU-IND 2026 virtual digital assets guidelines ([src/rag/SOURCES.md](src/rag/SOURCES.md), [src/rag/manifest.yaml](src/rag/manifest.yaml)). The India document is a scan and was read with local OCR (rapidocr); checked against page images, the body text is accurate with minor errors listed in SOURCES.md. Chunks are about 250 tokens with about 15% overlap and an evidence id like `reg:<doc_id>:p<page>:c<n>` (physical PDF page). Retrieval is BM25 plus dense vectors (BAAI/bge-small-en-v1.5 in FAISS) fused with reciprocal rank fusion. A cross-encoder reranker (ms-marco-MiniLM-L-6-v2 over the top 20) is available as an option (`rerank=True`) but is **not the default**: under a rule fixed in advance it had to raise hit@1 by at least 0.10, and it raised it by 0.045, at about 2.5 s per query on CPU. Tools: `search_regulations`, `get_regulation_chunk`. Evaluation on a 28-question golden set (22 scored): [eval/results/retrieval.md](eval/results/retrieval.md); failure diagnosis: [eval/results/error_analysis.md](eval/results/error_analysis.md). Retrieval is weak on this set (hybrid hit@3 about 0.59) and weakest on the India questions, so retrieved text is a lead for an analyst, not proof. The set is small, so differences between modes are noisy.
+
+`match_typology` returns `retrieval_query: null` and a note for any pattern whose evidence direction is `lowers_risk`, so an agent cannot fetch red-flag text for it.

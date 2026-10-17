@@ -2,7 +2,7 @@ from typing import List, Literal, Optional, Union
 
 from pydantic import BaseModel, Field
 
-from src.rag.retriever import get_retriever
+from src.rag.retriever import RERANK_DEFAULT, get_retriever
 from src.tools.schemas import ToolError, r6
 
 NAME = "search_regulations"
@@ -11,7 +11,7 @@ DESCRIPTION = (
     "fusion). Returns the best-matching chunks with an evidence_id, document metadata, page range, text "
     "(shortened to about 1,200 characters; use get_regulation_chunk for the exact stored text) and a fused "
     "score. Scores rank results within one query; they are not a calibrated relevance probability. "
-    "Optional jurisdiction filter: FATF, US."
+    "Optional jurisdiction filter: FATF, US, India. Optional rerank flag (cross-encoder over the top 20)."
 )
 MAX_TEXT_CHARS = 1200
 
@@ -20,6 +20,7 @@ class SearchRegulationsInput(BaseModel):
     query: str = Field(min_length=3)
     k: int = Field(default=5, ge=1, le=20)
     jurisdiction: Optional[str] = None
+    rerank: Optional[bool] = None  # None = the module default (RERANK_DEFAULT); True uses the cross-encoder
 
 
 class RegulationHit(BaseModel):
@@ -60,7 +61,9 @@ def search_regulations(args: SearchRegulationsInput) -> Union[SearchRegulationsO
         return ToolError(error="invalid_argument", tool=NAME, evidence_id=f"error:{NAME}:{args.jurisdiction}",
                          message=f"unknown jurisdiction {args.jurisdiction!r}; indexed jurisdictions: {known}")
     hits = []
-    for h in r.search(args.query, k=args.k, jurisdiction=args.jurisdiction):
+    use_rerank = RERANK_DEFAULT if args.rerank is None else args.rerank
+    mode = "hybrid+rerank" if use_rerank else "hybrid"
+    for h in r.search(args.query, k=args.k, jurisdiction=args.jurisdiction, mode=mode):
         c = r.chunks[h["index"]]
         text, truncated = shorten(c["text"])
         hits.append(RegulationHit(

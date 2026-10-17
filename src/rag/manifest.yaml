@@ -19,19 +19,19 @@ documents:
 
   - doc_id: fatf_2020_va_red_flags
     title: "Virtual Assets Red Flag Indicators of Money Laundering and Terrorist Financing"
+    citation_title: "Money Laundering and Terrorist Financing Red Flag Indicators Associated with Virtual Assets"  # Citing reference, page 2
     publisher: FATF
     year: 2020
     jurisdiction: FATF
     source_file: "Virtual-Assets-Red-Flag-Indicators.pdf"
     index: true
 
-  # Image-only PDF: no extractable text on any of its 33 pages. NOT indexed and NOT OCRed.
-  # Title, publisher, year and jurisdiction are unknown until the document is read; do not guess.
-  - doc_id: vda_08012026_unidentified
-    title: null
-    publisher: null
-    year: null
-    jurisdiction: null
+  # Scanned PDF (image-only, 33 pages), read with OCR (rapidocr); PDF page numbers match the printed ones.
+  - doc_id: fiuind_2026_vda_guidelines
+    title: "AML & CFT Guidelines for Reporting Entities Providing Services Related to Virtual Digital Assets"
+    publisher: "Financial Intelligence Unit - India (FIU-IND)"
+    year: 2026  # cover: "Updated as on 08.01.2026"
+    jurisdiction: India
     source_file: "VDA08012026.pdf"
-    index: false
-    note: "image-only scan; awaiting a decision on OCR"
+    ocr: true
+    index: true  # OCR quality checks passed (see SOURCES.md)

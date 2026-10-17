@@ -18,7 +18,7 @@ GOLDEN = Path("eval/retrieval_golden.json")
 OUT = Path("eval/results/retrieval.md")
 KS = (1, 3, 5)
 DEPTH = 10  # MRR looks this deep
-MODES = ("bm25", "dense", "hybrid")
+MODES = ("bm25", "dense", "hybrid", "hybrid+rerank")
 
 
 def is_correct(q, chunk):
@@ -55,7 +55,8 @@ def main():
     print(f"{len(qs)} questions: {len(scored)} scored ({sum(q['type'] == 'typology' for q in qs)} typology), "
           f"{len(oos)} out-of-scope")
 
-    r.search("warm up", k=1)  # load models before timing
+    for m in MODES:
+        r.search("warm up", k=1, mode=m)  # load models before timing
     rows, ranks_by_mode = [], {}
     for mode in MODES:
         ranks, times = [], []
@@ -85,13 +86,15 @@ def main():
     comp = []
     for q in qs:
         top = r.search(q["question"], k=1, mode="hybrid")[0]
+        rr = r.search(q["question"], k=1, mode="hybrid+rerank")[0]
         comp.append({"id": q["id"], "group": "out_of_scope" if q["type"] == "out_of_scope" else "in_scope",
                      "top1_fused_rrf": top["score"], "top1_dense_cosine": top["dense_score"],
-                     "top1_bm25": top["bm25_score"]})
+                     "top1_bm25": top["bm25_score"], "top1_rerank_logit": rr["score"]})
     comp = pd.DataFrame(comp)
     print("\nTop-1 scores (hybrid), in-scope vs out-of-scope:")
     print(comp.round(4).to_string(index=False))
-    summ = comp.groupby("group")[["top1_fused_rrf", "top1_dense_cosine", "top1_bm25"]].agg(["min", "mean", "max"])
+    summ = comp.groupby("group")[["top1_fused_rrf", "top1_dense_cosine", "top1_bm25", "top1_rerank_logit"]].agg(
+        ["min", "mean", "max"])
     print(summ.round(4).to_string())
 
     # top-3 chunks for the three typology retrieval queries

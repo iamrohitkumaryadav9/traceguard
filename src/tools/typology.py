@@ -1,4 +1,4 @@
-from typing import Dict, List, Literal, Union
+from typing import Dict, List, Literal, Optional, Union
 
 from pydantic import BaseModel
 
@@ -25,6 +25,12 @@ QUERIES = {
 }
 
 
+LOWERS_RISK_NOTE = (
+    "In training-period data (steps 1-34) this pattern was associated with a LOWER illicit rate than the "
+    "baseline, so no retrieval query is provided and the pattern must not be presented as suspicious."
+)
+
+
 class MatchTypologyInput(BaseModel):
     tx_id: int
 
@@ -37,7 +43,9 @@ class PatternMatch(BaseModel):
     baseline_illicit_rate: float
     lift: float
     evidence_direction: Literal["raises_risk", "lowers_risk", "uninformative"]
-    retrieval_query: str
+    # None for "lowers_risk" patterns, so an agent cannot fetch red-flag text to support suspicion
+    retrieval_query: Optional[str]
+    note: Optional[str] = None
     caveat: str = CAVEAT
 
 
@@ -70,7 +78,9 @@ def match_typology(args: MatchTypologyInput) -> Union[MatchTypologyOutput, ToolE
         out_degree=int(ctx.out_deg[i]), chain_len=int(ctx.chain_len[i]),
         thresholds={"fan_in": ctx.fan_in_thr, "fan_out": ctx.fan_out_thr, "chain_len": CHAIN_MIN},
         matches=[
-            PatternMatch(pattern=p, evidence=ev[p], retrieval_query=QUERIES[p],
+            PatternMatch(pattern=p, evidence=ev[p],
+                         retrieval_query=None if ctx.typology_stats[p]["evidence_direction"] == "lowers_risk" else QUERIES[p],
+                         note=LOWERS_RISK_NOTE if ctx.typology_stats[p]["evidence_direction"] == "lowers_risk" else None,
                          n_flagged=ctx.typology_stats[p]["n_flagged"],
                          observed_illicit_rate=r6(ctx.typology_stats[p]["observed_illicit_rate"]),
                          baseline_illicit_rate=r6(ctx.typology_stats[p]["baseline_illicit_rate"]),
