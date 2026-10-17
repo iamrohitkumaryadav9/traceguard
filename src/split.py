@@ -5,8 +5,12 @@ import pandas as pd
 
 from src.data import load_elliptic
 
-TRAIN_STEPS = (1, 34)
+TRAIN_STEPS = (1, 34)  # full train period (fit + validation), used by assign_split
 TEST_STEPS = (35, 49)
+
+# Phase 2a: model fitting and tuning inside the train period
+FIT_STEPS = (1, 29)
+VAL_STEPS = (30, 34)
 
 
 def assign_split(nodes):

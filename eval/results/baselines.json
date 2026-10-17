@@ -1,0 +1,35 @@
+[
+  {
+    "model": "LogReg (local)",
+    "val_pr_auc": 0.5634083976417985,
+    "test_pr_auc": 0.18325309428527173,
+    "test_roc_auc": 0.8339096712752968,
+    "test_precision": 0.25917650813916376,
+    "test_recall": 0.7497691597414589,
+    "test_f1": 0.38519924098671726,
+    "val_threshold": 0.8773592114448547,
+    "test_prevalence": 0.06496700659868027
+  },
+  {
+    "model": "LightGBM (local)",
+    "val_pr_auc": 0.981350791373945,
+    "test_pr_auc": 0.7657481818724721,
+    "test_roc_auc": 0.9039113317493963,
+    "test_precision": 0.7822085889570553,
+    "test_recall": 0.7063711911357341,
+    "test_f1": 0.74235807860262,
+    "val_threshold": 0.316700805839297,
+    "test_prevalence": 0.06496700659868027
+  },
+  {
+    "model": "LightGBM (all)",
+    "val_pr_auc": 0.9921929453844777,
+    "test_pr_auc": 0.7917441851418012,
+    "test_roc_auc": 0.9274584302412202,
+    "test_precision": 0.9153936545240893,
+    "test_recall": 0.7192982456140351,
+    "test_f1": 0.8055842812823164,
+    "val_threshold": 0.7880252739548748,
+    "test_prevalence": 0.06496700659868027
+  }
+]
