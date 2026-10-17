@@ -2,7 +2,7 @@
 
 An ML model flags suspicious Bitcoin transactions, and a team of LLM agents investigates each flag and drafts a grounded report. A critic agent then checks every claim in the report against the collected evidence. The project uses real data from the Elliptic Bitcoin dataset.
 
-Status: Phase 2c (final model and drift monitor done; agents not started)
+Status: Phase 3a (agent tools done, no retrieval yet; agents not started)
 
 ## Results (Phase 2)
 
@@ -29,3 +29,13 @@ The structural model's numbers are kept in [eval/results/phase2b.md](eval/result
 **Calibration.** Isotonic regression on validation predictions. Test Brier 0.0263 raw and 0.0224 calibrated; test ECE 0.0289 raw and 0.0197 calibrated. Prevalence drops from 16.8% in validation to 6.5% on test, so calibration drifts and is worst post-shutdown.
 
 **Drift monitor (label-free, [src/ml/drift.py](src/ml/drift.py)).** It does not cleanly separate pre- and post-shutdown steps. PSI is already "major" for many steps inside the reference period, the score PSI ranges overlap completely between pre and post steps, and the feature PSI flags essentially every step after the reference period (31-49), not just 43-49. It also flags steps where the model still works well. Details in [eval/results/drift.md](eval/results/drift.md).
+
+## Agent tools (Phase 3a)
+
+Plain Python functions in [src/tools/](src/tools/) with Pydantic inputs and outputs, registered in `TOOLS`: `score_transaction`, `get_neighbors`, `subgraph_summary`, `match_typology`, `check_model_health`. Rules: no tool returns a ground-truth label, tools never cross time steps, unknown ids return a structured error, and every output carries an `evidence_id`.
+
+**Score scale.** Every score is the raw LightGBM `predict_proba` of the final model (trained with `scale_pos_weight`, so not a calibrated probability). The alert threshold 0.2582 (cost-based, C=10, an assumed cost) and the high-risk threshold 0.788 (validation-F1) were both chosen on this raw scale. A calibrated probability appears only as a separate, labelled field.
+
+**Typology flags are structural resemblance only.** Elliptic has no typology labels. On labeled nodes in steps 1-34, the chain flag is informative (illicit rate 25.7% flagged vs 10.8% unflagged), while the fan-in and fan-out flags are anti-informative (1.9% and 0.0% vs about 12%). See [eval/results/typology_check.md](eval/results/typology_check.md).
+
+**Model-health monitor (`check_model_health`).** It uses delayed labels: lag 2 steps, a 3-step window, reference recall from validation steps 30-34, degraded if window recall is below half the reference, at least 20 illicit nodes required. These constants were designed after the post-shutdown failure was observed, so the evaluation on steps 35-49 is not a blind test of them. Result: first flagged at step 47 (shutdown at 43), no false alarms in steps 35-42. See [eval/results/model_health.md](eval/results/model_health.md).
