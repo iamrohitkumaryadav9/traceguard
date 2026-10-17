@@ -18,9 +18,9 @@ import numpy as np
 import pandas as pd
 import scipy.sparse as sp
 
-from src.ml.eval import best_f1_threshold
+from src.ml.eval import best_f1_threshold, wilson_interval
 from src.ml.graph_features import compute_graph_features
-from src.split import FIT_STEPS, VAL_STEPS
+from src.split import FIT_STEPS, TRAIN_STEPS, VAL_STEPS
 
 MODEL_PATH = Path("models/phase2b_model.pkl")
 CALIBRATOR_PATH = Path("models/calibrator.pkl")
@@ -54,6 +54,7 @@ class Context:
     dropped_cross_step_edges: int
     explain_fn: Callable
     calibrate_fn: Optional[Callable] = None
+    typology_stats: dict = field(default_factory=dict)  # pattern -> training-period evidence (steps 1-34 only)
     _y: np.ndarray = field(repr=False, default=None)  # 1 illicit, 0 licit, -1 unknown. PRIVATE.
     _index: dict = field(repr=False, default=None)
 
@@ -71,6 +72,36 @@ class Context:
         """(illicit count, illicit nodes scoring >= alert threshold) over labeled nodes in `steps`."""
         m = np.isin(self.time_step, list(steps)) & (self._y == 1)
         return int(m.sum()), int((self.score[m] >= self.alert_threshold).sum())
+
+
+def evidence_direction(k, n, baseline):
+    """Rule fixed in advance: the 95% Wilson interval of the flagged illicit rate vs the baseline rate."""
+    lo, hi = wilson_interval(k, n)
+    if n == 0:
+        return "uninformative"
+    if lo > baseline:
+        return "raises_risk"
+    if hi < baseline:
+        return "lowers_risk"
+    return "uninformative"
+
+
+def compute_typology_stats(ctx):
+    """Per-pattern illicit rate among LABELED nodes in the training period (steps 1-34) only."""
+    m = (ctx._y >= 0) & (ctx.time_step >= TRAIN_STEPS[0]) & (ctx.time_step <= TRAIN_STEPS[1])
+    idx = np.where(m)[0]
+    y = ctx._y[idx] == 1
+    baseline = float(y.mean()) if len(idx) else float("nan")
+    stats = {}
+    for name, flag in zip(("fan_in", "fan_out", "chain"), ctx.pattern_flags(idx)):
+        n, k = int(flag.sum()), int(y[flag].sum())
+        rate = k / n if n else float("nan")
+        stats[name] = {
+            "n_flagged": n, "observed_illicit_rate": rate, "baseline_illicit_rate": baseline,
+            "lift": rate / baseline if n and baseline else float("nan"),
+            "evidence_direction": evidence_direction(k, n, baseline) if len(idx) else "uninformative",
+        }
+    return stats
 
 
 def build_context(nodes, edges, score, alert_threshold, high_threshold, explain_fn, calibrate_fn=None):
@@ -105,13 +136,15 @@ def build_context(nodes, edges, score, alert_threshold, high_threshold, explain_
     val = (t >= VAL_STEPS[0]) & (t <= VAL_STEPS[1]) & (y == 1)
     ref_recall = float((score[val] >= alert_threshold).mean()) if val.any() else float("nan")
 
-    return Context(
+    ctx = Context(
         ids=ids, time_step=t, score=np.asarray(score, dtype=float), A=A, AT=AT, S=S, in_deg=in_deg,
         out_deg=out_deg, chain_len=gf["chain_len"].to_numpy(), wcc_size=gf["wcc_size"].to_numpy(),
         alert_threshold=float(alert_threshold), high_threshold=float(high_threshold), fan_in_thr=fan_in,
         fan_out_thr=fan_out, reference_recall=ref_recall, dropped_cross_step_edges=dropped,
         explain_fn=explain_fn, calibrate_fn=calibrate_fn, _y=y, _index=index,
     )
+    ctx.typology_stats = compute_typology_stats(ctx)
+    return ctx
 
 
 def _load_scores(nodes, bundle):

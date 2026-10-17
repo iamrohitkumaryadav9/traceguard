@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 
 class ToolError(BaseModel):
-    error: Literal["unknown_tx_id", "invalid_argument"]
+    error: Literal["unknown_tx_id", "unknown_evidence_id", "invalid_argument"]
     message: str
     tool: str
     tx_id: Optional[int] = None

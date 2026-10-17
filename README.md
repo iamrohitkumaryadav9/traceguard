@@ -1,8 +1,8 @@
-﻿# TraceGuard
+# TraceGuard
 
 An ML model flags suspicious Bitcoin transactions, and a team of LLM agents investigates each flag and drafts a grounded report. A critic agent then checks every claim in the report against the collected evidence. The project uses real data from the Elliptic Bitcoin dataset.
 
-Status: Phase 3a (agent tools done, no retrieval yet; agents not started)
+Status: Phase 3b (agent tools and regulation retrieval done; agents not started)
 
 ## Results (Phase 2)
 
@@ -39,3 +39,9 @@ Plain Python functions in [src/tools/](src/tools/) with Pydantic inputs and outp
 **Typology flags are structural resemblance only.** Elliptic has no typology labels. On labeled nodes in steps 1-34, the chain flag is informative (illicit rate 25.7% flagged vs 10.8% unflagged), while the fan-in and fan-out flags are anti-informative (1.9% and 0.0% vs about 12%). See [eval/results/typology_check.md](eval/results/typology_check.md).
 
 **Model-health monitor (`check_model_health`).** It uses delayed labels: lag 2 steps, a 3-step window, reference recall from validation steps 30-34, degraded if window recall is below half the reference, at least 20 illicit nodes required. These constants were designed after the post-shutdown failure was observed, so the evaluation on steps 35-49 is not a blind test of them. Result: first flagged at step 47 (shutdown at 43), no false alarms in steps 35-42. See [eval/results/model_health.md](eval/results/model_health.md).
+
+**Typology evidence direction.** `match_typology` now attaches, per matched pattern, the illicit rate among labeled nodes in steps 1-34 only, the baseline rate, the lift and an `evidence_direction` (`raises_risk`, `lowers_risk` or `uninformative`) from a rule fixed in advance: the 95% Wilson interval of the flagged rate lies entirely above, entirely below, or around the baseline. Current values: chain `raises_risk`, fan_in and fan_out `lowers_risk`. A `lowers_risk` pattern must never be described as suspicious.
+
+## Regulation retrieval (Phase 3b)
+
+Three PDFs are indexed from `data/raw/regulations/` (gitignored): the FinCEN 2019 CVC advisory, the FinCEN 2003 SAR narrative guidance and the FATF 2020 virtual-assets red-flag report ([src/rag/SOURCES.md](src/rag/SOURCES.md), [src/rag/manifest.yaml](src/rag/manifest.yaml)). A fourth PDF (`VDA08012026.pdf`) is image-only and is not indexed. No Indian document is indexed yet. Chunks are about 250 tokens with about 15% overlap and an evidence id like `reg:<doc_id>:p<page>:c<n>` (physical PDF page). Retrieval is BM25 plus dense vectors (BAAI/bge-small-en-v1.5 in FAISS) fused with reciprocal rank fusion. Tools: `search_regulations`, `get_regulation_chunk`. Evaluation on a 20-question golden set: [eval/results/retrieval.md](eval/results/retrieval.md). The set is small (17 scored questions), so differences between modes are noisy.

@@ -1,0 +1,162 @@
+[
+  {
+    "id": "cvc_1",
+    "type": "in_scope",
+    "question": "What penalty did the US Treasury bureau impose on the overseas exchange that processed billions of dollars for cybercriminals?",
+    "expected_doc_id": "fincen_2019_cvc_advisory",
+    "acceptable_doc_ids": [],
+    "must_contain": ["110,003,314"]
+  },
+  {
+    "id": "cvc_2",
+    "type": "in_scope",
+    "question": "How might a bank tell that a customer is quietly running an unlicensed coin-for-cash swapping business?",
+    "expected_doc_id": "fincen_2019_cvc_advisory",
+    "acceptable_doc_ids": [],
+    "must_contain": ["funnel account"]
+  },
+  {
+    "id": "cvc_3",
+    "type": "in_scope",
+    "question": "What special label should a bank put on its suspicious activity filing so the agency links it to the 2019 virtual currency alert?",
+    "expected_doc_id": "fincen_2019_cvc_advisory",
+    "acceptable_doc_ids": [],
+    "must_contain": ["CVC FIN-2019-A003"]
+  },
+  {
+    "id": "cvc_4",
+    "type": "in_scope",
+    "question": "Which sanctions list must firms screen their crypto customers against, beyond their usual anti-money-laundering duties?",
+    "expected_doc_id": "fincen_2019_cvc_advisory",
+    "acceptable_doc_ids": [],
+    "must_contain": ["Specially Designated Nationals"]
+  },
+  {
+    "id": "cvc_5",
+    "type": "in_scope",
+    "question": "What does it suggest when a client keeps flipping quickly between different cryptocurrencies for no apparent reason?",
+    "expected_doc_id": "fincen_2019_cvc_advisory",
+    "acceptable_doc_ids": [],
+    "must_contain": ["rapid trades"]
+  },
+  {
+    "id": "sar_1",
+    "type": "in_scope",
+    "question": "What is the longest a firm may wait before filing a report after it first notices something reportable?",
+    "expected_doc_id": "fincen_2003_sar_narrative",
+    "acceptable_doc_ids": [],
+    "must_contain": ["60 calendar days"]
+  },
+  {
+    "id": "sar_2",
+    "type": "in_scope",
+    "question": "Into what parts should a filer divide the written explanation of the suspicious behaviour?",
+    "expected_doc_id": "fincen_2003_sar_narrative",
+    "acceptable_doc_ids": [],
+    "must_contain": ["introduction, a body, and a conclusion"]
+  },
+  {
+    "id": "sar_3",
+    "type": "in_scope",
+    "question": "If I attach a spreadsheet of transactions to my report, will the government load it into its database?",
+    "expected_doc_id": "fincen_2003_sar_narrative",
+    "acceptable_doc_ids": [],
+    "must_contain": ["tables, spreadsheets"]
+  },
+  {
+    "id": "sar_4",
+    "type": "in_scope",
+    "question": "Which basic questions should the free-text description of suspicious conduct always answer?",
+    "expected_doc_id": "fincen_2003_sar_narrative",
+    "acceptable_doc_ids": [],
+    "must_contain": ["five essential elements"]
+  },
+  {
+    "id": "fatf_1",
+    "type": "in_scope",
+    "question": "Is a single warning sign enough to conclude that someone is laundering money?",
+    "expected_doc_id": "fatf_2020_va_red_flags",
+    "acceptable_doc_ids": [],
+    "must_contain": ["mere presence of a red flag"]
+  },
+  {
+    "id": "fatf_2",
+    "type": "in_scope",
+    "question": "Which case involved a mixing service sold as a way to hide darknet payments from police, moving hundreds of thousands of bitcoin?",
+    "expected_doc_id": "fatf_2020_va_red_flags",
+    "acceptable_doc_ids": [],
+    "must_contain": ["Helix"]
+  },
+  {
+    "id": "fatf_3",
+    "type": "in_scope",
+    "question": "What timing pattern of large transfers is typical of extortion-malware payments?",
+    "expected_doc_id": "fatf_2020_va_red_flags",
+    "acceptable_doc_ids": [],
+    "must_contain": ["ransomware-related cases"]
+  },
+  {
+    "id": "fatf_4",
+    "type": "in_scope",
+    "question": "Why is it odd when a customer parks crypto at an exchange and straight away moves it to their own offline storage?",
+    "expected_doc_id": "fatf_2020_va_red_flags",
+    "acceptable_doc_ids": [],
+    "must_contain": ["private wallet"]
+  },
+  {
+    "id": "fatf_5",
+    "type": "in_scope",
+    "question": "What can authorities do when a regulated firm sees warning signs and gets unconvincing answers from the customer but still does not report?",
+    "expected_doc_id": "fatf_2020_va_red_flags",
+    "acceptable_doc_ids": [],
+    "must_contain": ["fails to file an STR"]
+  },
+  {
+    "id": "typ_chain",
+    "type": "typology",
+    "question": "sequential transfers through a chain of intermediary accounts, layering of funds",
+    "expected_doc_id": "fatf_2020_va_red_flags",
+    "acceptable_doc_ids": ["fincen_2019_cvc_advisory", "fincen_2003_sar_narrative"],
+    "must_contain": ["layering"]
+  },
+  {
+    "id": "typ_fan_in",
+    "type": "typology",
+    "question": "many incoming transfers consolidated into a single account, aggregation of funds from multiple sources",
+    "expected_doc_id": "fatf_2020_va_red_flags",
+    "acceptable_doc_ids": ["fincen_2019_cvc_advisory"],
+    "must_contain": ["accumulation of funds|disparate sources"]
+  },
+  {
+    "id": "typ_fan_out",
+    "type": "typology",
+    "question": "funds split from a single account across many recipients, distribution of funds to multiple accounts",
+    "expected_doc_id": "fatf_2020_va_red_flags",
+    "acceptable_doc_ids": ["fincen_2019_cvc_advisory"],
+    "must_contain": ["various accounts|separate accounts|several accounts|multiple accounts"]
+  },
+  {
+    "id": "oos_1",
+    "type": "out_of_scope",
+    "question": "What minimum capital must an Indian crypto exchange hold under its national anti-money-laundering rules?",
+    "expected_doc_id": null,
+    "acceptable_doc_ids": [],
+    "must_contain": []
+  },
+  {
+    "id": "oos_2",
+    "type": "out_of_scope",
+    "question": "What fines apply under European data-protection law when a company leaks customer data?",
+    "expected_doc_id": null,
+    "acceptable_doc_ids": [],
+    "must_contain": []
+  },
+  {
+    "id": "oos_3",
+    "type": "out_of_scope",
+    "question": "How do I set up two-factor login on my hardware wallet?",
+    "expected_doc_id": null,
+    "acceptable_doc_ids": [],
+    "must_contain": []
+  }
+]

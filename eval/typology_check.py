@@ -7,19 +7,13 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from src.ml.eval import wilson_interval
 from src.tools.context import CHAIN_MIN, get_context
 
 OUT = Path("eval/results/typology_check.md")
 
 
-def wilson(k, n, z=1.96):
-    if n == 0:
-        return (np.nan, np.nan)
-    p = k / n
-    d = 1 + z * z / n
-    c = (p + z * z / (2 * n)) / d
-    h = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
-    return c - h, c + h
+wilson = wilson_interval
 
 
 def table(ctx, mask_rows, label):

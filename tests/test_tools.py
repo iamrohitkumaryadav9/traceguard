@@ -27,7 +27,7 @@ def all_keys(obj):
 # ---------- registry ----------
 def test_registry_complete():
     assert set(TOOLS) == {"score_transaction", "get_neighbors", "subgraph_summary", "match_typology",
-                          "check_model_health"}
+                          "check_model_health", "search_regulations", "get_regulation_chunk"}
     for spec in TOOLS.values():
         assert spec.description and spec.input_model and callable(spec.fn)
 
@@ -99,6 +99,38 @@ def test_typology_flags(ctx):
     assert ch.flags["chain"] and ch.chain_len == 4
     none = match_typology(MatchTypologyInput(tx_id=1))
     assert not any(none.flags.values()) and none.matches == []
+
+
+def test_typology_evidence_fields(ctx):
+    fi = match_typology(MatchTypologyInput(tx_id=4)).matches[0]
+    # fixture: 15 labeled nodes, 4 illicit -> baseline 4/15; fan_in flagged: node 4 only (illicit)
+    assert fi.n_flagged == 1 and fi.observed_illicit_rate == pytest.approx(1.0)
+    assert fi.baseline_illicit_rate == pytest.approx(4 / 15, abs=1e-6)
+    assert fi.lift == pytest.approx(15 / 4, abs=1e-5)
+    assert fi.evidence_direction == "uninformative"  # one node: Wilson interval is wide
+    assert "lowers_risk" in fi.caveat and "never be described as suspicious" in fi.caveat
+    assert "training-period" in fi.caveat
+
+
+def test_evidence_direction_rule():
+    from src.tools.context import evidence_direction
+
+    assert evidence_direction(378, 1469, 0.1158) == "raises_risk"  # interval entirely above baseline
+    assert evidence_direction(19, 1023, 0.1158) == "lowers_risk"  # entirely below
+    assert evidence_direction(10, 100, 0.10) == "uninformative"  # interval straddles baseline
+    assert evidence_direction(0, 0, 0.10) == "uninformative"
+
+
+def test_typology_stats_use_training_steps_only():
+    # an illicit node in step 40 must not change the stats (steps 1-34 only)
+    from tests.conftest import make_ctx
+
+    base = [(1, 1, "licit", 0.1), (2, 1, "illicit", 0.9), (3, 1, "licit", 0.1), (4, 1, "licit", 0.1)]
+    edges = [(1, 4), (2, 4), (3, 4)]
+    a = make_ctx(base, edges)
+    b = make_ctx(base + [(50, 40, "illicit", 0.9), (51, 40, "illicit", 0.9)], edges)
+    assert a.typology_stats["fan_in"] == b.typology_stats["fan_in"]
+    assert a.typology_stats["fan_in"]["baseline_illicit_rate"] == pytest.approx(0.25)
 
 
 # ---------- check_model_health ----------

@@ -1,0 +1,37 @@
+# Regulation corpus manifest. Fields were inferred from the first pages of each PDF (see SOURCES.md);
+# verify before relying on them. Page numbers used in evidence ids are PHYSICAL PDF page numbers (1-based).
+documents:
+  - doc_id: fincen_2019_cvc_advisory
+    title: "Advisory on Illicit Activity Involving Convertible Virtual Currency (FIN-2019-A003)"
+    publisher: FinCEN
+    year: 2019
+    jurisdiction: US
+    source_file: "FinCEN Advisory CVC FINAL 508.pdf"
+    index: true
+
+  - doc_id: fincen_2003_sar_narrative
+    title: "Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative"
+    publisher: FinCEN
+    year: 2003
+    jurisdiction: US
+    source_file: "sarnarrcompletguidfinal_112003.pdf"
+    index: true
+
+  - doc_id: fatf_2020_va_red_flags
+    title: "Virtual Assets Red Flag Indicators of Money Laundering and Terrorist Financing"
+    publisher: FATF
+    year: 2020
+    jurisdiction: FATF
+    source_file: "Virtual-Assets-Red-Flag-Indicators.pdf"
+    index: true
+
+  # Image-only PDF: no extractable text on any of its 33 pages. NOT indexed and NOT OCRed.
+  # Title, publisher, year and jurisdiction are unknown until the document is read; do not guess.
+  - doc_id: vda_08012026_unidentified
+    title: null
+    publisher: null
+    year: null
+    jurisdiction: null
+    source_file: "VDA08012026.pdf"
+    index: false
+    note: "image-only scan; awaiting a decision on OCR"

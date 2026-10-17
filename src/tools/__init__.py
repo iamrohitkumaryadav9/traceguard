@@ -4,7 +4,15 @@ from typing import Callable
 
 from pydantic import BaseModel
 
-from src.tools import health, neighbors, score, subgraph, typology
+from src.tools import (
+    get_regulation_chunk,
+    health,
+    neighbors,
+    score,
+    search_regulations,
+    subgraph,
+    typology,
+)
 
 
 @dataclass(frozen=True)
@@ -18,7 +26,7 @@ class ToolSpec:
 TOOLS = {
     m.NAME: ToolSpec(m.NAME, m.DESCRIPTION, getattr(m, "".join(w.capitalize() for w in m.NAME.split("_")) + "Input"),
                      getattr(m, m.NAME))
-    for m in (score, neighbors, subgraph, typology, health)
+    for m in (score, neighbors, subgraph, typology, health, search_regulations, get_regulation_chunk)
 }
 
 

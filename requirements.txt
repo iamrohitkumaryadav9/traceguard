@@ -16,3 +16,8 @@ google-genai
 pytest
 
 matplotlib
+
+pypdf
+rank-bm25
+pyyaml
+sentence-transformers

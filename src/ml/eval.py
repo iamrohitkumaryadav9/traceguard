@@ -86,6 +86,17 @@ def topk_metrics(y_true, scores, k):
     }
 
 
+def wilson_interval(k, n, z=1.96):
+    """95% Wilson score interval for a proportion k/n. (nan, nan) if n == 0."""
+    if n == 0:
+        return float("nan"), float("nan")
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    return float(c - h), float(c + h)
+
+
 def brier_score(y_true, probs):
     return float(np.mean((np.asarray(probs, dtype=float) - np.asarray(y_true)) ** 2))
 
