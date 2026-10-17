@@ -1,4 +1,4 @@
-"""Phase 2b pipeline. Run from the project root: python -m src.ml.phase2b
+﻿"""Phase 2b pipeline. Run from the project root: python -m src.ml.phase2b
 
 Stage 1  fit candidate models on steps 1-29, compare on validation (30-34), pick the final model.
 Stage 2  validation-only tuning for the final model: cost thresholds, isotonic calibrator. Save artifacts.
@@ -40,6 +40,11 @@ KS = (10, 25)
 RESULTS_DIR = Path("eval/results")
 FIG_DIR = Path("notebooks/figures")
 MODEL_DIR = Path("models")
+FIG_TAG = ""  # suffix for figure names, set from the command line
+
+
+def _fig(name):
+    return FIG_DIR / f"{name}{FIG_TAG}.png"
 
 
 # ---------- helpers ----------
@@ -72,12 +77,15 @@ def fit_lgb(fit, val, cols):
 
 
 # ---------- stage 1 ----------
-def stage1(df, feats):
+def stage1(df, feats, only=None):
+    """Fit candidates on steps 1-29. If `only` is given, fit just that model and skip selection."""
     fit, val = in_steps(df, FIT_STEPS), in_steps(df, VAL_STEPS)
     candidates = {
         "LightGBM (165 original)": feats["all"],
         "LightGBM (165 + structural)": feats["all"] + STRUCTURAL_COLS,
     }
+    if only is not None:
+        candidates = {only: candidates[only]}
     fitted = {}
     for name, cols in candidates.items():
         model = fit_lgb(fit, val, cols)
@@ -87,6 +95,9 @@ def stage1(df, feats):
                         "val_pr_auc": pr_auc(val["y"], s), "val_f1": f1, "best_iter": model.best_iteration_}
         print(f"{name}: val PR-AUC {fitted[name]['val_pr_auc']:.4f}, val F1 {f1:.4f} @ {thr:.4f}, "
               f"best_iter {model.best_iteration_}")
+    if only is not None:
+        print(f"Final model (fixed by decision, not selected here): {only}")
+        return fitted, only
     best = max(fitted, key=lambda n: fitted[n]["val_pr_auc"])
     print(f"Final model (highest validation PR-AUC): {best}")
     return fitted, best
@@ -113,7 +124,7 @@ def early_stopping_diagnostic(df, feats):
            title="Validation PR-AUC by iteration (diagnostic only)")
     ax.legend(fontsize=8, loc="lower right")
     fig.tight_layout()
-    fig.savefig(FIG_DIR / "early_stopping_diagnostic.png", dpi=120)
+    fig.savefig(_fig("early_stopping_diagnostic"), dpi=120)
     plt.close(fig)
     info = {
         "local_ap_at_6": float(loc[5]), "local_ap_min_7_to_56": float(loc[6:56].min()),
@@ -143,7 +154,7 @@ def stage2(val, fitted, best):
            title=f"{best}: validation cost vs threshold (ASSUMED costs: false alert=1, miss=C)")
     ax.legend()
     fig.tight_layout()
-    fig.savefig(FIG_DIR / "cost_vs_threshold.png", dpi=120)
+    fig.savefig(_fig("cost_vs_threshold"), dpi=120)
     plt.close(fig)
 
     iso = IsotonicRegression(out_of_bounds="clip", y_min=0.0, y_max=1.0).fit(s, y)
@@ -210,7 +221,7 @@ def reliability_plot(sets):
         ax.set(xlabel="mean predicted probability", ylabel="observed illicit fraction", title=label)
         ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(FIG_DIR / "reliability.png", dpi=120)
+    fig.savefig(_fig("reliability"), dpi=120)
     plt.close(fig)
 
 
@@ -285,23 +296,27 @@ def final_test(df, val, fitted, best, chosen, iso):
     ax.set(xlabel="test time step", ylabel="recall", ylim=(0, 1.05), title=f"{best}: alert budget vs global threshold")
     ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(FIG_DIR / "alert_budget.png", dpi=120)
+    fig.savefig(_fig("alert_budget"), dpi=120)
     plt.close(fig)
     out["test"], out["scores"] = test, s
     return out
 
 
-def write_md(res, fitted, best, chosen, diag, cross_edges):
+def write_md(res, fitted, best, chosen, diag, cross_edges, md_name="phase2b.md", title="Phase 2b results",
+             selection_note=None):
     sections = [
-        "# Phase 2b results", "",
+        f"# {title}", "",
         "Fit: steps 1-29. Validation: 30-34. Test: 35-49, evaluated once. Models are NOT refit on train+val.",
         f"Positive class = illicit. Pre-shutdown = test steps 35-{SHUTDOWN_STEP - 1}, post-shutdown = {SHUTDOWN_STEP}-49.",
         f"Edges connecting different time steps: {cross_edges}.", "",
         "## Model comparison (threshold = each model's validation-F1 optimum)", "",
         md_table(res["comparison"]), "",
-        f"Final model (chosen on validation PR-AUC only): **{best}**.", "",
-        "## Early-stopping diagnostic (local-only LightGBM from 2a)", "",
-        "```", json.dumps(diag, indent=2), "```", "",
+        selection_note or f"Final model (chosen on validation PR-AUC only): **{best}**.", "",
+    ]
+    if diag is not None:
+        sections += ["## Early-stopping diagnostic (local-only LightGBM from 2a)", "",
+                     "```", json.dumps(diag, indent=2), "```", ""]
+    sections += [
         "## Cost-based thresholds",
         "**ASSUMPTION: false alert costs 1, missed illicit node costs C. C values are assumed, not measured.** "
         f"Thresholds are chosen on validation; C={DEFAULT_C} is the default.", "",
@@ -318,10 +333,12 @@ def write_md(res, fitted, best, chosen, diag, cross_edges):
         md_table(res["budget_steps"], 3), "",
         md_table(res["budget_avg"], 3), "",
     ]
-    (RESULTS_DIR / "phase2b.md").write_text("\n".join(sections) + "\n")
+    (RESULTS_DIR / md_name).write_text("\n".join(sections) + "\n")
 
 
-def main():
+def main(final_model=None, md_name="phase2b.md", title="Phase 2b results", selection_note=None):
+    """final_model=None: fit both candidates, diagnose, and pick by validation (Phase 2b).
+    final_model=<name>: fit and report only that model (Phase 2c)."""
     np.random.seed(SEED)
     df = load_labeled()
     gf = pd.read_parquet("data/processed/graph_features.parquet")
@@ -332,8 +349,8 @@ def main():
     print(f"Edges connecting two different time steps: {cross} of {len(edges):,}")
     feats = feature_sets(df)
 
-    fitted, best = stage1(df, feats)
-    diag = early_stopping_diagnostic(df, feats)
+    fitted, best = stage1(df, feats, only=final_model)
+    diag = early_stopping_diagnostic(df, feats) if final_model is None else None
 
     val = in_steps(df, VAL_STEPS)
     chosen, iso = stage2(val, fitted, best)
@@ -344,7 +361,7 @@ def main():
 
     print("\n=== FINAL TEST EVALUATION (run once) ===")
     res = final_test(df, val, fitted, best, chosen, iso)
-    write_md(res, fitted, best, chosen, diag, cross)
+    write_md(res, fitted, best, chosen, diag, cross, md_name, title, selection_note)
     pd.set_option("display.width", 250)
     pd.set_option("display.max_columns", 30)
     for key in ("comparison", "cost", "calibration", "budget_avg"):
@@ -362,4 +379,14 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--final", help="fit/report only this model instead of selecting by validation")
+    ap.add_argument("--md", default="phase2b.md")
+    ap.add_argument("--title", default="Phase 2b results")
+    ap.add_argument("--tag", default="", help="suffix for figure file names")
+    ap.add_argument("--note", default=None, help="line replacing the 'chosen on validation' sentence")
+    a = ap.parse_args()
+    FIG_TAG = a.tag
+    main(a.final, a.md, a.title, a.note)

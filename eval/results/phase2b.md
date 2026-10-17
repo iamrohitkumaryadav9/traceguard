@@ -1,4 +1,6 @@
-# Phase 2b results
+﻿# Phase 2b results
+
+> **Negative-result ablation (superseded).** This run compared the 165 original features against 165 + structural features. The structural features gave no meaningful gain, so the final model is the 165-original-feature model; see phase2c.md. Kept for the record. Its saved artifacts were overwritten by Phase 2c.
 
 Fit: steps 1-29. Validation: 30-34. Test: 35-49, evaluated once. Models are NOT refit on train+val.
 Positive class = illicit. Pre-shutdown = test steps 35-42, post-shutdown = 43-49.

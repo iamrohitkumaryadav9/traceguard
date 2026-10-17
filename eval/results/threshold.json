@@ -1,5 +1,5 @@
 {
-  "model": "LightGBM (165 + structural)",
+  "model": "LightGBM (165 original)",
   "trained_on_time_steps": [
     1,
     29
@@ -10,20 +10,20 @@
   ],
   "score": "raw LightGBM predict_proba (trained with scale_pos_weight; not calibrated)",
   "default_cost_ratio_C": 10,
-  "default_threshold": 0.3797995464524431,
-  "calibrated_probability_at_default_threshold": 0.25,
+  "default_threshold": 0.2581811790051597,
+  "calibrated_probability_at_default_threshold": 0.13636363636363635,
   "thresholds_by_C": {
     "5": {
-      "threshold": 0.3797995464524431,
-      "val_cost": 81.0
+      "threshold": 0.43780551521928696,
+      "val_cost": 90.0
     },
     "10": {
-      "threshold": 0.3797995464524431,
-      "val_cost": 141.0
+      "threshold": 0.2581811790051597,
+      "val_cost": 144.0
     },
     "20": {
-      "threshold": 0.19936283007862698,
-      "val_cost": 242.0
+      "threshold": 0.2581811790051597,
+      "val_cost": 244.0
     }
   },
   "cost_assumptions": {
