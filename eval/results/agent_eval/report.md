@@ -2,6 +2,8 @@
 
 Pre-registered in `eval/agent_eval_spec.md` (committed before any case was selected or run). Arms: A0 = ML only (templated), A1 = the writer's first draft, A2 = the full system after the critic loops (A1 and A2 are paired, from the same run). Counts are shown next to percentages; intervals are 95% case-level bootstrap intervals (1,000 resamples, seed 42). This evaluation says nothing about whether the agents improve detection.
 
+Note added in Phase 5b: the metric first called "groundedness" is now called "citation and number consistency". It shows a ceiling effect (100% in every arm) and shares a blind spot with the critic (the scientific-notation bug found in Phase 5a affected both), so it must not be read as evidence that the claims are faithful to the evidence; see `report_5b.md` for the independent judge and the fault-injection results.
+
 Cases selected: 40; included in the aggregates: 40; failed or skipped: 0.
 
 Of the 40 included cases, 27 reached the writer and 13 ended on the deterministic path (cannot_assess or no_action_model_based), where A1 and A2 are the same memo by construction.
@@ -10,7 +12,7 @@ Of the 40 included cases, 27 reached the writer and 13 ended on the deterministi
 
 ### Overall (40 cases)
 
-| arm | groundedness, all cases | groundedness, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
+| arm | citation and number consistency, all cases | citation and number consistency, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
 |---|---|---|---|---|
 | A0 | 75/75 = 100% 100% [100%, 100%] | 54/54 = 100% 100% [100%, 100%] (n=27 cases) | 79% [75%, 83%] | 0 / 0 / 0 / 0 |
 | A1 | 176/176 = 100% 100% [100%, 100%] | 142/142 = 100% 100% [100%, 100%] (n=27 cases) | 96% [93%, 98%] | 0 / 0 / 0 / 0 |
@@ -18,7 +20,7 @@ Of the 40 included cases, 27 reached the writer and 13 ended on the deterministi
 
 Paired A2 minus A1 (cases with both arms), case-level bootstrap:
 
-- groundedness (pooled share): 0% [0%, 0%]
+- citation and number consistency (pooled share): 0% [0%, 0%]
 - completeness (mean): 0% [-2%, 1%]
 
 ### Completeness by element
@@ -82,7 +84,7 @@ Reviewer false-rejection candidates (reason states the same numbers before and a
 
 ### 1 high band, illicit (6 cases)
 
-| arm | groundedness, all cases | groundedness, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
+| arm | citation and number consistency, all cases | citation and number consistency, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
 |---|---|---|---|---|
 | A0 | 12/12 = 100% 100% [100%, 100%] | 12/12 = 100% 100% [100%, 100%] (n=6 cases) | 79% [75%, 83%] | 0 / 0 / 0 / 0 |
 | A1 | 30/30 = 100% 100% [100%, 100%] | 30/30 = 100% 100% [100%, 100%] (n=6 cases) | 100% [100%, 100%] | 0 / 0 / 0 / 0 |
@@ -92,7 +94,7 @@ Cases: [73002915, 97132844, 70361272, 115924670, 70365734, 12779384]; statuses: 
 
 ### 2 high band, licit (6 cases)
 
-| arm | groundedness, all cases | groundedness, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
+| arm | citation and number consistency, all cases | citation and number consistency, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
 |---|---|---|---|---|
 | A0 | 12/12 = 100% 100% [100%, 100%] | 12/12 = 100% 100% [100%, 100%] (n=6 cases) | 79% [75%, 83%] | 0 / 0 / 0 / 0 |
 | A1 | 30/30 = 100% 100% [100%, 100%] | 30/30 = 100% 100% [100%, 100%] (n=6 cases) | 100% [100%, 100%] | 0 / 0 / 0 / 0 |
@@ -102,7 +104,7 @@ Cases: [97930880, 78079432, 148546737, 97930510, 98544621, 116107565]; statuses:
 
 ### 3 medium band (4 cases)
 
-| arm | groundedness, all cases | groundedness, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
+| arm | citation and number consistency, all cases | citation and number consistency, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
 |---|---|---|---|---|
 | A0 | 8/8 = 100% 100% [100%, 100%] | 8/8 = 100% 100% [100%, 100%] (n=4 cases) | 80% [74%, 83%] | 0 / 0 / 0 / 0 |
 | A1 | 22/22 = 100% 100% [100%, 100%] | 22/22 = 100% 100% [100%, 100%] (n=4 cases) | 100% [100%, 100%] | 0 / 0 / 0 / 0 |
@@ -112,7 +114,7 @@ Cases: [13383872, 74206107, 114502915, 199949376]; statuses: {'verified': 4}
 
 ### 4 chain-flagged (6 cases)
 
-| arm | groundedness, all cases | groundedness, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
+| arm | citation and number consistency, all cases | citation and number consistency, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
 |---|---|---|---|---|
 | A0 | 12/12 = 100% 100% [100%, 100%] | 12/12 = 100% 100% [100%, 100%] (n=6 cases) | 62% [62%, 62%] | 0 / 0 / 0 / 0 |
 | A1 | 34/34 = 100% 100% [100%, 100%] | 34/34 = 100% 100% [100%, 100%] (n=6 cases) | 85% [77%, 96%] | 0 / 0 / 0 / 0 |
@@ -122,7 +124,7 @@ Cases: [29935560, 69777051, 198741596, 15452133, 73274568, 69763472]; statuses: 
 
 ### 5 fan_in or fan_out flagged (6 cases)
 
-| arm | groundedness, all cases | groundedness, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
+| arm | citation and number consistency, all cases | citation and number consistency, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
 |---|---|---|---|---|
 | A0 | 12/12 = 100% 100% [100%, 100%] | 2/2 = 100% 100% [100%, 100%] (n=1 cases) | 80% [73%, 83%] | 0 / 0 / 0 / 0 |
 | A1 | 25/25 = 100% 100% [100%, 100%] | 5/5 = 100% 100% [100%, 100%] (n=1 cases) | 100% [100%, 100%] | 0 / 0 / 0 / 0 |
@@ -132,7 +134,7 @@ Cases: [7292103, 70781568, 12843031, 200528363, 2692055, 66666000]; statuses: {'
 
 ### 6 low band (4 cases)
 
-| arm | groundedness, all cases | groundedness, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
+| arm | citation and number consistency, all cases | citation and number consistency, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
 |---|---|---|---|---|
 | A0 | 8/8 = 100% 100% [100%, 100%] | 2/2 = 100% 100% [100%, 100%] (n=1 cases) | 91% [72%, 100%] | 0 / 0 / 0 / 0 |
 | A1 | 14/14 = 100% 100% [100%, 100%] | 5/5 = 100% 100% [100%, 100%] (n=1 cases) | 94% [81%, 100%] | 0 / 0 / 0 / 0 |
@@ -142,7 +144,7 @@ Cases: [70002760, 71242667, 54925062, 28875554]; statuses: {'no_action_model_bas
 
 ### 7 late steps (43-49), band at least medium (8 cases)
 
-| arm | groundedness, all cases | groundedness, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
+| arm | citation and number consistency, all cases | citation and number consistency, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |
 |---|---|---|---|---|
 | A0 | 11/11 = 100% 100% [100%, 100%] | 6/6 = 100% 100% [100%, 100%] (n=3 cases) | 82% [72%, 93%] | 0 / 0 / 0 / 0 |
 | A1 | 21/21 = 100% 100% [100%, 100%] | 16/16 = 100% 100% [100%, 100%] (n=3 cases) | 93% [87%, 98%] | 0 / 0 / 0 / 0 |

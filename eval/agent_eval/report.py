@@ -85,7 +85,7 @@ def paired_diff(rows, key_fn):
 
 def metric_block(rows, label):
     lines = [f"### {label} ({len(rows)} cases)", ""]
-    lines += ["| arm | groundedness, all cases | groundedness, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |",
+    lines += ["| arm | citation and number consistency, all cases | citation and number consistency, writer cases | completeness (mean over cases) | violations a/b/c/d (cases) |",
               "|---|---|---|---|---|"]
     for a in ARMS:
         n_all, d_all, ci_all, _ = ground_stat(rows, a)
@@ -177,6 +177,10 @@ def build_report(result_dir=RESULT_DIR):
              "A1 = the writer's first draft, A2 = the full system after the critic loops (A1 and A2 are paired, from the same run). "
              "Counts are shown next to percentages; intervals are 95% case-level bootstrap intervals (1,000 resamples, seed 42). "
              "This evaluation says nothing about whether the agents improve detection.", "",
+             "Note added in Phase 5b: the metric first called \"groundedness\" is now called \"citation and number consistency\". "
+             "It shows a ceiling effect (100% in every arm) and shares a blind spot with the critic (the scientific-notation bug found "
+             "in Phase 5a affected both), so it must not be read as evidence that the claims are faithful to the evidence; "
+             "see `report_5b.md` for the independent judge and the fault-injection results.", "",
              f"Cases selected: {len(rows)}; included in the aggregates: {len(inc)}; failed or skipped: {len(out)}.", ""]
     n_det = sum(1 for r in inc if not r["run"]["reached_writer"])
     lines += [f"Of the {len(inc)} included cases, {len(inc) - n_det} reached the writer and {n_det} ended on the deterministic path "
@@ -185,7 +189,7 @@ def build_report(result_dir=RESULT_DIR):
     lines += ["", "Paired A2 minus A1 (cases with both arms), case-level bootstrap:", ""]
     g = paired_diff(inc, lambda a: (a["metrics"]["groundedness"]["grounded"], a["metrics"]["groundedness"]["total"]))
     cpl = paired_diff(inc, lambda a: (a["metrics"]["completeness"]["share"], 1))
-    lines += [f"- groundedness (pooled share): {ci_str(*g)}", f"- completeness (mean): {ci_str(*cpl)}"]
+    lines += [f"- citation and number consistency (pooled share): {ci_str(*g)}", f"- completeness (mean): {ci_str(*cpl)}"]
     lines += ["", "### Completeness by element", ""] + element_block(inc) if inc else []
     lines += ["", "### Tool-call correctness", ""] + tool_block(inc)
     lines += ["", "### Cost and latency", ""] + cost_block(inc)

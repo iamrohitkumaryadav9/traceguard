@@ -1,0 +1,2820 @@
+{
+ "memos": [
+  12779384,
+  13383872,
+  29935560,
+  54925062,
+  66666000,
+  69763472,
+  70365734,
+  73002915,
+  73274568,
+  74206107,
+  97132844,
+  97930510,
+  97930880,
+  98544621,
+  105590801,
+  114502915,
+  115924670,
+  148546737,
+  198741596,
+  199949376
+ ],
+ "control": {
+  "12779384": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "Features f53, f59, f90, f2, and f132 pushed the illicit score up, as recorded in score:12779384.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence lists features f53, f59, f90, f2, and f132 with directions raising the illicit score."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Model health status at time step 41 was ok, with a window recall of 0.883621 and 232 illicit transactions in the window, according to health:41.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence states status ok, window recall 0.883621, and n_illicit_in_window 232 at time step 41."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Graph structural analysis showed an in-degree of 1 and an out-degree of 0, with no typology matches found in typology:12779384.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence shows an in-degree of 1, an out-degree of 0, and no matches in the matches array."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "Subgraph analysis at radius 2 found 8 nodes, 7 edges, a density of 0.125, and a share of alerted nodes of 0.375, per subgraph:12779384:2.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence confirms 8 nodes, 7 edges, density 0.125, and share_alerted 0.375."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "Neighbor analysis identified 1 incoming neighbor with a score of 0.000126 that did not alert, based on neighbors:12779384:1:in.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence shows 1 incoming neighbor with a score of 0.000126 and alert set to false."
+    },
+    {
+     "round": 1,
+     "item": "signal_conflict",
+     "text": "Signal conflict: the model score 0.999729 (risk band high; evidence score:12779384) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:12779384:1:in) point in different directions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": null,
+     "llm_reason": null
+    }
+   ],
+   "rejected_items": []
+  },
+  "13383872": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "Transaction 13383872 at time step 41 scored 0.563082 on scale raw_lightgbm_predict_proba with a calibrated probability of 0.4, placing it in the medium risk band and triggering an alert.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All facts in the claim match the cited evidence for transaction 13383872."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f132, f59, f2, and f73 pushed the score up.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence shows that all listed features have the direction 'raises illicit score'."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "The model health check shows status ok with reference recall 0.98308 and window recall 0.883621.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited health evidence matches the status and recall values precisely."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "The transaction has an in-degree of 3 and an out-degree of 1.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited typology evidence shows in_degree of 3 and out_degree of 1."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "Neighborhood analysis found 3 incoming neighbors and 2 outgoing neighbors.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited neighbor evidence shows total_found of 3 for incoming and 2 for outgoing neighbors."
+    }
+   ],
+   "rejected_items": []
+  },
+  "29935560": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction matched a chain structural pattern with a chain length of 4, which is associated with a higher illicit rate in training-period data.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence confirms the transaction matched a chain pattern with a chain length of 4, and that this is associated with a higher illicit rate in training-period data based on the observed illicit rate exceeding the baseline and the evidence direction raising risk."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Model health metrics for time step 37 show a window recall of 0.971074 across 242 illicit instances in the window.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence explicitly states a window recall of 0.971074 and 242 illicit instances in the window for time step 37."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Local and aggregated feature attributions including features f53, f18, f59, f52, and f132 contributed to the transaction score.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence lists feature attributions for f53, f18, f59, f52, and f132 (categorized under local and aggregated groups) contributing to the transaction score."
+    },
+    {
+     "round": 1,
+     "item": "background 1",
+     "text": "FinCEN guidance lists unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions as general suspicious activity indicators.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited text from the FinCEN guidance explicitly includes 'unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions'."
+    },
+    {
+     "round": 1,
+     "item": "signal_conflict",
+     "text": "Signal conflict: the model score 4.5e-05 (risk band low; evidence score:29935560) and the structural pattern chain (evidence direction raises_risk; evidence typology:29935560) point in different directions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": null,
+     "llm_reason": null
+    }
+   ],
+   "rejected_items": []
+  },
+  "54925062": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "Model health check status is ok with a window recall of 0.987261, reference recall of 0.98308, 471 illicit transactions in window, and a lag of 2.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All facts in the claim match the provided health evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "The transaction matched a chain structural pattern indicating sequential transfers through a chain of intermediary accounts and layering of funds, with a chain length of 4, 1469 flagged instances, an observed illicit rate of 0.257318, a baseline illicit rate of 0.115809, and a lift of 2.221913.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The pattern, chain length, flagged instances, rates, and lift are all supported by the typology evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "The subgraph summary shows a radius of 2, 5 nodes, 4 edges, a density of 0.2, a focal in-degree of 1, a focal out-degree of 1, a max in-degree of 1, a max out-degree of 1, 0 alerted nodes, a share alerted of 0.0, a focal chain length of 4, and a wcc size of 5507.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All metrics regarding radius, nodes, edges, density, degrees, alerted counts, chain length, and WCC size match the subgraph evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "Features f53 and f59 pushed the score up; features f131, f18, and f132 pushed the score down.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The direction of features f53, f59, f131, f18, and f132 correctly align with the reasons provided in the score evidence."
+    },
+    {
+     "round": 1,
+     "item": "background 1",
+     "text": "FATF guidance lists red flag indicators involving multiple layering of fiat funds and transfers across multiple accounts before virtual asset purchases.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The text explicitly mentions multiple layering of fiat funds prior to VA purchase and transfers across multiple accounts."
+    },
+    {
+     "round": 1,
+     "item": "background 2",
+     "text": "FinCEN guidance highlights indicators such as an unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The text explicitly highlights an unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions."
+    },
+    {
+     "round": 1,
+     "item": "signal_conflict",
+     "text": "Signal conflict: the model score 1.5e-05 (risk band low; evidence score:54925062) and the structural pattern chain (evidence direction raises_risk; evidence typology:54925062) point in different directions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": null,
+     "llm_reason": null
+    }
+   ],
+   "rejected_items": []
+  },
+  "66666000": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "Transaction 66666000 at time step 38 received a raw LightGBM predict probability score of 0.854182, placing it in the high risk band above the alert threshold of 0.258181 and high threshold of 0.788025.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The claim accurately reflects all values from the cited score evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Model health check at time step 38 reported status ok with window recall of 0.988095 against reference recall of 0.98308 across 252 illicit transactions in the window.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All facts in the claim are completely supported by the cited health evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Top features f53, f90, and f132 pushed the score up, while features f125 and f8 pushed the score down.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The claim matches the features and their direction of impact stated in the score evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "The transaction matched the fan_in structural pattern with an in-degree of 25, which matches training-period data where this pattern was associated with a lower illicit rate than the baseline.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The claim matches the details provided in the typology evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "Neighborhood analysis for transaction 66666000 identified 25 incoming neighbors and 0 outgoing neighbors, with a total subgraph node count of 45 and 10 alerted nodes.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The claim is fully supported by the incoming neighbors and subgraph evidence."
+    },
+    {
+     "round": 1,
+     "item": "signal_conflict",
+     "text": "Signal conflict: the model score 0.854182 (risk band high; evidence score:66666000) and the structural pattern fan_in (evidence direction lowers_risk; evidence typology:66666000) point in different directions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": null,
+     "llm_reason": null
+    }
+   ],
+   "rejected_items": []
+  },
+  "69763472": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction matched a chain structural pattern with a chain length of 5, which exceeds the threshold of 4, showing an observed illicit rate of 0.257318 compared to a baseline illicit rate of 0.115809 and a lift of 2.221913.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence explicitly states a chain length of 5, a threshold of 4, an observed illicit rate of 0.257318, a baseline illicit rate of 0.115809, and a lift of 2.221913."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f59, f46, f2, f67, and f47 contributed to the model score.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence lists features f59, f46, f2, f67, and f47 as contributing to the model score with local shap values and directions."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health check status was ok with a window recall of 0.987261, a reference recall of 0.98308, 471 illicit transactions in the window, and a lag of 2.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence confirms the status is ok, window recall is 0.987261, reference recall is 0.98308, n_illicit_in_window is 471, and lag is 2."
+    },
+    {
+     "round": 1,
+     "item": "background 1",
+     "text": "FATF guidance discusses virtual asset red flags including multiple layering of fiat funds prior to virtual asset purchases.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence mentions multiple layering of the fiat funds was arranged prior to the VA purchase by mules as part of virtual asset red flag indicators."
+    },
+    {
+     "round": 1,
+     "item": "background 2",
+     "text": "FinCEN guidance notes that unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions can be a red flag.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence explicitly lists 'unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions'."
+    },
+    {
+     "round": 1,
+     "item": "signal_conflict",
+     "text": "Signal conflict: the model score 0.000318 (risk band low; evidence score:69763472) and the structural pattern chain (evidence direction raises_risk; evidence typology:69763472) point in different directions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": null,
+     "llm_reason": null
+    }
+   ],
+   "rejected_items": []
+  },
+  "70365734": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction received a raw_lightgbm_predict_proba score of 0.999982, placing it in the high risk band with a calibrated probability of 1.0.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence explicitly states a raw_lightgbm_predict_proba score of 0.999982, a risk_band of high, and a calibrated_probability of 1.0."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f90, f59, f132, and f5 pushed the score up.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence lists features f53, f90, f59, f132, and f5 all with the direction 'raises illicit score'."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health check status was ok at time step 35, with a window recall of 0.987261 and a reference recall of 0.98308.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence confirms the status is ok at time step 35, window_recall is 0.987261, and reference_recall is 0.98308."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "Typology checks for fan_in, fan_out, and chain all returned false, with an in-degree of 1 and out-degree of 0.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence shows fan_in, fan_out, and chain are all false, with an in_degree of 1 and out_degree of 0."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "The subgraph summary at radius 2 showed 5 nodes, 4 edges, a density of 0.2, and 1 alerted node out of 5.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence confirms radius 2, 5 nodes, 4 edges, density of 0.2, and 1 alerted node out of 5."
+    },
+    {
+     "round": 1,
+     "item": "signal_conflict",
+     "text": "Signal conflict: the model score 0.999982 (risk band high; evidence score:70365734) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:70365734:1:in) point in different directions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": null,
+     "llm_reason": null
+    }
+   ],
+   "rejected_items": []
+  },
+  "73002915": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction at time step 42 received a raw LightGBM predict probability score of 0.999662 and a calibrated probability of 0.988235, exceeding the alert threshold of 0.258181 and high threshold of 0.788025.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All facts in the claim are directly supported by the cited evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f90, f59, f132, and f76 pushed the illicit score up.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence shows features f53, f90, f59, f132, and f76 all having the direction 'raises illicit score'."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health status was ok with a window recall of 0.842105, a reference recall of 0.98308, and 304 illicit cases in the window.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All metrics in the claim match the values provided in the health evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "The transaction has an in-degree of 1 and an out-degree of 0.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence states in_degree is 1 and out_degree is 0."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "Neighborhood analysis found 1 incoming neighbor and 0 outgoing neighbors within 1 hop.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The neighborhood evidence confirms total_found is 1 for incoming neighbors at 1 hop."
+    },
+    {
+     "round": 1,
+     "item": "claim 6",
+     "text": "The subgraph summary shows a radius of 2, 3 nodes, 2 edges, a density of 0.333333, and a share alerted of 0.666667.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All graph metrics mentioned in the claim match the subgraph evidence perfectly."
+    }
+   ],
+   "rejected_items": []
+  },
+  "73274568": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "Model scoring for time step 42 produced a raw predict proba score of 0.019788 and a calibrated probability of 0.030534, falling into the low risk band with alert set to false.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence matches all stated facts about the score, calibrated probability, risk band, and alert status."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53 and f59 pushed the score up; features f88, f18 and f106 pushed the score down.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence lists f53 and f59 with direction 'raises illicit score' and f88, f18, f106 with 'lowers illicit score'."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health check for time step 42 reported status ok with a window recall of 0.842105 and 304 illicit transactions in window.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All health check parameters (status, window recall, number of illicit transactions in window) match the cited evidence exactly."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "Typology matching identified a chain pattern with chain length 4 meeting the threshold of 4, with 1469 n_flagged, an observed illicit rate of 0.257318, baseline illicit rate of 0.115809, lift of 2.221913, and evidence direction raises_risk.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence contains all specific typology matching details including chain length, thresholds, metrics, and direction."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "Neighborhood analysis found 1 in-neighbor which alerted, and 1 out-neighbor which did not alert.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The neighborhood analysis evidence shows 1 in-neighbor with alert true and 1 out-neighbor with alert false."
+    },
+    {
+     "round": 1,
+     "item": "claim 6",
+     "text": "Subgraph summary within radius 2 showed 4 nodes, 3 edges, density 0.25, focal in-degree 1, focal out-degree 1, max in-degree 1, max out-degree 1, 1 alerted node with share alerted 0.25, focal chain length 4, and wcc size 7140.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All subgraph metrics stated are directly verified by the cited JSON structure."
+    },
+    {
+     "round": 1,
+     "item": "background 1",
+     "text": "FinCEN guidance lists unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions as general indicators of suspicious activity.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The FinCEN text explicitly includes 'unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions'."
+    },
+    {
+     "round": 1,
+     "item": "background 2",
+     "text": "FATF guidance discusses potential use of money mules and multiple layering of fiat funds prior to virtual asset purchases.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The FATF text discusses the use of money mules and multiple layering of fiat funds prior to virtual asset purchases."
+    },
+    {
+     "round": 1,
+     "item": "signal_conflict",
+     "text": "Signal conflict: the model score 0.019788 (risk band low; evidence score:73274568) and the structural pattern chain (evidence direction raises_risk; evidence typology:73274568) point in different directions. Signal conflict: the model score 0.019788 (risk band low; evidence score:73274568) and the in-neighbour alerts (at least one of the 1 in-neighbours alerted; evidence neighbors:73274568:1:in) point in different directions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": null,
+     "llm_reason": null
+    }
+   ],
+   "rejected_items": []
+  },
+  "74206107": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "Transaction 74206107 at time step 39 scored 0.345277 on the raw lightgbm predict proba scale, resulting in a calibrated probability of 0.136364 and medium risk band alert status.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "Every claim about the transaction score, scale, calibrated probability, and risk band matches the cited evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f59, f55, and f3 pushed the illicit score up, while feature f125 pushed the score down.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited reasons show f53, f59, f55, and f3 raise the illicit score, while f125 lowers it."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health check for time step 39 reported status ok with a window recall of 0.937255, reference recall of 0.98308, and 255 illicit instances in the window.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All metrics including status, window recall, reference recall, and number of illicit instances match the health check evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "The transaction has an in-degree of 1 and an out-degree of 0.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The typology evidence explicitly states in_degree is 1 and out_degree is 0."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "The radius 2 subgraph contains 7 nodes, 6 edges, a density of 0.142857, and a share alerted of 0.571429.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The subgraph evidence confirms 7 nodes, 6 edges, density of 0.142857, and share alerted of 0.571429."
+    }
+   ],
+   "rejected_items": []
+  },
+  "97132844": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction received a raw LightGBM predict proba score of 0.999968 with a calibrated probability of 1.0, placing it in the high risk band and triggering an alert.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The score, score_scale, calibrated_probability, risk_band, and alert fields all match the claim."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f90, f59, f132 and f5 pushed the score up.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The listed features have the direction 'raises illicit score' which corresponds to pushing the score up."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health status was ok with a window recall of 0.880435, a reference recall of 0.98308, and 184 illicit transactions in the window.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All metrics and status values in the claim match the provided health evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "The transaction has an out degree of 1 and an in degree of 0.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The in_degree and out_degree values match the cited evidence exactly."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "The local subgraph contains 28 nodes, 36 edges, a density of 0.047619, and 6 alerted nodes representing a share of 0.214286.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "Nodes, edges, density, n_alerted, and share_alerted all match the values in the subgraph evidence."
+    }
+   ],
+   "rejected_items": []
+  },
+  "97930510": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The model score reached 0.832896 with a calibrated probability of 0.75, placing the transaction in the high risk band and above the alert threshold of 0.258181 and high threshold of 0.788025.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The score, calibrated probability, risk band, alert status, alert threshold, and high threshold all match the cited evidence exactly."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f90, f59, f163, and f52 pushed the score up.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence lists features f53, f90, f59, f163, and f52 with direction 'raises illicit score', which means they pushed the score up."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health check status was ok at time step 40 with a window recall of 0.880435, reference recall of 0.98308, and 184 illicit instances in the window.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The status, time step, window recall, reference recall, and number of illicit instances in the window match the cited evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "Typology matching found no fan-in, fan-out, or chain patterns, with an in-degree of 0 and an out-degree of 2.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The flags for fan_in, fan_out, and chain are all false, and in-degree is 0 and out-degree is 2, matching the evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "The subgraph summary showed 7 nodes, 6 edges, a density of 0.142857, 2 alerted nodes, and a share alerted of 0.285714.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The number of nodes, edges, density, alerted nodes, and share alerted all match the cited subgraph evidence."
+    }
+   ],
+   "rejected_items": []
+  },
+  "97930880": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction received a raw lightgbm predict proba score of 0.979061, a calibrated probability of 0.987013, and triggered an alert exceeding the threshold of 0.258181 and the high threshold of 0.788025.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All facts in the claim are directly supported by the cited evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f2, f132, f59 and f90 pushed the score up.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence shows features f53, f2, f132, f59, and f90 all have the direction 'raises illicit score'."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "The model health check status was ok at time step 40, with a window recall of 0.880435, a reference recall of 0.98308, 184 illicit transactions in the window, and a lag of 2.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All facts about the model health check are explicitly present in the evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "The transaction had an in-degree of 0 and an out-degree of 1.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence confirms in_degree is 0 and out_degree is 1."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "The local subgraph summary showed 5 nodes, 4 edges, a density of 0.2, a focal in-degree of 0, a focal out-degree of 1, a max in-degree of 3, a max out-degree of 1, 1 alerted node, an alerted share of 0.2, a focal chain length of 0, and a wcc size of 4481.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All subgraph statistics in the claim match the cited evidence exactly."
+    },
+    {
+     "round": 1,
+     "item": "claim 6",
+     "text": "Neighbor analysis identified 1 outgoing connection at hop 1 with a score of 0.016913, and 2 outgoing connections up to hop 2 with scores of 0.016913 and 0.005557.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The neighbor analysis evidence precisely matches the hop counts, directions, and scores mentioned in the claim."
+    }
+   ],
+   "rejected_items": []
+  },
+  "98544621": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction at time_step 40 received a raw_lightgbm_predict_proba score of 0.993764 and a calibrated_probability of 0.988235, placing it in the high risk band and triggering an alert.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All facts regarding time_step, scores, risk band, and alert are fully stated in the evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f90, f132, f59, and f2 pushed the score up.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence lists features f53, f90, f132, f59, and f2 with the direction 'raises illicit score'."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health status at time_step 40 was ok with 184 illicit instances in window, a window_recall of 0.880435, a reference_recall of 0.98308, and a lag of 2.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All facts about health status, window recall, reference recall, n_illicit_in_window, and lag match the cited evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "Topological analysis at time_step 40 recorded an in_degree of 1 and out_degree of 0.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence confirms in_degree is 1 and out_degree is 0 at time_step 40."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "Neighborhood analysis found 1 in-neighbor and no out-neighbors, with a subgraph radius of 2 containing 5 nodes and 4 edges.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence explicitly states 1 total found in-neighbor, radius 2 subgraph with 5 nodes and 4 edges."
+    },
+    {
+     "round": 1,
+     "item": "signal_conflict",
+     "text": "Signal conflict: the model score 0.993764 (risk band high; evidence score:98544621) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:98544621:1:in) point in different directions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": null,
+     "llm_reason": null
+    }
+   ],
+   "rejected_items": []
+  },
+  "105590801": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction scored 0.400017 with a raw_lightgbm_predict_proba score scale and a calibrated_probability of 0.136364, placing it in the medium risk band and triggering an alert.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The claim accurately reflects the score, scale, calibrated probability, risk band, and alert status from the evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f3, f55, f163, and f59 pushed the score up.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence lists all five features with the direction 'raises illicit score', which supports the claim that they pushed the score up."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health check at time step 44 showed status ok with a reference recall of 0.98308, window recall of 0.82227, 467 illicit instances in the window, and a lag of 2.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "Every metric and status mentioned in the claim matches the health check evidence for time step 44."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "The local subgraph within a radius of 2 contained 13 nodes, 12 edges, a density of 0.076923, a focal in-degree of 1, a focal out-degree of 1, a max in-degree of 10, a max out-degree of 1, 5 alerted nodes, a share alerted of 0.384615, a focal chain length of 2, and a weakly connected component size of 4975.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The claim matches all subgraph metrics provided in the cited evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "A neighboring transaction at 1 hop in was identified with an alert status.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence confirms an incoming neighbor at 1 hop with an alert status of true."
+    }
+   ],
+   "rejected_items": []
+  },
+  "114502915": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction received a raw LightGBM predict proba score of 0.371723 with an alert threshold of 0.258181, placing it in the medium risk band.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence matches all stated numbers: score is 0.371723, alert_threshold is 0.258181, and risk_band is medium."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f2, f59, f3, and f5 raised the illicit score.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence lists features f53, f2, f59, f3, and f5 each with the direction 'raises illicit score'."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health status was ok at time step 38, with window steps 34, 35, and 36 showing a window recall of 0.988095.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence states health status is ok at time step 38, window_steps are [34, 35, 36], and window_recall is 0.988095."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "The subgraph summary showed 3 nodes, 2 edges, a density of 0.333333, a focal out-degree of 1, and a share alerted of 0.666667.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The cited evidence confirms 3 nodes, 2 edges, density of 0.333333, focal out-degree of 1, and share alerted of 0.666667."
+    }
+   ],
+   "rejected_items": []
+  },
+  "115924670": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction was assigned a raw LightGBM predict proba score of 0.994961 with a calibrated probability of 0.988235, placing it in the high risk band and triggering an alert.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence explicitly provides the raw score 0.994961, calibrated probability 0.988235, high risk band, and alert=true."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f59, f3, f163, and f100 pushed the illicit score up.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence lists features f53, f59, f3, f163, and f100 all with the direction 'raises illicit score'."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health checks at time step 38 showed status ok with a window recall of 0.988095.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The health evidence for time step 38 shows status 'ok' and a window recall of 0.988095."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "The subgraph summary indicates 5 nodes, 4 edges, a density of 0.2, and 4 alerted transactions representing a share alerted of 0.8.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The subgraph evidence specifies 5 nodes, 4 edges, density of 0.2, n_alerted of 4, and share_alerted of 0.8."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "Network neighborhood analysis found connected transactions including an incoming neighbor with an alert status and an outgoing neighbor with a score of 0.999983.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The neighbors evidence shows an incoming neighbor with alert=true and an outgoing neighbor with score 0.999983 and alert=true."
+    }
+   ],
+   "rejected_items": []
+  },
+  "148546737": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction at time step 39 received a raw score of 0.965522 and a calibrated probability of 0.933333, placing it in the high risk band above the high threshold of 0.788025.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence directly states time_step is 39, score is 0.965522, calibrated_probability is 0.933333, risk_band is high, and high_threshold is 0.788025."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Features f53, f132, f90, f59, and f2 pushed the score up.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence lists features f53, f132, f90, f59, and f2 with the direction 'raises illicit score'."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Model health status is ok with a window recall of 0.937255 and reference recall of 0.98308 across 255 illicit items in the window.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence confirms the health status is ok, window_recall is 0.937255, reference_recall is 0.98308, and n_illicit_in_window is 255."
+    },
+    {
+     "round": 1,
+     "item": "claim 4",
+     "text": "The subgraph analysis shows a radius of 2, 11 nodes, 10 edges, a density of 0.090909, an in-degree of 0, an out-degree of 1, and 6 alerted nodes representing a share of 0.545455.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence states radius is 2, n_nodes is 11, n_edges is 10, density is 0.090909, focal_in_degree is 0, focal_out_degree is 1, n_alerted is 6, and share_alerted is 0.545455."
+    },
+    {
+     "round": 1,
+     "item": "claim 5",
+     "text": "Neighbor analysis identified an outgoing connection at hop 1 to transaction 6818420 with a score of 0.041879, and at hop 2 to transaction 113649806 with a score of 0.714648.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence lists an outgoing connection at hop 1 to transaction 6818420 with score 0.041879, and at hop 2 to transaction 113649806 with score 0.714648."
+    }
+   ],
+   "rejected_items": []
+  },
+  "198741596": {
+   "verdicts": [
+    {
+     "round": 1,
+     "item": "claim 1",
+     "text": "The transaction matched a chain structural pattern with a chain_len of 7, which exceeds the threshold of 4 and was observed in data with a baseline_illicit_rate of 0.115809 and an observed_illicit_rate of 0.257318.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "All details about the chain structural pattern, chain length, threshold, baseline illicit rate, and observed illicit rate are explicitly stated in the evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 2",
+     "text": "Model health check status is ok with a window_recall of 0.99005, a reference_recall of 0.98308, and 402 illicit transactions in the window.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "Status, window recall, reference recall, and the number of illicit transactions in the window are fully supported by the evidence."
+    },
+    {
+     "round": 1,
+     "item": "claim 3",
+     "text": "Features f53 and f59 pushed the score up; features f18, f52, and f132 pushed the score down.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The direction of features pushing the score up (f53, f59) or down (f18, f52, f132) matches the directions and SHAP values given in the evidence."
+    },
+    {
+     "round": 1,
+     "item": "background 1",
+     "text": "FATF guidance discusses virtual asset red flags including cases where multiple layering of fiat funds was arranged prior to virtual asset purchases.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence explicitly mentions multiple layering of fiat funds arranged prior to virtual asset purchases."
+    },
+    {
+     "round": 1,
+     "item": "background 2",
+     "text": "FinCEN guidance notes that suspicious activity indicators include an unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": "supported",
+     "llm_reason": "The evidence explicitly lists an unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions as an indicator."
+    },
+    {
+     "round": 1,
+     "item": "signal_conflict",
+     "text": "Signal conflict: the model score 5.1e-05 (risk band low; evidence score:198741596) and the structural pattern chain (evidence direction raises_risk; evidence typology:198741596) point in different directions.",
+     "ok": true,
+     "deterministic_reasons": [],
+     "llm_verdict": null,
+     "llm_reason": null
+    }
+   ],
+   "rejected_items": []
+  }
+ },
+ "faults": {
+  "F1 numeric tamper|12779384": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 12779384,
+   "applicable": true,
+   "item": "claim 2",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 2",
+    "text": "Model health status at time step 48 was ok, with a window recall of 0.883621 and 232 illicit transactions in the window, according to health:41.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 48"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|12779384": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 12779384,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Features f53, f59, f90, f2, and f132 pushed the illicit score up, as recorded in score:12779384.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|12779384": {
+   "fault": "F3 polarity flip",
+   "tx_id": 12779384,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|12779384": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 12779384,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence does not mention darknet markets at all."
+   }
+  },
+  "F5 overstated|12779384": {
+   "fault": "F5 overstated",
+   "tx_id": 12779384,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The evidence provides a high calibrated probability (0.988235) and alert status, which indicates a high risk, but a model score alone does not absolutely confirm and prove illicit activity."
+   }
+  },
+  "F6 fabricated quote|12779384": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 12779384,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|12779384": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 12779384,
+   "applicable": true,
+   "item": "signal_conflict",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "signal_conflict",
+    "text": "Signal conflict: the model score 0.999729 (risk band high; evidence score:12779384) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:12779384:1:in) point in different directions.",
+    "ok": false,
+    "deterministic_reasons": [
+     "signal_conflict is missing: the required sentence was not carried into the memo"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F1 numeric tamper|13383872": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 13383872,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Transaction 13383879 at time step 41 scored 0.563082 on scale raw_lightgbm_predict_proba with a calibrated probability of 0.4, placing it in the medium risk band and triggering an alert.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 1.33839e+07"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|13383872": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 13383872,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Transaction 13383872 at time step 41 scored 0.563082 on scale raw_lightgbm_predict_proba with a calibrated probability of 0.4, placing it in the medium risk band and triggering an alert.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|13383872": {
+   "fault": "F3 polarity flip",
+   "tx_id": 13383872,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|13383872": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 13383872,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence contains no mention of a darknet market."
+   }
+  },
+  "F5 overstated|13383872": {
+   "fault": "F5 overstated",
+   "tx_id": 13383872,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The claim states that the model score confirms and proves illicit activity, whereas the evidence shows a medium risk band with a calibrated probability of 0.4 and an alert status, which indicates suspicion rather than absolute confirmation or proof."
+   }
+  },
+  "F6 fabricated quote|13383872": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 13383872,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|13383872": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 13383872,
+   "applicable": false
+  },
+  "F1 numeric tamper|29935560": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 29935560,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction matched a chain structural pattern with a chain length of 11 which is associated with a higher illicit rate in training-period data.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 11"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|29935560": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 29935560,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction matched a chain structural pattern with a chain length of 4, which is associated with a higher illicit rate in training-period data.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|29935560": {
+   "fault": "F3 polarity flip",
+   "tx_id": 29935560,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction matched a chain structural pattern with a chain length of 4, which is associated with a lower illicit rate in training-period data.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The evidence states that the pattern raises risk, with an observed illicit rate of 0.257318 compared to a baseline of 0.115809, and evidence direction 'raises_risk'. Claiming it is associated with a lower illicit rate contradicts the cited evidence."
+   }
+  },
+  "F4 unsupported claim, valid id|29935560": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 29935560,
+   "applicable": true,
+   "item": "claim 4",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 4",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence contains score and feature attribution data, but does not state that the transaction is linked to a known darknet market."
+   }
+  },
+  "F5 overstated|29935560": {
+   "fault": "F5 overstated",
+   "tx_id": 29935560,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The evidence explicitly states that the pattern shows structural resemblance only, has an observed illicit rate of 0.257, and that Elliptic has no typology labels. Claiming it 'confirms and proves' illicit activity is overly certain."
+   }
+  },
+  "F6 fabricated quote|29935560": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 29935560,
+   "applicable": true,
+   "item": "background 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "background 1",
+    "text": "FinCEN guidance lists unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions as general suspicious activity indicators.",
+    "ok": false,
+    "deterministic_reasons": [
+     "quote '\u2022 unusually complex series of transactio' is not a verbatim substring of any cited chunk"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F7 dropped signal_conflict|29935560": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 29935560,
+   "applicable": true,
+   "item": "signal_conflict",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "signal_conflict",
+    "text": "Signal conflict: the model score 4.5e-05 (risk band low; evidence score:29935560) and the structural pattern chain (evidence direction raises_risk; evidence typology:29935560) point in different directions.",
+    "ok": false,
+    "deterministic_reasons": [
+     "signal_conflict is missing: the required sentence was not carried into the memo"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F1 numeric tamper|54925062": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 54925062,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Model health check status is ok with a window recall of 1.352548, reference recall of 0.98308, 471 illicit transactions in window, and a lag of 2.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 1.35255"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|54925062": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 54925062,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Model health check status is ok with a window recall of 0.987261, reference recall of 0.98308, 471 illicit transactions in window, and a lag of 2.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|54925062": {
+   "fault": "F3 polarity flip",
+   "tx_id": 54925062,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|54925062": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 54925062,
+   "applicable": true,
+   "item": "claim 5",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 5",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited score evidence does not mention any darknet market linkage."
+   }
+  },
+  "F5 overstated|54925062": {
+   "fault": "F5 overstated",
+   "tx_id": 54925062,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model score is 1.5e-05 with a calibrated probability of 0.0 and low risk band, meaning it does not confirm or prove illicit activity."
+   }
+  },
+  "F6 fabricated quote|54925062": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 54925062,
+   "applicable": true,
+   "item": "background 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "background 1",
+    "text": "FATF guidance lists red flag indicators involving multiple layering of fiat funds and transfers across multiple accounts before virtual asset purchases.",
+    "ok": false,
+    "deterministic_reasons": [
+     "quote 'In various instances, the individuals sh' is not a verbatim substring of any cited chunk"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F7 dropped signal_conflict|54925062": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 54925062,
+   "applicable": true,
+   "item": "signal_conflict",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "signal_conflict",
+    "text": "Signal conflict: the model score 1.5e-05 (risk band low; evidence score:54925062) and the structural pattern chain (evidence direction raises_risk; evidence typology:54925062) point in different directions.",
+    "ok": false,
+    "deterministic_reasons": [
+     "signal_conflict is missing: the required sentence was not carried into the memo"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F1 numeric tamper|66666000": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 66666000,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Transaction 66666007 at time step 38 received a raw LightGBM predict probability score of 0.854182, placing it in the high risk band above the alert threshold of 0.258181 and high threshold of 0.788025.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 6.6666e+07"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|66666000": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 66666000,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Transaction 66666000 at time step 38 received a raw LightGBM predict probability score of 0.854182, placing it in the high risk band above the alert threshold of 0.258181 and high threshold of 0.788025.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|66666000": {
+   "fault": "F3 polarity flip",
+   "tx_id": 66666000,
+   "applicable": true,
+   "item": "claim 4",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 4",
+    "text": "The transaction matched the fan_in structural pattern with an in-degree of 25, which matches training-period data where this pattern was associated with a higher illicit rate than the baseline.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The claim states that the pattern was associated with a higher illicit rate than the baseline, whereas the evidence explicitly states it was associated with a LOWER illicit rate."
+   }
+  },
+  "F4 unsupported claim, valid id|66666000": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 66666000,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence does not contain any information about a darknet market connection."
+   }
+  },
+  "F5 overstated|66666000": {
+   "fault": "F5 overstated",
+   "tx_id": 66666000,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model gives a high score and probability of illicit activity, but a probabilistic score does not 'confirm and prove' it."
+   }
+  },
+  "F6 fabricated quote|66666000": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 66666000,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|66666000": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 66666000,
+   "applicable": true,
+   "item": "signal_conflict",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "signal_conflict",
+    "text": "Signal conflict: the model score 0.854182 (risk band high; evidence score:66666000) and the structural pattern fan_in (evidence direction lowers_risk; evidence typology:66666000) point in different directions.",
+    "ok": false,
+    "deterministic_reasons": [
+     "signal_conflict is missing: the required sentence was not carried into the memo"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F1 numeric tamper|69763472": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 69763472,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction matched a chain structural pattern with a chain length of 12 which exceeds the threshold of 4, showing an observed illicit rate of 0.257318 compared to a baseline illicit rate of 0.115809 and a lift of 2.221913.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 12"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|69763472": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 69763472,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction matched a chain structural pattern with a chain length of 5, which exceeds the threshold of 4, showing an observed illicit rate of 0.257318 compared to a baseline illicit rate of 0.115809 and a lift of 2.221913.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|69763472": {
+   "fault": "F3 polarity flip",
+   "tx_id": 69763472,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|69763472": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 69763472,
+   "applicable": true,
+   "item": "claim 4",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 4",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence only provides model score details and feature contributions; it does not state that the transaction is linked to a known darknet market."
+   }
+  },
+  "F5 overstated|69763472": {
+   "fault": "F5 overstated",
+   "tx_id": 69763472,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The evidence shows a low score (0.000318) and explicitly states a caveat that the pattern is structural resemblance only with no typology labels and does not confirm illicit activity."
+   }
+  },
+  "F6 fabricated quote|69763472": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 69763472,
+   "applicable": true,
+   "item": "background 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "background 1",
+    "text": "FATF guidance discusses virtual asset red flags including multiple layering of fiat funds prior to virtual asset purchases.",
+    "ok": false,
+    "deterministic_reasons": [
+     "quote 'In various instances, the fabricated wor' is not a verbatim substring of any cited chunk"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F7 dropped signal_conflict|69763472": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 69763472,
+   "applicable": true,
+   "item": "signal_conflict",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "signal_conflict",
+    "text": "Signal conflict: the model score 0.000318 (risk band low; evidence score:69763472) and the structural pattern chain (evidence direction raises_risk; evidence typology:69763472) point in different directions.",
+    "ok": false,
+    "deterministic_reasons": [
+     "signal_conflict is missing: the required sentence was not carried into the memo"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F1 numeric tamper|70365734": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 70365734,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction received a raw_lightgbm_predict_proba score of 1.369975, placing it in the high risk band with a calibrated probability of 1.0.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 1.36997"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|70365734": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 70365734,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction received a raw_lightgbm_predict_proba score of 0.999982, placing it in the high risk band with a calibrated probability of 1.0.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|70365734": {
+   "fault": "F3 polarity flip",
+   "tx_id": 70365734,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|70365734": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 70365734,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence contains no mention of a darknet market."
+   }
+  },
+  "F5 overstated|70365734": {
+   "fault": "F5 overstated",
+   "tx_id": 70365734,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model score indicates high risk or probability of being illicit (0.999982), but a predictive model score does not 'confirm and prove' that the transaction is illicit."
+   }
+  },
+  "F6 fabricated quote|70365734": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 70365734,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|70365734": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 70365734,
+   "applicable": true,
+   "item": "signal_conflict",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "signal_conflict",
+    "text": "Signal conflict: the model score 0.999982 (risk band high; evidence score:70365734) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:70365734:1:in) point in different directions.",
+    "ok": false,
+    "deterministic_reasons": [
+     "signal_conflict is missing: the required sentence was not carried into the memo"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F1 numeric tamper|73002915": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 73002915,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction at time step 49 received a raw LightGBM predict probability score of 0.999662 and a calibrated probability of 0.988235, exceeding the alert threshold of 0.258181 and high threshold of 0.788025.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 49"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|73002915": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 73002915,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction at time step 42 received a raw LightGBM predict probability score of 0.999662 and a calibrated probability of 0.988235, exceeding the alert threshold of 0.258181 and high threshold of 0.788025.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|73002915": {
+   "fault": "F3 polarity flip",
+   "tx_id": 73002915,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|73002915": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 73002915,
+   "applicable": true,
+   "item": "claim 7",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 7",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence does not mention any darknet market linkage."
+   }
+  },
+  "F5 overstated|73002915": {
+   "fault": "F5 overstated",
+   "tx_id": 73002915,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model score provides a high probability of illicit activity, but it does not definitively 'prove' it as a certainty."
+   }
+  },
+  "F6 fabricated quote|73002915": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 73002915,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|73002915": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 73002915,
+   "applicable": false
+  },
+  "F1 numeric tamper|73274568": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 73274568,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Model scoring for time step 49 produced a raw predict proba score of 0.019788 and a calibrated probability of 0.030534, falling into the low risk band with alert set to false.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 49"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|73274568": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 73274568,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Model scoring for time step 42 produced a raw predict proba score of 0.019788 and a calibrated probability of 0.030534, falling into the low risk band with alert set to false.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|73274568": {
+   "fault": "F3 polarity flip",
+   "tx_id": 73274568,
+   "applicable": true,
+   "item": "claim 4",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 4",
+    "text": "Typology matching identified a chain pattern with chain length 4 meeting the threshold of 4, with 1469 n_flagged, an observed illicit rate of 0.257318, baseline illicit rate of 0.115809, lift of 2.221913, and evidence direction lowers_risk.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The claim states the evidence direction is lowers_risk, whereas the cited evidence explicitly states the evidence direction is raises_risk."
+   }
+  },
+  "F4 unsupported claim, valid id|73274568": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 73274568,
+   "applicable": true,
+   "item": "claim 7",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 7",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence contains model scoring and feature shap values, but contains no mention of a darknet market."
+   }
+  },
+  "F5 overstated|73274568": {
+   "fault": "F5 overstated",
+   "tx_id": 73274568,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model score is 0.019788 with a calibrated probability of 0.030534, and alert is false (low risk band), which indicates low probability of illicit activity rather than confirming or proving it."
+   }
+  },
+  "F6 fabricated quote|73274568": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 73274568,
+   "applicable": true,
+   "item": "background 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "background 1",
+    "text": "FinCEN guidance lists unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions as general indicators of suspicious activity.",
+    "ok": false,
+    "deterministic_reasons": [
+     "quote '\u2022 unusually complex series of transactio' is not a verbatim substring of any cited chunk"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F7 dropped signal_conflict|73274568": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 73274568,
+   "applicable": true,
+   "item": "signal_conflict",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "signal_conflict",
+    "text": "Signal conflict: the model score 0.019788 (risk band low; evidence score:73274568) and the structural pattern chain (evidence direction raises_risk; evidence typology:73274568) point in different directions. Signal conflict: the model score 0.019788 (risk band low; evidence score:73274568) and the in-neighbour alerts (at least one of the 1 in-neighbours alerted; evidence neighbors:73274568:1:in) point in different directions.",
+    "ok": false,
+    "deterministic_reasons": [
+     "signal_conflict is missing: the required sentence was not carried into the memo"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F1 numeric tamper|74206107": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 74206107,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Transaction 74206114 at time step 39 scored 0.345277 on the raw lightgbm predict proba scale, resulting in a calibrated probability of 0.136364 and medium risk band alert status.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 7.42061e+07"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|74206107": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 74206107,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "Transaction 74206107 at time step 39 scored 0.345277 on the raw lightgbm predict proba scale, resulting in a calibrated probability of 0.136364 and medium risk band alert status.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|74206107": {
+   "fault": "F3 polarity flip",
+   "tx_id": 74206107,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|74206107": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 74206107,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence does not mention any link to a darknet market."
+   }
+  },
+  "F5 overstated|74206107": {
+   "fault": "F5 overstated",
+   "tx_id": 74206107,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The evidence shows a medium risk band with a score of 0.345277 and an alert status, but it does not confirm or prove that the transaction is part of illicit activity."
+   }
+  },
+  "F6 fabricated quote|74206107": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 74206107,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|74206107": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 74206107,
+   "applicable": false
+  },
+  "F1 numeric tamper|97132844": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 97132844,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction received a raw LightGBM predict proba score of 1.369956 with a calibrated probability of 1.0, placing it in the high risk band and triggering an alert.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 1.36996"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|97132844": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 97132844,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction received a raw LightGBM predict proba score of 0.999968 with a calibrated probability of 1.0, placing it in the high risk band and triggering an alert.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|97132844": {
+   "fault": "F3 polarity flip",
+   "tx_id": 97132844,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|97132844": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 97132844,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence contains no mention of a darknet market."
+   }
+  },
+  "F5 overstated|97132844": {
+   "fault": "F5 overstated",
+   "tx_id": 97132844,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model score indicates a high risk or probability of being illicit, but a probabilistic score does not definitively prove the transaction is part of illicit activity."
+   }
+  },
+  "F6 fabricated quote|97132844": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 97132844,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|97132844": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 97132844,
+   "applicable": false
+  },
+  "F1 numeric tamper|97930510": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 97930510,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score reached 1.141068 with a calibrated probability of 0.75, placing the transaction in the high risk band and above the alert threshold of 0.258181 and high threshold of 0.788025.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 1.14107"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|97930510": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 97930510,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score reached 0.832896 with a calibrated probability of 0.75, placing the transaction in the high risk band and above the alert threshold of 0.258181 and high threshold of 0.788025.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|97930510": {
+   "fault": "F3 polarity flip",
+   "tx_id": 97930510,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|97930510": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 97930510,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence contains no information regarding darknet markets or any link thereto."
+   }
+  },
+  "F5 overstated|97930510": {
+   "fault": "F5 overstated",
+   "tx_id": 97930510,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model score and calibrated probability indicate high risk and trigger an alert, but they do not 'confirm and prove' that the transaction is illicit."
+   }
+  },
+  "F6 fabricated quote|97930510": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 97930510,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|97930510": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 97930510,
+   "applicable": false
+  },
+  "F1 numeric tamper|97930880": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 97930880,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction received a raw lightgbm predict proba score of 1.341314, a calibrated probability of 0.987013, and triggered an alert exceeding the threshold of 0.258181 and the high threshold of 0.788025.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 1.34131"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|97930880": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 97930880,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction received a raw lightgbm predict proba score of 0.979061, a calibrated probability of 0.987013, and triggered an alert exceeding the threshold of 0.258181 and the high threshold of 0.788025.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|97930880": {
+   "fault": "F3 polarity flip",
+   "tx_id": 97930880,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|97930880": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 97930880,
+   "applicable": true,
+   "item": "claim 7",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 7",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence does not mention any connection to a known darknet market."
+   }
+  },
+  "F5 overstated|97930880": {
+   "fault": "F5 overstated",
+   "tx_id": 97930880,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model provides a high risk score and probability of illicit activity, but a model score does not definitively 'prove' the transaction is part of illicit activity."
+   }
+  },
+  "F6 fabricated quote|97930880": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 97930880,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|97930880": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 97930880,
+   "applicable": false
+  },
+  "F1 numeric tamper|98544621": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 98544621,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction at time_step 47 received a raw_lightgbm_predict_proba score of 0.993764 and a calibrated_probability of 0.988235, placing it in the high risk band and triggering an alert.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 47"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|98544621": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 98544621,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction at time_step 40 received a raw_lightgbm_predict_proba score of 0.993764 and a calibrated_probability of 0.988235, placing it in the high risk band and triggering an alert.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|98544621": {
+   "fault": "F3 polarity flip",
+   "tx_id": 98544621,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|98544621": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 98544621,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence does not contain any information about a darknet market."
+   }
+  },
+  "F5 overstated|98544621": {
+   "fault": "F5 overstated",
+   "tx_id": 98544621,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model score provides a high probability of illicit activity, but a probabilistic score does not absolutely prove it."
+   }
+  },
+  "F6 fabricated quote|98544621": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 98544621,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|98544621": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 98544621,
+   "applicable": true,
+   "item": "signal_conflict",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "signal_conflict",
+    "text": "Signal conflict: the model score 0.993764 (risk band high; evidence score:98544621) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:98544621:1:in) point in different directions.",
+    "ok": false,
+    "deterministic_reasons": [
+     "signal_conflict is missing: the required sentence was not carried into the memo"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F1 numeric tamper|105590801": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 105590801,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction scored 0.548023 with a raw_lightgbm_predict_proba score scale and a calibrated_probability of 0.136364, placing it in the medium risk band and triggering an alert.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 0.548023"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|105590801": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 105590801,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction scored 0.400017 with a raw_lightgbm_predict_proba score scale and a calibrated_probability of 0.136364, placing it in the medium risk band and triggering an alert.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|105590801": {
+   "fault": "F3 polarity flip",
+   "tx_id": 105590801,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|105590801": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 105590801,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence does not mention any darknet market linkage."
+   }
+  },
+  "F5 overstated|105590801": {
+   "fault": "F5 overstated",
+   "tx_id": 105590801,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model score indicates a medium risk band and an alert, but does not confirm or prove illicit activity."
+   }
+  },
+  "F6 fabricated quote|105590801": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 105590801,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|105590801": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 105590801,
+   "applicable": false
+  },
+  "F1 numeric tamper|114502915": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 114502915,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction received a raw LightGBM predict proba score of 0.509261 with an alert threshold of 0.258181, placing it in the medium risk band.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 0.509261"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|114502915": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 114502915,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction received a raw LightGBM predict proba score of 0.371723 with an alert threshold of 0.258181, placing it in the medium risk band.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|114502915": {
+   "fault": "F3 polarity flip",
+   "tx_id": 114502915,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|114502915": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 114502915,
+   "applicable": true,
+   "item": "claim 5",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 5",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence contains no mention of a darknet market."
+   }
+  },
+  "F5 overstated|114502915": {
+   "fault": "F5 overstated",
+   "tx_id": 114502915,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The evidence shows an alert and a medium risk band with a calibrated probability of 0.136364, which does not 'confirm and prove' illicit activity."
+   }
+  },
+  "F6 fabricated quote|114502915": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 114502915,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|114502915": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 114502915,
+   "applicable": false
+  },
+  "F1 numeric tamper|115924670": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 115924670,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction was assigned a raw LightGBM predict proba score of 1.363097 with a calibrated probability of 0.988235, placing it in the high risk band and triggering an alert.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 1.3631"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|115924670": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 115924670,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction was assigned a raw LightGBM predict proba score of 0.994961 with a calibrated probability of 0.988235, placing it in the high risk band and triggering an alert.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|115924670": {
+   "fault": "F3 polarity flip",
+   "tx_id": 115924670,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|115924670": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 115924670,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence contains no information regarding a darknet market."
+   }
+  },
+  "F5 overstated|115924670": {
+   "fault": "F5 overstated",
+   "tx_id": 115924670,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model provides a high risk score and probability, but a probabilistic score does not absolutely 'confirm and prove' illicit activity as a factual certainty."
+   }
+  },
+  "F6 fabricated quote|115924670": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 115924670,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|115924670": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 115924670,
+   "applicable": false
+  },
+  "F1 numeric tamper|148546737": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 148546737,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction at time step 46 received a raw score of 0.965522 and a calibrated probability of 0.933333, placing it in the high risk band above the high threshold of 0.788025.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 46"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|148546737": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 148546737,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction at time step 39 received a raw score of 0.965522 and a calibrated probability of 0.933333, placing it in the high risk band above the high threshold of 0.788025.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|148546737": {
+   "fault": "F3 polarity flip",
+   "tx_id": 148546737,
+   "applicable": false
+  },
+  "F4 unsupported claim, valid id|148546737": {
+   "fault": "F4 unsupported claim, valid id",
+   "tx_id": 148546737,
+   "applicable": true,
+   "item": "claim 6",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 6",
+    "text": "This transaction is linked to a known darknet market.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "unsupported",
+    "llm_reason": "The cited evidence does not mention any darknet market."
+   }
+  },
+  "F5 overstated|148546737": {
+   "fault": "F5 overstated",
+   "tx_id": 148546737,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "reviewer only",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The model score confirms and proves that this transaction is part of illicit activity.",
+    "ok": false,
+    "deterministic_reasons": [],
+    "llm_verdict": "overstated",
+    "llm_reason": "The model provides a high risk probability score and alert, but a predictive probability score does not definitively 'prove' illicit activity as a matter of absolute fact."
+   }
+  },
+  "F6 fabricated quote|148546737": {
+   "fault": "F6 fabricated quote",
+   "tx_id": 148546737,
+   "applicable": false
+  },
+  "F7 dropped signal_conflict|148546737": {
+   "fault": "F7 dropped signal_conflict",
+   "tx_id": 148546737,
+   "applicable": false
+  },
+  "F1 numeric tamper|198741596": {
+   "fault": "F1 numeric tamper",
+   "tx_id": 198741596,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction matched a chain structural pattern with a chain_len of 14 which exceeds the threshold of 4 and was observed in data with a baseline_illicit_rate of 0.115809 and an observed_illicit_rate of 0.257318.",
+    "ok": false,
+    "deterministic_reasons": [
+     "numbers not found in the cited evidence: 14"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F2 fabricated evidence_id|198741596": {
+   "fault": "F2 fabricated evidence_id",
+   "tx_id": 198741596,
+   "applicable": true,
+   "item": "claim 1",
+   "outcome": "deterministic",
+   "verdict": {
+    "round": 1,
+    "item": "claim 1",
+    "text": "The transaction matched a chain structural pattern with a chain_len of 7, which exceeds the threshold of 4 and was observed in data with a baseline_illicit_rate of 0.115809 and an observed_illicit_rate of 0.257318.",
+    "ok": false,
+    "deterministic_reasons": [
+     "unknown evidence_id 'score:0': not in the evidence ledger"
+    ],
+    "llm_verdict": null,
+    "llm_reason": null
+   }
+  },
+  "F3 polarity flip|198741596": {
+   "fault": "F3 polarity flip",
+   "tx_id": 198741596,
+   "applicable": false
+  }
+ },
+ "stopped": "daily quota exhausted: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and "
+}

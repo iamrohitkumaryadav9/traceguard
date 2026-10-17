@@ -1,0 +1,15 @@
+{
+ "models_tried": [
+  "gemini-3.8-flash",
+  "gemini-3.5-flash-lite"
+ ],
+ "stopped": "all candidate models exhausted",
+ "quota_switches": [
+  "gemini-3.8-flash",
+  "gemini-3.5-flash-lite"
+ ],
+ "usable_models_in_order": [
+  "gemini-3.8-flash",
+  "gemini-3.5-flash-lite"
+ ]
+}
