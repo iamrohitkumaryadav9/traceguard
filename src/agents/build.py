@@ -6,11 +6,14 @@ from src.agents.memo import (
     RECOMMEND_REVIEW,
     EvidenceRow,
     MemoClaim,
+    LIMITATIONS,
+    PERIOD_NOTE,
     MemoHeader,
-    RegulatoryReference,
+    RegulatoryBackground,
     SARMemo,
 )
 from src.agents.state import AgentState, LedgerEntry
+from src.split import SHUTDOWN_STEP
 
 
 def entry_of(ledger: Dict[str, LedgerEntry], tool) -> Optional[LedgerEntry]:
@@ -30,12 +33,17 @@ def deterministic_claims(state: AgentState, include_score=True) -> List[MemoClai
             text=f"At time step {o['time_step']} the model gave a raw score of {o['score']} (risk band {o['risk_band']}); "
                  f"the alert threshold is {o['alert_threshold']} and the high-risk threshold is {o['high_threshold']}.",
             evidence_ids=[o["evidence_id"]]))
-        for r in o.get("reasons", [])[:3]:
-            word = "up" if r["direction"].startswith("raises") else "down"
+        reasons = o.get("reasons", [])[:3]
+        if reasons:  # one claim listing the top features, citing the score evidence
+            ups = [r["feature"] for r in reasons if r["direction"].startswith("raises")]
+            downs = [r["feature"] for r in reasons if not r["direction"].startswith("raises")]
+            parts = []
+            if ups:
+                parts.append(f"{'Feature' if len(ups) == 1 else 'Features'} {', '.join(ups)} pushed the score up")
+            if downs:
+                parts.append(f"{'feature' if len(downs) == 1 else 'features'} {', '.join(downs)} pushed the score down")
             claims.append(MemoClaim(
-                text=f"Feature {r['feature']} pushed the score {word} (SHAP value {r['shap_value']}); "
-                     f"feature names are anonymized in the dataset.",
-                evidence_ids=[o["evidence_id"]]))
+                text="; ".join(parts) + "; feature names are anonymized in the dataset.", evidence_ids=[o["evidence_id"]]))
     if health:
         o = health.output
         wr = f"{o['window_recall']}" if o.get("window_recall") is not None else "not available"
@@ -73,8 +81,8 @@ def make_header(state: AgentState, now_iso: str, rated=True) -> MemoHeader:
         generated_at=now_iso)
 
 
-def evidence_table(state: AgentState, claims, refs) -> List[EvidenceRow]:
-    ids = []
+def evidence_table(state: AgentState, claims, refs, extra_ids=()) -> List[EvidenceRow]:
+    ids = list(extra_ids)
     for c in claims:
         ids += c.evidence_ids
     for r in refs:
@@ -87,14 +95,14 @@ def evidence_table(state: AgentState, claims, refs) -> List[EvidenceRow]:
     return rows
 
 
-def regulatory_references(state: AgentState, refs) -> List[RegulatoryReference]:
+def regulatory_background(state: AgentState, refs) -> List[RegulatoryBackground]:
     out = []
     for r in refs:
         e = state.ledger.get(r.evidence_id)
         if e is None or "error" in e.output:
             continue
         o = e.output
-        out.append(RegulatoryReference(
+        out.append(RegulatoryBackground(
             paraphrase=r.paraphrase, source_doc=f"{o.get('publisher')} {o.get('year')}: {o.get('title')}",
             doc_id=o.get("doc_id", ""), evidence_id=r.evidence_id, quotable=bool(o.get("quotable", True)),
             quote=r.quote))
@@ -103,10 +111,17 @@ def regulatory_references(state: AgentState, refs) -> List[RegulatoryReference]:
 
 def assemble(state: AgentState, now_iso, status, claims, refs, verification="not applicable", removed=None,
              notes=None, rated=True, recommendation=RECOMMEND_REVIEW) -> SARMemo:
+    limitations = list(LIMITATIONS)
+    if state.time_step is not None and state.time_step >= SHUTDOWN_STEP:
+        limitations.append(PERIOD_NOTE)  # text only; gating is unchanged
     return SARMemo(
-        header=make_header(state, now_iso, rated), activity_description=list(claims),
-        evidence_table=evidence_table(state, claims, refs), regulatory_references=regulatory_references(state, refs),
-        recommendation=recommendation, status=status, verification=verification,
+        header=make_header(state, now_iso, rated),
+        signal_conflict=state.signal_conflict if rated else None,
+        signal_conflict_evidence_ids=state.signal_conflict_evidence_ids if rated else [],
+        activity_description=list(claims),
+        evidence_table=evidence_table(state, claims, refs, state.signal_conflict_evidence_ids if rated else ()),
+        regulatory_background=regulatory_background(state, refs),
+        limitations=limitations, recommendation=recommendation, status=status, verification=verification,
         removed_claims=removed or [], notes=notes or [])
 
 

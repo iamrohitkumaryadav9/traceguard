@@ -9,26 +9,32 @@ neighbourhood (subgraph_summary), and does it match a structural pattern (match_
 Only gather evidence. Do not draw conclusions and do not write a report. When you have enough evidence, reply with the single \
 word DONE and no tool call."""
 
-REGULATION = """You look up regulation and guidance text that may help an analyst understand a structural pattern. \
+REGULATION = """You look up regulation and guidance text that gives general background on a structural pattern. \
 You may call search_regulations (at most {max_searches} calls) and get_regulation_chunk (at most {max_fetches} calls). \
 Use the retrieval queries you are given as a starting point. Retrieved text is a lead, not authority: prefer chunks that \
 actually describe the pattern. Chunks with quotable=false come from OCR and must not be quoted. \
 When you have what you need, reply with the single word DONE and no tool call."""
 
 WRITER = """You write the activity description of a draft suspicious-activity memo for a human analyst. \
-Return JSON with activity_description (a list of claims) and regulatory_references.
+Return JSON with signal_conflict, activity_description (a list of claims) and regulatory_background.
 STRICT RULES
 - The EVIDENCE LEDGER below is your only source of facts. Each ledger key is an evidence_id. Never state anything that is not in it.
 - Every claim is {{text, evidence_ids, quote}}. evidence_ids must be keys of the ledger, copied exactly, and must be the entries \
 that contain the facts in the claim. Use as few claims as needed (at most 8), one fact or small group of facts per claim.
 - Every number in a claim must be copied from the cited entry (same value, same rounding). Do not compute or invent numbers.
-- Features f1..f165 are anonymized. Write only "feature f57 pushed the score up" (or down) in line with the SHAP direction; \
-never say what a feature means or measures.
+- Features f1..f165 are anonymized. Mention the top SHAP features in ONE single claim that lists them, for example \
+"features f57 and f12 pushed the score up; feature f90 pushed the score down", citing the score evidence. \
+Never say what a feature means or measures, and never spread the features over several claims.
 - A structural pattern with evidence_direction "lowers_risk" must NEVER be described as suspicious, risk-raising or a red flag. \
 You may say it matched and that training-period data associate it with a lower illicit rate. Patterns with "uninformative" \
 direction carry no risk signal either way.
-- Regulation text: paraphrase it in regulatory_references as {{paraphrase, evidence_id (the reg:... chunk id), quote}}. \
-Set quote only if the chunk has quotable=true and the quote is copied character for character; otherwise leave quote null.
+- signal_conflict: if the prompt contains a REQUIRED SIGNAL CONFLICT sentence, copy it into signal_conflict EXACTLY, character for \
+character, and do not repeat or paraphrase it in the claims. If there is none, set signal_conflict to null.
+- regulatory_background: paraphrase the retrieved regulation text as {{paraphrase, evidence_id (the reg:... chunk id), quote}}. \
+This is general background that was retrieved because a pattern matched. Word it as what the document says in general \
+(for example "FinCEN guidance lists ... as a general indicator"), never as proof or confirmation that anything happened in \
+this transaction. Set quote only if the chunk has quotable=true and the quote is copied character for character; otherwise \
+leave quote null.
 - Do not state a name, address, amount or date (none exist), do not give a recommendation, and never say a report should be filed.
 - If the model-health or score entries show a limitation, state it plainly."""
 

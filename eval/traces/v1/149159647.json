@@ -1,0 +1,160 @@
+{
+  "tx_id": 149159647,
+  "time_step": 39,
+  "status": "no_action_model_based",
+  "error": null,
+  "model": "gemini-3.5-flash-lite",
+  "temperature": 0,
+  "nodes_visited": [
+    "triage",
+    "finalize"
+  ],
+  "counts": {
+    "tool_calls_investigator": 0,
+    "searches": 0,
+    "chunk_fetches": 0,
+    "llm_calls": 0,
+    "critic_loops": 0,
+    "tool_calls_total": 3
+  },
+  "caps": {
+    "tool_calls": 8,
+    "searches": 3,
+    "critic_loops": 2,
+    "llm_calls": 30
+  },
+  "latency_s": {
+    "total": 0.084,
+    "llm_throttle_wait": 0.0
+  },
+  "tokens": {
+    "prompt": 0,
+    "output": 0
+  },
+  "critic_verdicts": [],
+  "events": [
+    {
+      "t": 0.063,
+      "node": "triage",
+      "event": "tool_call",
+      "tool": "score_transaction",
+      "args": {
+        "tx_id": 149159647
+      },
+      "evidence_id": "score:149159647",
+      "ms": 27.5,
+      "error": null
+    },
+    {
+      "t": 0.078,
+      "node": "triage",
+      "event": "tool_call",
+      "tool": "check_model_health",
+      "args": {
+        "time_step": 39
+      },
+      "evidence_id": "health:39",
+      "ms": 15.1,
+      "error": null
+    },
+    {
+      "t": 0.079,
+      "node": "triage",
+      "event": "tool_call",
+      "tool": "match_typology",
+      "args": {
+        "tx_id": 149159647
+      },
+      "evidence_id": "typology:149159647",
+      "ms": 0.2,
+      "error": null
+    },
+    {
+      "t": 0.079,
+      "node": "triage",
+      "event": "decision",
+      "status": "no_action_model_based",
+      "risk_band": "low",
+      "health": "ok",
+      "patterns": []
+    }
+  ],
+  "memo": {
+    "header": {
+      "tx_id": 149159647,
+      "time_step": 39,
+      "risk_band": "low",
+      "score": 8.5e-05,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.0,
+      "thresholds": {
+        "alert": 0.258181,
+        "high": 0.788025
+      },
+      "model_health": {
+        "status": "ok",
+        "window_recall": 0.937255,
+        "reference_recall": 0.98308,
+        "n_illicit_in_window": 255
+      },
+      "generated_at": "2026-10-17T18:13:54+0530"
+    },
+    "subject": {
+      "names": "not available in dataset",
+      "addresses": "not available in dataset",
+      "amounts": "not available in dataset",
+      "dates": "not available in dataset"
+    },
+    "activity_description": [
+      {
+        "text": "At time step 39 the model gave a raw score of 8.5e-05 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+        "evidence_ids": [
+          "score:149159647"
+        ],
+        "quote": null
+      },
+      {
+        "text": "Model health check at time step 39: status ok; recall in the delayed-label window was 0.937255 against a reference recall of 0.98308 over 255 labeled illicit nodes.",
+        "evidence_ids": [
+          "health:39"
+        ],
+        "quote": null
+      },
+      {
+        "text": "No structural pattern with a risk-raising direction matched this transaction.",
+        "evidence_ids": [
+          "typology:149159647"
+        ],
+        "quote": null
+      }
+    ],
+    "evidence_table": [
+      {
+        "evidence_id": "score:149159647",
+        "tool": "score_transaction"
+      },
+      {
+        "evidence_id": "health:39",
+        "tool": "check_model_health"
+      },
+      {
+        "evidence_id": "typology:149159647",
+        "tool": "match_typology"
+      }
+    ],
+    "regulatory_references": [],
+    "limitations": [
+      "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+      "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+      "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+      "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+      "Structural patterns are resemblances only: Elliptic has no typology labels.",
+      "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "no action suggested, model-based only",
+    "status": "no_action_model_based",
+    "verification": "not applicable",
+    "removed_claims": [],
+    "notes": []
+  }
+}

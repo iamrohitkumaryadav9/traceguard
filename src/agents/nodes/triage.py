@@ -1,4 +1,5 @@
-"""Triage: deterministic, no LLM. Decides whether the investigation runs at all."""
+"""Triage: deterministic, no LLM. Decides whether the investigation runs at all, and computes the signal conflict."""
+from src.agents.conflict import detect_signal_conflict
 from src.agents.runtime import Deps, call_tool, log
 from src.agents.state import AgentState
 
@@ -21,6 +22,12 @@ def triage(state: AgentState, deps: Deps) -> AgentState:
         state.status = "no_action_model_based"
     else:
         state.status = "investigating"
+
+    if state.status != "cannot_assess":  # no score is shown for cannot_assess, so there is nothing to conflict with
+        # in-neighbour alerts are part of the conflict test; this deterministic call is not an investigator call
+        nbrs = call_tool(state, deps, "triage", "get_neighbors", {"tx_id": state.tx_id, "hops": 1, "direction": "in"})
+        state.signal_conflict, state.signal_conflict_evidence_ids = detect_signal_conflict(score, typ, nbrs)
     log(state, deps, "triage", "decision", status=state.status, risk_band=score["risk_band"],
-        health=health.get("status"), patterns=[(m["pattern"], m["evidence_direction"]) for m in typ.get("matches", [])])
+        health=health.get("status"), patterns=[(m["pattern"], m["evidence_direction"]) for m in typ.get("matches", [])],
+        signal_conflict=state.signal_conflict)
     return state

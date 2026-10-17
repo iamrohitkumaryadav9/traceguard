@@ -26,8 +26,9 @@ class RegReference(BaseModel):
 
 class WriterOutput(BaseModel):
     """What the writer LLM fills in. Everything else in the memo is built by code."""
+    signal_conflict: Optional[str] = None  # must be the required sentence copied unchanged, or null when none is required
     activity_description: List[Claim]
-    regulatory_references: List[RegReference] = Field(default_factory=list)
+    regulatory_background: List[RegReference] = Field(default_factory=list)
 
 
 class CriticVerdict(BaseModel):
@@ -49,6 +50,8 @@ class AgentState(BaseModel):
     chunk_fetch_count: int = 0
     llm_call_count: int = 0
     critic_loops: int = 0
+    signal_conflict: Optional[str] = None  # computed in triage, deterministic
+    signal_conflict_evidence_ids: List[str] = Field(default_factory=list)
     status: str = "started"
     memo: Optional[SARMemo] = None
     draft: Optional[WriterOutput] = None

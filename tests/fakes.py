@@ -59,6 +59,25 @@ def done():
     return LLMTurn(text="DONE")
 
 
+CONFLICT_MARKER = "REQUIRED SIGNAL CONFLICT (copy into signal_conflict unchanged):\n"
+
+
+def required_conflict(prompt):
+    """The signal_conflict sentence the writer prompt demands, or None if the prompt says there is none."""
+    return prompt.split(CONFLICT_MARKER)[1].split("\n")[0] if CONFLICT_MARKER in prompt else None
+
+
+def carry_conflict(drafts):
+    """Writer script: returns the drafts in order (the last repeats), copying the required conflict sentence unchanged."""
+    drafts = list(drafts)
+
+    def script(prompt):
+        d = drafts.pop(0) if len(drafts) > 1 else drafts[0]
+        return d.model_copy(update={"signal_conflict": required_conflict(prompt)})
+
+    return script
+
+
 def all_supported(prompt):
     n = prompt.count("ITEM ")
     return JudgeOutput(verdicts=[JudgeVerdict(index=i, verdict="supported", reason="ok") for i in range(n)])

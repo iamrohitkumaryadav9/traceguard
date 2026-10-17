@@ -83,6 +83,28 @@ def shap_reasons(ledger: Dict[str, LedgerEntry]):
     return out
 
 
+def background_provenance_reasons(evidence_id: str, ledger: Dict[str, LedgerEntry]) -> List[str]:
+    """Regulatory background must come from a search that a matched pattern triggered (a pattern with a non-null
+    retrieval_query), so it can never be fetched to support a pattern that lowers risk."""
+    e = ledger.get(evidence_id)
+    if e is None or e.tool not in ("search_regulations", "get_regulation_chunk"):
+        return [f"background {evidence_id!r} does not come from a regulation search in this run"]
+    triggered = any(m.get("retrieval_query")
+                    for x in ledger.values() if x.tool == "match_typology" for m in x.output.get("matches", []))
+    return [] if triggered else ["background was not triggered by a matched pattern with a retrieval query"]
+
+
+def signal_conflict_reasons(expected: Optional[str], actual: Optional[str]) -> List[str]:
+    """The writer must carry the required sentence unchanged, and must not invent one when none is required."""
+    if expected is None and actual:
+        return ["signal_conflict must be null: no signal conflict was detected"]
+    if expected is not None and actual is None:
+        return ["signal_conflict is missing: the required sentence was not carried into the memo"]
+    if expected is not None and actual != expected:
+        return ["signal_conflict was altered: it must be copied unchanged, character for character"]
+    return []
+
+
 def find_quotes(text, quote: Optional[str]):
     quotes = [q.strip() for q in QUOTED.findall(text or "")]
     if quote:

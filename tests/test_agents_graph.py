@@ -9,7 +9,7 @@ from src.agents.memo import NOT_AVAILABLE, RECOMMEND_NO_ACTION, RECOMMEND_REVIEW
 from src.agents.runtime import Deps, default_run_tool
 from src.agents.state import Claim, RegReference, WriterOutput
 from src.rag.retriever import Retriever, set_retriever
-from tests.fakes import FakeLLM, all_supported, call, done
+from tests.fakes import FakeLLM, all_supported, call, carry_conflict, done
 from tests.test_rag import FakeEmbedder, mk_chunk
 
 HEALTH_DEGRADED_TX = 1000 + 13 * 35  # health_ctx: first node of time step 43 (window recall 1/3 < 0.5)
@@ -76,7 +76,7 @@ def test_tool_call_cap_is_enforced(ctx):
     assert state.status == "budget_exceeded"
     assert state.tool_call_count == config.MAX_TOOL_CALLS == 8
     assert sum(1 for e in state.trace if e["event"] == "tool_call" and e["node"] == "investigator") == 8
-    assert seen.count("get_neighbors") == 8  # the 9th attempt never ran
+    assert seen.count("get_neighbors") == 9  # 1 deterministic triage call + 8 investigator calls; the 9th investigator attempt never ran
     assert state.memo is not None and "budget" in " ".join(state.memo.notes)
     assert state.memo.subject.addresses == NOT_AVAILABLE
 
@@ -154,13 +154,15 @@ def test_claim_calling_fan_in_suspicious_is_rejected(ctx):
     ok = WriterOutput(activity_description=[
         Claim(text="The fan_in pattern matched, but in training-period data it was associated with a lower illicit rate.",
               evidence_ids=["typology:4"])])
+    # high band with only a lowers_risk pattern is also a signal conflict, which the writer must carry unchanged
     llm = FakeLLM(chat_scripts={"investigator": [done()]},
-                  structured_scripts={"writer": [bad, ok], "critic": all_supported})
+                  structured_scripts={"writer": carry_conflict([bad, ok]), "critic": all_supported})
     state, _ = run(llm, FOCAL)
     assert "regulation" not in state.nodes_visited  # a lowers_risk pattern has a null retrieval_query
     r1 = [v for v in state.critic_verdicts if v.round == 1][0]
     assert not r1.ok and "lowers_risk pattern fan_in" in r1.deterministic_reasons[0]
     assert state.status == "verified"
+    assert state.memo.signal_conflict and "lowers_risk" in state.memo.signal_conflict
     assert state.ledger["typology:4"].output["matches"][0]["retrieval_query"] is None
 
 
@@ -173,20 +175,20 @@ def test_quote_from_non_quotable_document_is_rejected(ctx):
         search = call("search_regulations", query="reporting entities file a suspicious transaction report", k=2)
         bad = WriterOutput(activity_description=[
             Claim(text="The transaction matched a pattern.", evidence_ids=["typology:4"])],
-            regulatory_references=[RegReference(paraphrase="Reports are due regardless of amount.",
+            regulatory_background=[RegReference(paraphrase="Reports are due regardless of amount.",
                                                 evidence_id="reg:doc_ocr:p1:c0", quote="suspicious transaction report irrespective of the amount")])
         ok = WriterOutput(activity_description=bad.activity_description,
-                          regulatory_references=[RegReference(paraphrase="Reports are due regardless of amount.",
+                          regulatory_background=[RegReference(paraphrase="Reports are due regardless of amount.",
                                                               evidence_id="reg:doc_ocr:p1:c0")])
         llm = FakeLLM(chat_scripts={"investigator": [done()], "regulation": [search, done()]},
                       structured_scripts={"writer": [bad, ok], "critic": all_supported})
         state, _ = run(llm, FOCAL)
     finally:
         set_retriever(None)
-    r1 = [v for v in state.critic_verdicts if v.round == 1 and v.item == "reference 1"][0]
+    r1 = [v for v in state.critic_verdicts if v.round == 1 and v.item == "background 1"][0]
     assert not r1.ok and "quotable=false" in r1.deterministic_reasons[0]
     assert state.status == "verified"
-    ref = state.memo.regulatory_references[0]
+    ref = state.memo.regulatory_background[0]
     assert ref.quotable is False and ref.quote is None
 
 
@@ -195,15 +197,15 @@ def test_verbatim_quote_from_quotable_chunk_is_accepted(ctx):
     set_retriever(Retriever([mk_chunk("doc_pdf", "US", 1, 0, text)], FakeEmbedder()))
     try:
         out = WriterOutput(activity_description=[Claim(text="The transaction matched a pattern.", evidence_ids=["typology:4"])],
-                           regulatory_references=[RegReference(paraphrase="Transmitters must register.",
+                           regulatory_background=[RegReference(paraphrase="Transmitters must register.",
                                                                evidence_id="reg:doc_pdf:p1:c0", quote="must register with FinCEN")])
         llm = FakeLLM(chat_scripts={"investigator": [done()], "regulation": [call("search_regulations", query="money transmitters register"), done()]},
                       structured_scripts={"writer": [out], "critic": all_supported})
         state, _ = run(llm, FOCAL)
     finally:
         set_retriever(None)
-    assert state.status == "verified" and state.memo.regulatory_references[0].quote == "must register with FinCEN"
-    assert state.memo.regulatory_references[0].quotable is True
+    assert state.status == "verified" and state.memo.regulatory_background[0].quote == "must register with FinCEN"
+    assert state.memo.regulatory_background[0].quotable is True
 
 
 def test_two_failed_critic_loops_end_partially_verified(ctx):
@@ -261,7 +263,7 @@ def test_subject_fields_are_always_not_available_in_dataset(ctx, health_ctx):
 def _minimal_memo():
     return {"header": {"tx_id": 1, "time_step": 1, "risk_band": None, "score": None, "calibrated_probability": None,
                        "thresholds": {}, "model_health": {}, "generated_at": "now"},
-            "activity_description": [], "evidence_table": [], "regulatory_references": [],
+            "activity_description": [], "evidence_table": [], "regulatory_background": [],
             "recommendation": RECOMMEND_REVIEW, "status": "x", "verification": "not applicable"}
 
 

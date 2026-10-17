@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from src.agents import config, prompts
 from src.agents.build import assemble
-from src.agents.checks import check_item
+from src.agents.checks import FEATURE, background_provenance_reasons, check_item, signal_conflict_reasons
 from src.agents.memo import MemoClaim
 from src.agents.runtime import Deps, count_llm_call, log
 from src.agents.state import AgentState, CriticVerdict, RegReference
@@ -49,9 +49,17 @@ def critic(state: AgentState, deps: Deps) -> AgentState:
     fetch = make_fetch_chunk(deps)
     draft = state.draft
     items = [("claim", c.text, c.evidence_ids, c.quote) for c in draft.activity_description] + \
-            [("reference", r.paraphrase, [r.evidence_id], r.quote) for r in draft.regulatory_references]
+            [("background", r.paraphrase, [r.evidence_id], r.quote) for r in draft.regulatory_background]
 
     det = [check_item(text, eids, quote, state.ledger, fetch) for _, text, eids, quote in items]
+    # design rules on top of the per-claim checks: SHAP features in ONE claim; background only from a pattern-triggered search
+    feature_claims = [i for i, it in enumerate(items) if it[0] == "claim" and FEATURE.search(it[1])]
+    for i in feature_claims[1:]:
+        det[i].append("feature claims must be merged into one claim listing the top features")
+    for i, it in enumerate(items):
+        if it[0] == "background":
+            det[i] += background_provenance_reasons(it[2][0], state.ledger)
+    conflict_reasons = signal_conflict_reasons(state.signal_conflict, draft.signal_conflict)
     passing = [i for i, r in enumerate(det) if not r]
     judged = {}
     if passing:  # the LLM only looks at items that survived the deterministic checks
@@ -69,7 +77,7 @@ def critic(state: AgentState, deps: Deps) -> AgentState:
         extra = [f"reviewer says {judged[i][0]}: {judged[i][1]}"] if i in judged and judged[i][0] != "supported" else []
         return det[i] + extra
 
-    verdicts, failed, counters = [], [], {"claim": 0, "reference": 0}
+    verdicts, failed, counters = [], [], {"claim": 0, "background": 0}
     for i, (kind, text, eids, quote) in enumerate(items):
         counters[kind] += 1
         lv, lr = judged.get(i, (None, None))
@@ -78,14 +86,20 @@ def critic(state: AgentState, deps: Deps) -> AgentState:
                                       deterministic_reasons=det[i], llm_verdict=lv, llm_reason=lr))
         if not ok:
             failed.append(i)
+    if state.signal_conflict is not None or draft.signal_conflict:  # checked by code only, never by the LLM
+        verdicts.append(CriticVerdict(round=rnd, item="signal_conflict", text=draft.signal_conflict or state.signal_conflict,
+                                      ok=not conflict_reasons, deterministic_reasons=conflict_reasons))
     state.critic_verdicts += verdicts
     empty = not draft.activity_description
-    log(state, deps, "critic", "verdicts", round=rnd, items=len(items), failed=len(failed), empty_draft=empty)
+    log(state, deps, "critic", "verdicts", round=rnd, items=len(items), failed=len(failed), empty_draft=empty,
+        conflict_ok=not conflict_reasons)
 
-    if not failed and not empty:
+    if not failed and not empty and not conflict_reasons:
         return finish(state, deps, items, [], "verified", "verified")
     if state.critic_loops < config.MAX_CRITIC_LOOPS:
         state.critic_feedback = [f"{verdicts[i].item}: {items[i][1][:160]!r} -> " + "; ".join(reasons_for(i)) for i in failed]
+        if conflict_reasons:
+            state.critic_feedback.append("signal_conflict: " + "; ".join(conflict_reasons))
         if empty:
             state.critic_feedback.append("the draft contained no claims; write the claims the evidence supports")
         state.critic_loops += 1
@@ -93,15 +107,20 @@ def critic(state: AgentState, deps: Deps) -> AgentState:
         return state
     removed = [f"{verdicts[i].item}: {items[i][1]} (reasons: {'; '.join(reasons_for(i))})" for i in failed]
     keep = [items[i] for i in range(len(items)) if i not in failed]
-    return finish(state, deps, keep, removed, "partially_verified", "partially verified", empty=empty)
+    return finish(state, deps, keep, removed, "partially_verified", "partially verified", empty=empty,
+                  conflict_failed=bool(conflict_reasons))
 
 
-def finish(state: AgentState, deps: Deps, kept_items, removed, status, verification, empty=False):
+def finish(state: AgentState, deps: Deps, kept_items, removed, status, verification, empty=False, conflict_failed=False):
     claims = [MemoClaim(text=t, evidence_ids=e, quote=q) for k, t, e, q in kept_items if k == "claim"]
-    refs = [RegReference(paraphrase=t, evidence_id=e[0], quote=q) for k, t, e, q in kept_items if k == "reference"]
+    refs = [RegReference(paraphrase=t, evidence_id=e[0], quote=q) for k, t, e, q in kept_items if k == "background"]
     notes = []
     if status == "partially_verified":
-        notes.append(f"{len(removed)} item(s) failed the critic after {state.critic_loops} rewrite(s) and were removed.")
+        if removed:
+            notes.append(f"{len(removed)} item(s) failed the critic after {state.critic_loops} rewrite(s) and were removed.")
+        if conflict_failed:
+            notes.append("the writer did not carry the required signal_conflict sentence unchanged; the sentence in this memo "
+                         "was inserted by code, not written by the writer")
         if empty:
             notes.append("the writer produced no claims")
     state.memo = assemble(state, deps.now_iso(), status, claims, refs, verification=verification, removed=removed, notes=notes)

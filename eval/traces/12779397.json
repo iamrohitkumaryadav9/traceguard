@@ -13,10 +13,10 @@
     "finalize"
   ],
   "counts": {
-    "tool_calls_investigator": 3,
+    "tool_calls_investigator": 2,
     "searches": 0,
     "chunk_fetches": 0,
-    "llm_calls": 6,
+    "llm_calls": 5,
     "critic_loops": 0,
     "tool_calls_total": 6
   },
@@ -27,63 +27,72 @@
     "llm_calls": 30
   },
   "latency_s": {
-    "total": 33.671,
-    "llm_throttle_wait": 22.49
+    "total": 30.944,
+    "llm_throttle_wait": 17.98
   },
   "tokens": {
-    "prompt": 8115,
-    "output": 814
+    "prompt": 7205,
+    "output": 1038
   },
   "critic_verdicts": [
     {
       "round": 1,
       "item": "claim 1",
-      "text": "Transaction 12779397 generated a high alert status with a calibrated probability of 0.988235 and a raw LightGBM predict probability score of 0.999668 at time step 41.",
+      "text": "The raw LightGBM predict proba score is 0.999668 and calibrated probability is 0.988235, placing the transaction in the high risk band with an alert triggered above the alert threshold of 0.258181 and high threshold of 0.788025.",
       "ok": true,
       "deterministic_reasons": [],
       "llm_verdict": "supported",
-      "llm_reason": "The evidence directly confirms the transaction ID, calibrated probability, raw LightGBM predict probability, time step, and high alert status."
+      "llm_reason": "All facts in the claim match the cited evidence values for score, calibrated probability, alert triggers, thresholds, and risk band."
     },
     {
       "round": 1,
       "item": "claim 2",
-      "text": "Features f53, f59, f90, f132, and f2 each pushed the score up.",
+      "text": "Features f53, f59, f90, f132, and f2 pushed the illicit score up.",
       "ok": true,
       "deterministic_reasons": [],
       "llm_verdict": "supported",
-      "llm_reason": "The evidence lists each of these features with the direction 'raises illicit score', confirming they pushed the score up."
+      "llm_reason": "The evidence lists features f53, f59, f90, f132, and f2 as having the direction 'raises illicit score'."
     },
     {
       "round": 1,
       "item": "claim 3",
-      "text": "Model health at time step 41 was ok, with a window recall of 0.883621 and reference recall of 0.98308 across 232 illicit transactions in the window.",
+      "text": "Model health check at time step 41 shows status ok with a window recall of 0.883621 and reference recall of 0.98308 across window steps 37, 38, and 39 with a lag of 2 and 232 illicit transactions in the window.",
       "ok": true,
       "deterministic_reasons": [],
       "llm_verdict": "supported",
-      "llm_reason": "The evidence matches all the stated metrics including status ok, window recall, reference recall, and number of illicit transactions in the window."
+      "llm_reason": "The evidence directly confirms the status, window recall, reference recall, window steps, lag, and number of illicit transactions."
     },
     {
       "round": 1,
       "item": "claim 4",
-      "text": "The transaction has an in-degree of 1 and an out-degree of 0, with no fan-in, fan-out, or chain typology matches.",
+      "text": "The typology flags for fan-in, fan-out, and chain all matched as false with an in-degree of 1, out-degree of 0, and chain length of 0 against thresholds of 9, 5, and 4.",
       "ok": true,
       "deterministic_reasons": [],
       "llm_verdict": "supported",
-      "llm_reason": "The evidence states in_degree is 1, out_degree is 0, flags for fan_in, fan_out, and chain are false, and matches list is empty."
+      "llm_reason": "The typology flags, degrees, chain length, and thresholds match the evidence values exactly."
     },
     {
       "round": 1,
       "item": "claim 5",
-      "text": "Neighbor analysis revealed one incoming neighbor transaction with an alert status and score of 0.867129.",
+      "text": "Neighborhood analysis found 1 incoming neighbor at hop 1 and 2 total incoming neighbors up to hop 2.",
       "ok": true,
       "deterministic_reasons": [],
       "llm_verdict": "supported",
-      "llm_reason": "The evidence shows one incoming neighbor with an alert of true and a score of 0.867129."
+      "llm_reason": "The incoming neighbors count for hop 1 is 1 and up to hop 2 is 2, as stated in the evidence."
+    },
+    {
+      "round": 1,
+      "item": "claim 6",
+      "text": "The radius 2 subgraph summary shows 4 nodes, 3 edges, a density of 0.25, a focal in-degree of 1, a focal out-degree of 0, a max in-degree of 1, a max out-degree of 2, 2 alerted nodes with a share alerted of 0.5, a focal chain length of 0, and a wcc size of 5342.",
+      "ok": true,
+      "deterministic_reasons": [],
+      "llm_verdict": "supported",
+      "llm_reason": "All subgraph summary metrics match the corresponding values in the provided evidence object."
     }
   ],
   "events": [
     {
-      "t": 0.832,
+      "t": 0.449,
       "node": "triage",
       "event": "tool_call",
       "tool": "score_transaction",
@@ -91,11 +100,11 @@
         "tx_id": 12779397
       },
       "evidence_id": "score:12779397",
-      "ms": 803.8,
+      "ms": 426.4,
       "error": null
     },
     {
-      "t": 0.846,
+      "t": 0.456,
       "node": "triage",
       "event": "tool_call",
       "tool": "check_model_health",
@@ -103,11 +112,11 @@
         "time_step": 41
       },
       "evidence_id": "health:41",
-      "ms": 13.4,
+      "ms": 7.1,
       "error": null
     },
     {
-      "t": 0.846,
+      "t": 0.456,
       "node": "triage",
       "event": "tool_call",
       "tool": "match_typology",
@@ -115,29 +124,44 @@
         "tx_id": 12779397
       },
       "evidence_id": "typology:12779397",
-      "ms": 0.2,
+      "ms": 0.1,
       "error": null
     },
     {
-      "t": 0.846,
+      "t": 0.457,
+      "node": "triage",
+      "event": "tool_call",
+      "tool": "get_neighbors",
+      "args": {
+        "tx_id": 12779397,
+        "hops": 1,
+        "direction": "in"
+      },
+      "evidence_id": "neighbors:12779397:1:in",
+      "ms": 0.1,
+      "error": null
+    },
+    {
+      "t": 0.457,
       "node": "triage",
       "event": "decision",
       "status": "investigating",
       "risk_band": "high",
       "health": "ok",
-      "patterns": []
+      "patterns": [],
+      "signal_conflict": null
     },
     {
-      "t": 1.555,
+      "t": 0.941,
       "node": "investigator",
       "event": "llm_call",
       "purpose": "tool loop"
     },
     {
-      "t": 3.049,
+      "t": 5.461,
       "node": "investigator",
       "event": "llm_result",
-      "latency_ms": 1487.2,
+      "latency_ms": 4514.6,
       "usage": {
         "prompt_tokens": 1097,
         "output_tokens": 33
@@ -147,32 +171,32 @@
       ]
     },
     {
-      "t": 3.05,
+      "t": 5.461,
       "node": "investigator",
       "event": "tool_call",
       "tool": "get_neighbors",
       "args": {
+        "hops": 2,
         "tx_id": 12779397,
-        "direction": "both",
-        "hops": 1
+        "direction": "in"
       },
-      "evidence_id": "neighbors:12779397:1:both",
+      "evidence_id": "neighbors:12779397:2:in",
       "ms": 0.1,
       "error": null
     },
     {
-      "t": 3.05,
+      "t": 5.461,
       "node": "investigator",
       "event": "llm_call",
       "purpose": "tool loop"
     },
     {
-      "t": 8.874,
+      "t": 11.384,
       "node": "investigator",
       "event": "llm_result",
-      "latency_ms": 1323.9,
+      "latency_ms": 1422.2,
       "usage": {
-        "prompt_tokens": 1242,
+        "prompt_tokens": 1279,
         "output_tokens": 28
       },
       "tool_calls": [
@@ -180,7 +204,7 @@
       ]
     },
     {
-      "t": 8.875,
+      "t": 11.387,
       "node": "investigator",
       "event": "tool_call",
       "tool": "subgraph_summary",
@@ -189,101 +213,69 @@
         "tx_id": 12779397
       },
       "evidence_id": "subgraph:12779397:2",
-      "ms": 1.0,
+      "ms": 3.6,
       "error": null
     },
     {
-      "t": 8.875,
+      "t": 11.387,
       "node": "investigator",
       "event": "llm_call",
       "purpose": "tool loop"
     },
     {
-      "t": 14.107,
+      "t": 16.656,
       "node": "investigator",
       "event": "llm_result",
-      "latency_ms": 733.6,
+      "latency_ms": 771.8,
       "usage": {
-        "prompt_tokens": 1413,
-        "output_tokens": 33
-      },
-      "tool_calls": [
-        "get_neighbors"
-      ]
-    },
-    {
-      "t": 14.108,
-      "node": "investigator",
-      "event": "tool_call",
-      "tool": "get_neighbors",
-      "args": {
-        "tx_id": 12779397,
-        "direction": "in",
-        "hops": 2
-      },
-      "evidence_id": "neighbors:12779397:2:in",
-      "ms": 0.2,
-      "error": null
-    },
-    {
-      "t": 14.108,
-      "node": "investigator",
-      "event": "llm_call",
-      "purpose": "tool loop"
-    },
-    {
-      "t": 20.643,
-      "node": "investigator",
-      "event": "llm_result",
-      "latency_ms": 2034.9,
-      "usage": {
-        "prompt_tokens": 1595,
+        "prompt_tokens": 1450,
         "output_tokens": 1
       },
       "tool_calls": []
     },
     {
-      "t": 20.644,
+      "t": 16.662,
       "node": "writer",
       "event": "llm_call",
       "purpose": "draft 1"
     },
     {
-      "t": 27.419,
+      "t": 23.701,
       "node": "writer",
       "event": "llm_result",
-      "latency_ms": 2275.3,
+      "latency_ms": 2544.1,
       "usage": {
-        "prompt_tokens": 1393,
-        "output_tokens": 424
+        "prompt_tokens": 1545,
+        "output_tokens": 649
       },
-      "claims": 5,
-      "references": 0
+      "claims": 6,
+      "background": 0
     },
     {
-      "t": 27.42,
+      "t": 23.708,
       "node": "critic",
       "event": "llm_call",
       "purpose": "support check round 1"
     },
     {
-      "t": 33.669,
+      "t": 30.937,
       "node": "critic",
       "event": "llm_result",
-      "latency_ms": 1750.3,
+      "latency_ms": 2735.7,
       "usage": {
-        "prompt_tokens": 1375,
-        "output_tokens": 295
+        "prompt_tokens": 1834,
+        "output_tokens": 327
       }
     },
     {
-      "t": 33.669,
+      "t": 30.938,
       "node": "critic",
       "event": "verdicts",
       "round": 1,
-      "items": 5,
+      "items": 6,
       "failed": 0,
-      "empty_draft": false
+      "empty_draft": false,
+      "conflict_ok": true
     }
   ],
   "memo": {
@@ -304,7 +296,7 @@
         "reference_recall": 0.98308,
         "n_illicit_in_window": 232
       },
-      "generated_at": "2026-10-17T18:10:37+0530"
+      "generated_at": "2026-10-17T18:45:21+0530"
     },
     "subject": {
       "names": "not available in dataset",
@@ -312,39 +304,49 @@
       "amounts": "not available in dataset",
       "dates": "not available in dataset"
     },
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
     "activity_description": [
       {
-        "text": "Transaction 12779397 generated a high alert status with a calibrated probability of 0.988235 and a raw LightGBM predict probability score of 0.999668 at time step 41.",
+        "text": "The raw LightGBM predict proba score is 0.999668 and calibrated probability is 0.988235, placing the transaction in the high risk band with an alert triggered above the alert threshold of 0.258181 and high threshold of 0.788025.",
         "evidence_ids": [
           "score:12779397"
         ],
         "quote": null
       },
       {
-        "text": "Features f53, f59, f90, f132, and f2 each pushed the score up.",
+        "text": "Features f53, f59, f90, f132, and f2 pushed the illicit score up.",
         "evidence_ids": [
           "score:12779397"
         ],
         "quote": null
       },
       {
-        "text": "Model health at time step 41 was ok, with a window recall of 0.883621 and reference recall of 0.98308 across 232 illicit transactions in the window.",
+        "text": "Model health check at time step 41 shows status ok with a window recall of 0.883621 and reference recall of 0.98308 across window steps 37, 38, and 39 with a lag of 2 and 232 illicit transactions in the window.",
         "evidence_ids": [
           "health:41"
         ],
         "quote": null
       },
       {
-        "text": "The transaction has an in-degree of 1 and an out-degree of 0, with no fan-in, fan-out, or chain typology matches.",
+        "text": "The typology flags for fan-in, fan-out, and chain all matched as false with an in-degree of 1, out-degree of 0, and chain length of 0 against thresholds of 9, 5, and 4.",
         "evidence_ids": [
           "typology:12779397"
         ],
         "quote": null
       },
       {
-        "text": "Neighbor analysis revealed one incoming neighbor transaction with an alert status and score of 0.867129.",
+        "text": "Neighborhood analysis found 1 incoming neighbor at hop 1 and 2 total incoming neighbors up to hop 2.",
         "evidence_ids": [
-          "neighbors:12779397:1:both"
+          "neighbors:12779397:1:in",
+          "neighbors:12779397:2:in"
+        ],
+        "quote": null
+      },
+      {
+        "text": "The radius 2 subgraph summary shows 4 nodes, 3 edges, a density of 0.25, a focal in-degree of 1, a focal out-degree of 0, a max in-degree of 1, a max out-degree of 2, 2 alerted nodes with a share alerted of 0.5, a focal chain length of 0, and a wcc size of 5342.",
+        "evidence_ids": [
+          "subgraph:12779397:2"
         ],
         "quote": null
       }
@@ -363,17 +365,26 @@
         "tool": "match_typology"
       },
       {
-        "evidence_id": "neighbors:12779397:1:both",
+        "evidence_id": "neighbors:12779397:1:in",
         "tool": "get_neighbors"
+      },
+      {
+        "evidence_id": "neighbors:12779397:2:in",
+        "tool": "get_neighbors"
+      },
+      {
+        "evidence_id": "subgraph:12779397:2",
+        "tool": "subgraph_summary"
       }
     ],
-    "regulatory_references": [],
+    "regulatory_background": [],
     "limitations": [
       "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
       "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
       "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
       "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
       "Structural patterns are resemblances only: Elliptic has no typology labels.",
+      "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
       "This is a draft for a human analyst. It does not decide whether a report should be filed."
     ],
     "recommendation": "refer for human review",
