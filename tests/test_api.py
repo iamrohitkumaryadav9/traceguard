@@ -74,6 +74,31 @@ def test_the_bundle_and_every_response_are_free_of_label_keys():
         assert label_keys_in(c.post("/investigate", json={"tx_id": int(tx)}).json()) == []
 
 
+def test_the_bundle_holds_no_text_from_a_non_quotable_document():
+    """The India FIU-IND guidelines are OCR text (quotable=false): neither a chunk text nor a quote of it may be published."""
+    data = json.loads(open(BUNDLE, encoding="utf-8").read())
+    seen = 0
+
+    def walk(x):
+        if isinstance(x, dict):
+            assert x.get("quotable", True) is not False or not (x.get("text") or x.get("quote")), x.get("evidence_id")
+            for v in x.values():
+                walk(v)
+        elif isinstance(x, list):
+            for v in x:
+                walk(v)
+
+    for e in data["memos"].values():
+        walk(e)
+        for ev_id, ev in e["evidence"].items():
+            if ev_id.startswith("reg:"):
+                seen += 1
+                assert ev["output"]["doc_id"] != "fiu_ind_2026_vda" and "fiu" not in ev["output"]["doc_id"].lower(), ev_id
+        for b in e["memo"]["regulatory_background"]:
+            assert b["quotable"] or not b["quote"]
+    assert seen >= 1 and "FIU-IND" not in json.dumps(data)
+
+
 def test_memo_endpoint_returns_a_cached_memo_or_a_structured_404():
     c = demo_client()
     ok = c.get(f"/memo/{EXAMPLES[0][0]}")
