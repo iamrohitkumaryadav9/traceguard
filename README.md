@@ -4,6 +4,10 @@ An ML model flags suspicious Bitcoin transactions, and a team of LLM agents inve
 
 Status: Phase 4a (LangGraph investigation agent built and demonstrated on 6 nodes)
 
+## Data source
+
+This project uses the Elliptic Bitcoin dataset from Kaggle, published by Elliptic and described in Weber et al. (2019), "Anti-Money Laundering in Bitcoin: Experimenting with Graph Convolutional Networks for Financial Forensics", [arXiv:1908.02591](https://arxiv.org/abs/1908.02591). The dataset is released under CC BY-NC-ND 4.0. This is non-commercial portfolio work. The raw data files are not included in this repository; download them from Kaggle and place them as described in the setup steps. The demo bundle (`demo/memos.json`) contains only generated memos with transaction ids, scores and aggregate statistics, not the dataset files.
+
 ## Results (Phase 2)
 
 Splits are temporal and use labeled nodes only: fit = time steps 1-29, validation = 30-34, test = 35-49. Thresholds and calibration come from validation only. Illicit is the positive class. Test steps 43-49 follow a market shutdown ("post-shutdown"); steps 35-42 are "pre-shutdown". Full tables: [eval/results/phase2c.md](eval/results/phase2c.md), [eval/results/drift.md](eval/results/drift.md).
