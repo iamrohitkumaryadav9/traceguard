@@ -1,0 +1,16 @@
+.git
+.github
+.venv
+.env
+.env.*
+data/
+models/
+notebooks/
+tests/
+**/__pycache__
+.pytest_cache
+# evaluation outputs and traces stay out of the image, except the two small files the live agent reads
+eval/traces
+eval/results/**
+!eval/results/threshold.json
+!eval/results/rewrites.json

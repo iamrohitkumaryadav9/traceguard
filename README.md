@@ -88,3 +88,25 @@ Motivation: the Phase 5b hand check found 7 errors in 110 claims, all of them an
 **6. Hand-check (one human, blinded to who wrote each statement).** Code-built claims: 0 of 20 wrong (95% Wilson interval [0%, 16.1%]). LLM-authored summary sentences: 1 of 61 overstated (1.6%, interval [0.3%, 8.7%]): item H042, which attributes a signal conflict to the mixed directions of feature contributions, which the evidence does not support (it only supports a conflict between the low score and the chain pattern). The deterministic consistency metric also called that sentence grounded. These rates are not comparable to the Phase 5b development-set rate (3 of 79). No claim is made that v3 is more accurate than v2; only that two error classes (neighbour and subgraph counts merged or missing hop and direction, and LLM paraphrase of regulation text) cannot occur in v3 by construction. The sheet and key are `handcheck_5c.csv` and `handcheck_5c_key.json` in `eval/results/agent_eval_5c/`.
 
 **Limitations.** The classification of rejections is one reader's judgement. n = 30 nodes (21 that can differ), so intervals are wide. The bugfix verification uses nodes that informed the diagnosis (development-contaminated) with one run each, and the LLM is not deterministic. The hand-check has one human, 20 code-built claims and 61 summary sentences. One LLM is investigator, writer and reviewer. Nothing in Phase 5c measures whether the agents improve detection.
+
+## Phase 6a: API, demo mode, Docker
+
+A FastAPI service (`src/api/main.py`) on top of the frozen agent (tag `agent-v3.1`; no agent behaviour, prompt or threshold was changed). Endpoints: `GET /health` (status, design version, mode), `POST /investigate {"tx_id": ...}` (memo JSON, status and a trace summary: tool calls, LLM calls, critic rounds, latency), `GET /memo/{tx_id}` (cached memo), `GET /examples` (five curated nodes taken from the Phase 5c runs: a high-band node, a chain node with a signal conflict, a fan_in lowers_risk node, a post-shutdown cannot_assess node and a low-band no-action node). Errors have the shape `{"error": {"code", "message", ...}}` (unknown transaction: 404 `unknown_transaction`). No endpoint returns a ground-truth label. Interactive docs at `/docs`.
+
+**Demo mode** (`TRACEGUARD_MODE=demo`, the default). Serves only the pre-computed memos in `demo/memos.json` (30 memos from the Phase 5c agent-v3 runs, memo JSON only: no raw Elliptic files, feature matrix, evidence ledger or model files). It needs no data, no model and no key, never imports the agent code and cannot run it; `POST /investigate` for a node outside the bundle returns 403 `live_runs_disabled`. Rebuild the bundle with `python -m scripts.build_demo_bundle` (it prints the included fields, a ground-truth label check and the node-level values that appear).
+
+```
+pip install -r requirements-demo.txt
+TRACEGUARD_MODE=demo uvicorn src.api.main:app --port 8000
+# or: docker compose --profile demo up --build
+```
+
+**Live mode** (`TRACEGUARD_MODE=live`). Runs the agent per request. Needs `GEMINI_API_KEY` (in `.env` or the environment), `data/processed/*` and `models/*` on disk; `GET /health` lists what is missing. Guardrails (all configurable by environment variable): 6 live runs per client IP per hour (`TRACEGUARD_RATE_LIMIT_PER_HOUR`, HTTP 429 with `Retry-After`); a global budget of 400 LLM calls per day (`TRACEGUARD_DAILY_LLM_BUDGET`; the free tier allows 500 per model, and a run in progress is not interrupted, so the budget can be overshot by up to one run; HTTP 503 `daily_budget_exhausted` with `Retry-After` until the quota resets at midnight Pacific time); a request timeout of 240 s (`TRACEGUARD_REQUEST_TIMEOUT_S`, HTTP 504; the run continues in its thread and still counts against the budget); one agent run at a time (a second request gets 503 `busy`); a provider quota error is HTTP 503 `llm_quota_exhausted` with `Retry-After`. Memos of this process's live runs are cached in memory (`refresh: true` runs again). Behind a proxy start uvicorn with `--proxy-headers` so the rate limit sees the client address.
+
+```
+pip install -r requirements.txt
+TRACEGUARD_MODE=live uvicorn src.api.main:app --port 8000
+# or: docker compose --profile live up --build   (mounts ./data and ./models read-only; port 8001)
+```
+
+**Docker.** `Dockerfile` has two targets: `demo` (python slim plus fastapi, uvicorn and pydantic only) and `live` (CPU-only PyTorch, `requirements-live.txt`; the data and models are mounted, never copied). `.dockerignore` excludes `data/`, `models/`, `.env`, the eval traces and the evaluation results. First live request is slow (it loads the model and the retrieval index, and downloads the BGE embedding model into the `hf_cache` volume).

@@ -1,0 +1,4526 @@
+{
+ "meta": {
+  "generated_from": "Phase 5c agent-v3 evaluation runs (memo JSON only)",
+  "memo_design": "v3",
+  "note": "Pre-computed; the service code is tagged agent-v3.1 (differs only in the next-check rule)."
+ },
+ "examples": [
+  {
+   "tx_id": 73002538,
+   "description": "High-band node at time step 42: high raw score, verified memo with code-rendered facts."
+  },
+  {
+   "tx_id": 200950509,
+   "description": "Chain node: a risk-raising chain pattern but a low model score, so the memo states a signal conflict."
+  },
+  {
+   "tx_id": 114656654,
+   "description": "Fan-in node: the fan_in pattern lowers risk in the training data, so the model's low band stands (no action suggested)."
+  },
+  {
+   "tx_id": 125406909,
+   "description": "Post-shutdown node (time step 47): the model-health check reports degradation, so the agent declines to assess."
+  },
+  {
+   "tx_id": 200638883,
+   "description": "Low-band node: no risk-raising pattern, so the memo suggests no action (model-based only) without any LLM call."
+  }
+ ],
+ "memos": {
+  "106300125": {
+   "tx_id": 106300125,
+   "status": "verified",
+   "time_step": 44,
+   "memo": {
+    "header": {
+     "tx_id": 106300125,
+     "time_step": 44,
+     "risk_band": "high",
+     "score": 0.999862,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.988235,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.82227,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 467
+     },
+     "generated_at": "2026-10-23T13:12:28+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 44 the model gave a raw score of 0.999862, placing it in the high risk band above the alert threshold of 0.258181 and the high risk threshold of 0.788025, with features f53, f90, and f59 pushing the score up.",
+      "evidence_ids": [
+       "score:106300125"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The model health check at time step 44 showed status ok, with recall in the delayed label window of 0.82227 against a reference recall of 0.98308 over 467 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:44"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Neighborhood analysis for this transaction identified 1 incoming neighbour at hop 1 with score 0.280955, and 2 incoming neighbours up to 2 hops, while the undirected subgraph of radius 2 contained 3 nodes and 2 directed edges with 3 alerted nodes.",
+      "evidence_ids": [
+       "neighbors:106300125:1:in",
+       "subgraph:106300125:2",
+       "neighbors:106300125:2:in"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the incoming neighbour accounts for the transaction pattern.",
+     "Check subgraph connectivity and edge directions.",
+     "Check model feature attribution logs for feature variations."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 44 the model gave a raw score of 0.999862 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:106300125"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f90, f59 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:106300125"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 44: status ok; recall in the delayed-label window was 0.82227 against a reference recall of 0.98308 over 467 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:44"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 32455581 (incoming neighbour at hop 1, score 0.280955, alerted).",
+      "evidence_ids": [
+       "neighbors:106300125:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 3 nodes, 2 directed edges, 3 alerted nodes (share 1.0); focal in-degree 1, focal out-degree 0; chain length 0; weakly connected component size 4975.",
+      "evidence_ids": [
+       "subgraph:106300125:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 2 hops; 2 incoming neighbours found: 105787081 (incoming neighbour at hop 2, score 0.460901, alerted); 32455581 (incoming neighbour at hop 1, score 0.280955, alerted).",
+      "evidence_ids": [
+       "neighbors:106300125:2:in"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:106300125",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:44",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:106300125:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:106300125:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:106300125:2:in",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+     "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 6,
+    "llm_calls": 7,
+    "critic_rounds": 1,
+    "latency_s": 36.509,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "109871125": {
+   "tx_id": 109871125,
+   "status": "verified",
+   "time_step": 44,
+   "memo": {
+    "header": {
+     "tx_id": 109871125,
+     "time_step": 44,
+     "risk_band": "high",
+     "score": 0.873789,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.75,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.82227,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 467
+     },
+     "generated_at": "2026-10-23T13:09:32+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 44 the model gave a raw score of 0.873789 placing it in the high risk band above the alert threshold of 0.258181 and the high risk threshold of 0.788025, with features f53, f59, and f3 pushing the score up.",
+      "evidence_ids": [
+       "score:109871125"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The model health check at time step 44 was status ok with a recall of 0.82227 against a reference recall of 0.98308 over 467 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:44"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Neighbor and subgraph checks found no incoming neighbours, 1 outgoing neighbour at hop 1 with score 0.518892, an undirected subgraph of radius 2 containing 5 nodes, 4 directed edges, 4 alerted nodes with a share of 0.8, a focal in-degree of 0, a focal out-degree of 1, a chain length of 0, and a weakly connected component size of 4975.",
+      "evidence_ids": [
+       "neighbors:109871125:1:in",
+       "subgraph:109871125:2",
+       "neighbors:109871125:2:out",
+       "neighbors:109871125:2:in"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the outgoing neighbour transaction exhibits similar feature patterns.",
+     "Check whether additional hops reveal a broader connected component.",
+     "Check whether the feature attributions correlate with known structural anomalies."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 44 the model gave a raw score of 0.873789 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:109871125"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f3 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:109871125"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 44: status ok; recall in the delayed-label window was 0.82227 against a reference recall of 0.98308 over 467 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:44"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; no incoming neighbours found.",
+      "evidence_ids": [
+       "neighbors:109871125:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 5 nodes, 4 directed edges, 4 alerted nodes (share 0.8); focal in-degree 0, focal out-degree 1; chain length 0; weakly connected component size 4975.",
+      "evidence_ids": [
+       "subgraph:109871125:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 1 outgoing neighbour found: 107212690 (outgoing neighbour at hop 1, score 0.518892, alerted).",
+      "evidence_ids": [
+       "neighbors:109871125:2:out"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 2 hops; no incoming neighbours found.",
+      "evidence_ids": [
+       "neighbors:109871125:2:in"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:109871125",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:44",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:109871125:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:109871125:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:109871125:2:out",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:109871125:2:in",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+     "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 7,
+    "llm_calls": 6,
+    "critic_rounds": 0,
+    "latency_s": 29.618,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "114656654": {
+   "tx_id": 114656654,
+   "status": "no_action_model_based",
+   "time_step": 38,
+   "memo": {
+    "header": {
+     "tx_id": 114656654,
+     "time_step": 38,
+     "risk_band": "low",
+     "score": 6.2e-05,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.0,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.988095,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 252
+     },
+     "generated_at": "2026-10-23T13:07:57+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v2",
+    "signal_conflict": "Signal conflict: the model score 6.2e-05 (risk band low; evidence score:114656654) and the in-neighbour alerts (at least one of the 12 in-neighbours alerted; evidence neighbors:114656654:1:in) point in different directions.",
+    "signal_conflict_evidence_ids": [
+     "score:114656654",
+     "neighbors:114656654:1:in"
+    ],
+    "executive_summary": [],
+    "next_checks": [],
+    "activity_description": [
+     {
+      "text": "At time step 38 the model gave a raw score of 6.2e-05 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:114656654"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 38: status ok; recall in the delayed-label window was 0.988095 against a reference recall of 0.98308 over 252 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:38"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Structural pattern fan_in matched (in_degree 12 >= 9); labeled nodes with this pattern in the training period had an illicit rate of 0.018573 against a baseline of 0.115809, so this pattern lowers rather than raises risk and is not treated as suspicious.",
+      "evidence_ids": [
+       "typology:114656654"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "No structural pattern with a risk-raising direction matched this transaction.",
+      "evidence_ids": [
+       "typology:114656654"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:114656654",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "neighbors:114656654:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "health:38",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "typology:114656654",
+      "tool": "match_typology"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "no action suggested, model-based only",
+    "status": "no_action_model_based",
+    "verification": "not applicable",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 4,
+    "llm_calls": 0,
+    "critic_rounds": 0,
+    "latency_s": 0.065,
+    "nodes_visited": [
+     "triage",
+     "finalize"
+    ]
+   }
+  },
+  "125406909": {
+   "tx_id": 125406909,
+   "status": "cannot_assess",
+   "time_step": 47,
+   "memo": {
+    "header": {
+     "tx_id": 125406909,
+     "time_step": 47,
+     "risk_band": null,
+     "score": null,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": null,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "degraded",
+      "window_recall": 0.037736,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 53
+     },
+     "generated_at": "2026-10-23T13:11:24+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v2",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [],
+    "next_checks": [],
+    "activity_description": [
+     {
+      "text": "The model cannot be relied on at time step 47: in the delayed-label window its recall was 0.037736 against a reference of 0.98308, so no risk assessment is given for this transaction.",
+      "evidence_ids": [
+       "health:47"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "health:47",
+      "tool": "check_model_health"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+     "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+    ],
+    "recommendation": "refer for human review",
+    "status": "cannot_assess",
+    "verification": "not applicable",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 3,
+    "llm_calls": 0,
+    "critic_rounds": 0,
+    "latency_s": 0.057,
+    "nodes_visited": [
+     "triage",
+     "finalize"
+    ]
+   }
+  },
+  "12664247": {
+   "tx_id": 12664247,
+   "status": "verified",
+   "time_step": 41,
+   "memo": {
+    "header": {
+     "tx_id": 12664247,
+     "time_step": 41,
+     "risk_band": "high",
+     "score": 0.999157,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.988235,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.883621,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 232
+     },
+     "generated_at": "2026-10-23T12:49:40+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 41 the model assigned a raw score of 0.999157, placing it in the high risk band above the alert threshold of 0.258181 and high risk threshold of 0.788025, with features f53, f59, and f90 pushing the score up.",
+      "evidence_ids": [
+       "score:12664247"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The model health check at time step 41 reported status ok, with a recall of 0.883621 in the delayed label window compared to a reference recall of 0.98308 across 232 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:41"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Neighborhood inspection identified 1 incoming neighbour at hop 1 with score 0.951869 that alerted, and up to 2 hops analysis found 2 incoming neighbours including one unalerted node with score 9.7e-05.",
+      "evidence_ids": [
+       "neighbors:12664247:1:in",
+       "neighbors:12664247:2:in"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the incoming neighbour accounts for the transaction volume",
+     "Check whether the secondary hop connection exhibits common routing patterns",
+     "Check whether feature contributions remain consistent across recent transactions"
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 41 the model gave a raw score of 0.999157 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:12664247"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f90 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:12664247"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 41: status ok; recall in the delayed-label window was 0.883621 against a reference recall of 0.98308 over 232 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:41"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 12664249 (incoming neighbour at hop 1, score 0.951869, alerted).",
+      "evidence_ids": [
+       "neighbors:12664247:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 4 nodes, 3 directed edges, 3 alerted nodes (share 0.75); focal in-degree 1, focal out-degree 0; chain length 0; weakly connected component size 5342.",
+      "evidence_ids": [
+       "subgraph:12664247:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 neighbour found: 12664249 (incoming neighbour at hop 1, score 0.951869, alerted).",
+      "evidence_ids": [
+       "neighbors:12664247:1:both"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 2 hops; 2 incoming neighbours found: 12664249 (incoming neighbour at hop 1, score 0.951869, alerted); 12671576 (incoming neighbour at hop 2, score 9.7e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:12664247:2:in"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:12664247",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:41",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:12664247:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:12664247:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:12664247:1:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:12664247:2:in",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 7,
+    "llm_calls": 5,
+    "critic_rounds": 0,
+    "latency_s": 26.748,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "12669334": {
+   "tx_id": 12669334,
+   "status": "no_action_model_based",
+   "time_step": 41,
+   "memo": {
+    "header": {
+     "tx_id": 12669334,
+     "time_step": 41,
+     "risk_band": "low",
+     "score": 2e-06,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.0,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.883621,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 232
+     },
+     "generated_at": "2026-10-23T13:08:09+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v2",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [],
+    "next_checks": [],
+    "activity_description": [
+     {
+      "text": "At time step 41 the model gave a raw score of 2e-06 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:12669334"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "features f5, f59, f131 pushed the score down; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:12669334"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 41: status ok; recall in the delayed-label window was 0.883621 against a reference recall of 0.98308 over 232 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:41"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Structural pattern fan_out matched (out_degree 6 >= 5); labeled nodes with this pattern in the training period had an illicit rate of 0.0 against a baseline of 0.115809, so this pattern lowers rather than raises risk and is not treated as suspicious.",
+      "evidence_ids": [
+       "typology:12669334"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "No structural pattern with a risk-raising direction matched this transaction.",
+      "evidence_ids": [
+       "typology:12669334"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:12669334",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:41",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "typology:12669334",
+      "tool": "match_typology"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "no action suggested, model-based only",
+    "status": "no_action_model_based",
+    "verification": "not applicable",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 4,
+    "llm_calls": 0,
+    "critic_rounds": 0,
+    "latency_s": 0.037,
+    "nodes_visited": [
+     "triage",
+     "finalize"
+    ]
+   }
+  },
+  "149570741": {
+   "tx_id": 149570741,
+   "status": "verified",
+   "time_step": 39,
+   "memo": {
+    "header": {
+     "tx_id": 149570741,
+     "time_step": 39,
+     "risk_band": "high",
+     "score": 0.88761,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.75,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.937255,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 255
+     },
+     "generated_at": "2026-10-23T12:53:21+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 39 the model gave a raw score of 0.88761 which is in the high risk band, and features f53, f59, f2 pushed the score up.",
+      "evidence_ids": [
+       "score:149570741"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The model health check at time step 39 showed status ok with a recall of 0.937255 against a reference recall of 0.98308 over 255 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:39"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The undirected subgraph of radius 2 contained 14 nodes, 13 directed edges, and 5 alerted nodes with a share of 0.357143.",
+      "evidence_ids": [
+       "subgraph:149570741:2"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the incoming neighbour at the first hop exhibits shared transactional metadata.",
+     "Check whether the outgoing neighbour at the first hop has related account activity.",
+     "Check whether the incoming neighbour at the second hop shares identifiers with the focal node."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 39 the model gave a raw score of 0.88761 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:149570741"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f2 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:149570741"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 39: status ok; recall in the delayed-label window was 0.937255 against a reference recall of 0.98308 over 255 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:39"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 2 incoming neighbours found: 161430303 (incoming neighbour at hop 1, score 0.902247, alerted); 148728283 (incoming neighbour at hop 1, score 0.000281, not alerted).",
+      "evidence_ids": [
+       "neighbors:149570741:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 14 nodes, 13 directed edges, 5 alerted nodes (share 0.357143); focal in-degree 2, focal out-degree 1; chain length 0; weakly connected component size 2760.",
+      "evidence_ids": [
+       "subgraph:149570741:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 3 neighbours found: 161430303 (incoming neighbour at hop 1, score 0.902247, alerted); 149157916 (outgoing neighbour at hop 1, score 0.015299, not alerted); 148728283 (incoming neighbour at hop 1, score 0.000281, not alerted).",
+      "evidence_ids": [
+       "neighbors:149570741:1:both"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 2 hops; 3 incoming neighbours found: 161430303 (incoming neighbour at hop 1, score 0.902247, alerted); 161430119 (incoming neighbour at hop 2, score 0.231795, not alerted); 148728283 (incoming neighbour at hop 1, score 0.000281, not alerted).",
+      "evidence_ids": [
+       "neighbors:149570741:2:in"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:149570741",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:39",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:149570741:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:149570741:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:149570741:1:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:149570741:2:in",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 7,
+    "llm_calls": 8,
+    "critic_rounds": 1,
+    "latency_s": 40.707,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "155603453": {
+   "tx_id": 155603453,
+   "status": "verified",
+   "time_step": 45,
+   "memo": {
+    "header": {
+     "tx_id": 155603453,
+     "time_step": 45,
+     "risk_band": "medium",
+     "score": 0.609283,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.4,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.807388,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 379
+     },
+     "generated_at": "2026-10-23T13:11:18+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 45 the model gave a raw score of 0.609283 which is in the medium risk band, where features f53 and f59 pushed the score up and feature f161 pushed the score down.",
+      "evidence_ids": [
+       "score:155603453"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The model health status was ok with a recall of 0.807388 in the delayed-label window against a reference recall of 0.98308 over 379 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:45"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Neighborhood analysis found 1 outgoing neighbour at hop 1 with score 0.783844 that was alerted, and an undirected subgraph of radius 2 containing 5 nodes, 4 directed edges, and 2 alerted nodes.",
+      "evidence_ids": [
+       "neighbors:155603453:1:both",
+       "subgraph:155603453:2"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the outgoing neighbour at the first hop shares common identifiers or counterparties",
+     "Check the transactional context for the unalerted outgoing neighbours at the second hop"
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 45 the model gave a raw score of 0.609283 (risk band medium); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:155603453"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59 pushed the score up; feature f161 pushed the score down; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:155603453"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 45: status ok; recall in the delayed-label window was 0.807388 against a reference recall of 0.98308 over 379 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:45"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; no incoming neighbours found.",
+      "evidence_ids": [
+       "neighbors:155603453:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 neighbour found: 155603450 (outgoing neighbour at hop 1, score 0.783844, alerted).",
+      "evidence_ids": [
+       "neighbors:155603453:1:both"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 5 nodes, 4 directed edges, 2 alerted nodes (share 0.4); focal in-degree 0, focal out-degree 1; chain length 0; weakly connected component size 5598.",
+      "evidence_ids": [
+       "subgraph:155603453:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 3 outgoing neighbours found: 155603450 (outgoing neighbour at hop 1, score 0.783844, alerted); 155724513 (outgoing neighbour at hop 2, score 0.005611, not alerted); 144222637 (outgoing neighbour at hop 2, score 0.000191, not alerted).",
+      "evidence_ids": [
+       "neighbors:155603453:2:out"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:155603453",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:45",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:155603453:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:155603453:1:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:155603453:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:155603453:2:out",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+     "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 7,
+    "llm_calls": 9,
+    "critic_rounds": 2,
+    "latency_s": 51.446,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "156058072": {
+   "tx_id": 156058072,
+   "status": "verified",
+   "time_step": 45,
+   "memo": {
+    "header": {
+     "tx_id": 156058072,
+     "time_step": 45,
+     "risk_band": "high",
+     "score": 0.999748,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.988235,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.807388,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 379
+     },
+     "generated_at": "2026-10-23T13:14:33+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 45 the model gave a raw score of 0.999748 placing it in the high risk band above the alert threshold of 0.258181 and the high risk threshold of 0.788025, and features f53, f90, f59 pushed the score up.",
+      "evidence_ids": [
+       "score:156058072"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The model health check at time step 45 returned status ok with a recall of 0.807388 in the delayed label window against a reference recall of 0.98308 over 379 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:45"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The undirected subgraph of radius 2 contained 89 nodes, 97 directed edges, 8 alerted nodes, a focal in degree of 0, a focal out degree of 1, a chain length of 0, and a weakly connected component size of 5598.",
+      "evidence_ids": [
+       "subgraph:156058072:2"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the outgoing neighbour transaction exhibits any anomalous patterns.",
+     "Check whether the model health recall drop impacts recent high score reliability."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 45 the model gave a raw score of 0.999748 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:156058072"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f90, f59 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:156058072"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 45: status ok; recall in the delayed-label window was 0.807388 against a reference recall of 0.98308 over 379 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:45"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; no incoming neighbours found.",
+      "evidence_ids": [
+       "neighbors:156058072:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 89 nodes, 97 directed edges, 8 alerted nodes (share 0.089888); focal in-degree 0, focal out-degree 1; chain length 0; weakly connected component size 5598.",
+      "evidence_ids": [
+       "subgraph:156058072:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 1 outgoing neighbour found: 121225693 (outgoing neighbour at hop 1, score 1e-06, not alerted).",
+      "evidence_ids": [
+       "neighbors:156058072:2:out"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:156058072",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:45",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:156058072:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:156058072:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:156058072:2:out",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+     "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 6,
+    "llm_calls": 5,
+    "critic_rounds": 0,
+    "latency_s": 24.051,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "18477792": {
+   "tx_id": 18477792,
+   "status": "no_action_model_based",
+   "time_step": 42,
+   "memo": {
+    "header": {
+     "tx_id": 18477792,
+     "time_step": 42,
+     "risk_band": "low",
+     "score": 7e-06,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.0,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304
+     },
+     "generated_at": "2026-10-23T13:07:51+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v2",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [],
+    "next_checks": [],
+    "activity_description": [
+     {
+      "text": "At time step 42 the model gave a raw score of 7e-06 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:18477792"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 42: status ok; recall in the delayed-label window was 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Structural pattern fan_out matched (out_degree 15 >= 5); labeled nodes with this pattern in the training period had an illicit rate of 0.0 against a baseline of 0.115809, so this pattern lowers rather than raises risk and is not treated as suspicious.",
+      "evidence_ids": [
+       "typology:18477792"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "No structural pattern with a risk-raising direction matched this transaction.",
+      "evidence_ids": [
+       "typology:18477792"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:18477792",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:42",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "typology:18477792",
+      "tool": "match_typology"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "no action suggested, model-based only",
+    "status": "no_action_model_based",
+    "verification": "not applicable",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 4,
+    "llm_calls": 0,
+    "critic_rounds": 0,
+    "latency_s": 0.038,
+    "nodes_visited": [
+     "triage",
+     "finalize"
+    ]
+   }
+  },
+  "196092852": {
+   "tx_id": 196092852,
+   "status": "verified",
+   "time_step": 46,
+   "memo": {
+    "header": {
+     "tx_id": 196092852,
+     "time_step": 46,
+     "risk_band": "high",
+     "score": 0.998845,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.988235,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.689895,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 287
+     },
+     "generated_at": "2026-10-23T13:13:32+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": "Signal conflict: the model score 0.998845 (risk band high; evidence score:196092852) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:196092852:1:in) point in different directions.",
+    "signal_conflict_evidence_ids": [
+     "score:196092852",
+     "neighbors:196092852:1:in"
+    ],
+    "executive_summary": [
+     {
+      "text": "At time step 46 the model gave a raw score of 0.998845 which exceeds the high-risk threshold of 0.788025 and the alert threshold of 0.258181, with features f53, f90, and f132 pushing the score up.",
+      "evidence_ids": [
+       "score:196092852"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Model health at time step 46 was ok, showing a recall of 0.689895 against a reference recall of 0.98308 over 287 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:46"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "A signal conflict exists because the model score of 0.998845 in the high risk band contrasts with the in-neighbour alerts where none of the 1 in-neighbours alerted.",
+      "evidence_ids": [
+       "score:196092852",
+       "neighbors:196092852:1:in"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether upstream transaction patterns exhibit similar feature weight distributions.",
+     "Check whether downstream alerted neighbours share common counterparty identifiers."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 46 the model gave a raw score of 0.998845 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:196092852"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f90, f132 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:196092852"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 46: status ok; recall in the delayed-label window was 0.689895 against a reference recall of 0.98308 over 287 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:46"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 196090114 (incoming neighbour at hop 1, score 0.166069, not alerted).",
+      "evidence_ids": [
+       "neighbors:196092852:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 5 nodes, 4 directed edges, 2 alerted nodes (share 0.4); focal in-degree 1, focal out-degree 1; chain length 1; weakly connected component size 3519.",
+      "evidence_ids": [
+       "subgraph:196092852:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 2 neighbours found: 196098540 (outgoing neighbour at hop 1, score 0.61613, alerted); 196090114 (incoming neighbour at hop 1, score 0.166069, not alerted).",
+      "evidence_ids": [
+       "neighbors:196092852:1:both"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 1 outgoing neighbour found: 196098540 (outgoing neighbour at hop 1, score 0.61613, alerted).",
+      "evidence_ids": [
+       "neighbors:196092852:2:out"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 2 hops; 2 incoming neighbours found: 196090114 (incoming neighbour at hop 1, score 0.166069, not alerted); 194333185 (incoming neighbour at hop 2, score 0.000147, not alerted).",
+      "evidence_ids": [
+       "neighbors:196092852:2:in"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:196092852",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "neighbors:196092852:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "health:46",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "subgraph:196092852:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:196092852:1:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:196092852:2:out",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:196092852:2:in",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+     "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 8,
+    "llm_calls": 5,
+    "critic_rounds": 0,
+    "latency_s": 23.697,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "200638883": {
+   "tx_id": 200638883,
+   "status": "no_action_model_based",
+   "time_step": 36,
+   "memo": {
+    "header": {
+     "tx_id": 200638883,
+     "time_step": 36,
+     "risk_band": "low",
+     "score": 0.15882,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.038462,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.99005,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 402
+     },
+     "generated_at": "2026-10-23T13:08:14+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v2",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [],
+    "next_checks": [],
+    "activity_description": [
+     {
+      "text": "At time step 36 the model gave a raw score of 0.15882 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:200638883"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 36: status ok; recall in the delayed-label window was 0.99005 against a reference recall of 0.98308 over 402 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:36"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "No structural pattern with a risk-raising direction matched this transaction.",
+      "evidence_ids": [
+       "typology:200638883"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:200638883",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:36",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "typology:200638883",
+      "tool": "match_typology"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "no action suggested, model-based only",
+    "status": "no_action_model_based",
+    "verification": "not applicable",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 4,
+    "llm_calls": 0,
+    "critic_rounds": 0,
+    "latency_s": 0.043,
+    "nodes_visited": [
+     "triage",
+     "finalize"
+    ]
+   }
+  },
+  "200950509": {
+   "tx_id": 200950509,
+   "status": "verified",
+   "time_step": 36,
+   "memo": {
+    "header": {
+     "tx_id": 200950509,
+     "time_step": 36,
+     "risk_band": "low",
+     "score": 0.127512,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.038462,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.99005,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 402
+     },
+     "generated_at": "2026-10-23T13:04:33+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": "Signal conflict: the model score 0.127512 (risk band low; evidence score:200950509) and the structural pattern chain (evidence direction raises_risk; evidence typology:200950509) point in different directions.",
+    "signal_conflict_evidence_ids": [
+     "score:200950509",
+     "typology:200950509"
+    ],
+    "executive_summary": [
+     {
+      "text": "At time step 36 the model gave a raw score of 0.127512 in the low risk band with features f53, f90, f59 pushing the score up, and model health status was ok with recall 0.99005 against reference recall 0.98308 over 402 labeled illicit nodes.",
+      "evidence_ids": [
+       "score:200950509",
+       "health:36"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The structural pattern chain matched with direction raises_risk, showing an illicit rate of 0.257318 against a baseline of 0.115809 across 1469 labeled nodes.",
+      "evidence_ids": [
+       "typology:200950509"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Signal conflict is present because the model score 0.127512 and the structural pattern chain with direction raises_risk point in different directions.",
+      "evidence_ids": [
+       "score:200950509",
+       "typology:200950509"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the incoming and outgoing neighbours exhibit similar feature attributions",
+     "Check whether the structural pattern chain recurs across adjacent time steps"
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 36 the model gave a raw score of 0.127512 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:200950509"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f90, f59 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:200950509"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 36: status ok; recall in the delayed-label window was 0.99005 against a reference recall of 0.98308 over 402 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:36"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Structural pattern chain matched (chain_len 6 >= 4); evidence direction raises_risk; among 1469 labeled nodes with this pattern in the training period the illicit rate was 0.257318 against a baseline of 0.115809 (lift 2.221913), above the baseline.",
+      "evidence_ids": [
+       "typology:200950509"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 200618673 (incoming neighbour at hop 1, score 8.8e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:200950509:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 4 nodes, 3 directed edges, 0 alerted nodes (share 0.0); focal in-degree 1, focal out-degree 1; chain length 6; weakly connected component size 6393.",
+      "evidence_ids": [
+       "subgraph:200950509:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 2 neighbours found: 200950508 (outgoing neighbour at hop 1, score 0.002698, not alerted); 200618673 (incoming neighbour at hop 1, score 8.8e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:200950509:1:both"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 2 hops; 2 incoming neighbours found: 200618676 (incoming neighbour at hop 2, score 0.014617, not alerted); 200618673 (incoming neighbour at hop 1, score 8.8e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:200950509:2:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 1 outgoing neighbour found: 200950508 (outgoing neighbour at hop 1, score 0.002698, not alerted).",
+      "evidence_ids": [
+       "neighbors:200950509:2:out"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:200950509",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "typology:200950509",
+      "tool": "match_typology"
+     },
+     {
+      "evidence_id": "health:36",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:200950509:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:200950509:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:200950509:1:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:200950509:2:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:200950509:2:out",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "tool": "search_regulations"
+     }
+    ],
+    "regulatory_background": [
+     {
+      "paraphrase": "Retrieved guidance: Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative, pages 7-8, reg:fincen_2003_sar_narrative:p7:c11 (quotable; excerpt shortened)",
+      "source_doc": "FinCEN 2003: Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+      "doc_id": "fincen_2003_sar_narrative",
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "quotable": true,
+      "quote": "For example, if what appears to be structuring of currency deposits is matched with outgoing wire transfers from the accounts, the SAR narrative should include information about both the structuring and outbound transfers (including dates, destinations, amounts, accounts, frequency, and",
+      "source": "code"
+     }
+    ],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 9,
+    "llm_calls": 11,
+    "critic_rounds": 1,
+    "latency_s": 57.432,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "regulation",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "218683036": {
+   "tx_id": 218683036,
+   "status": "cannot_assess",
+   "time_step": 47,
+   "memo": {
+    "header": {
+     "tx_id": 218683036,
+     "time_step": 47,
+     "risk_band": null,
+     "score": null,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": null,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "degraded",
+      "window_recall": 0.037736,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 53
+     },
+     "generated_at": "2026-10-23T13:15:43+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v2",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [],
+    "next_checks": [],
+    "activity_description": [
+     {
+      "text": "The model cannot be relied on at time step 47: in the delayed-label window its recall was 0.037736 against a reference of 0.98308, so no risk assessment is given for this transaction.",
+      "evidence_ids": [
+       "health:47"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "health:47",
+      "tool": "check_model_health"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+     "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+    ],
+    "recommendation": "refer for human review",
+    "status": "cannot_assess",
+    "verification": "not applicable",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 3,
+    "llm_calls": 0,
+    "critic_rounds": 0,
+    "latency_s": 0.038,
+    "nodes_visited": [
+     "triage",
+     "finalize"
+    ]
+   }
+  },
+  "261387954": {
+   "tx_id": 261387954,
+   "status": "verified",
+   "time_step": 44,
+   "memo": {
+    "header": {
+     "tx_id": 261387954,
+     "time_step": 44,
+     "risk_band": "medium",
+     "score": 0.766879,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.454545,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.82227,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 467
+     },
+     "generated_at": "2026-10-23T13:15:37+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 44 the model gave a raw score of 0.766879 with features f59, f2, f90 pushing the score up.",
+      "evidence_ids": [
+       "score:261387954"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The health check at time step 44 was status ok with recall 0.82227 against a reference recall of 0.98308 over 467 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:44"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Neighborhood analysis found 1 outgoing neighbour at hop 1 with score 2e-06 and 2 outgoing neighbours up to 2 hops.",
+      "evidence_ids": [
+       "neighbors:261387954:1:both",
+       "neighbors:261387954:2:out"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the outgoing neighbour transactions share any common counterparties",
+     "Check the communication logs associated with the focal node and its immediate neighbors"
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 44 the model gave a raw score of 0.766879 (risk band medium); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:261387954"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f59, f2, f90 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:261387954"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 44: status ok; recall in the delayed-label window was 0.82227 against a reference recall of 0.98308 over 467 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:44"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; no incoming neighbours found.",
+      "evidence_ids": [
+       "neighbors:261387954:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 neighbour found: 106320422 (outgoing neighbour at hop 1, score 2e-06, not alerted).",
+      "evidence_ids": [
+       "neighbors:261387954:1:both"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 121 nodes, 123 directed edges, 7 alerted nodes (share 0.057851); focal in-degree 0, focal out-degree 1; chain length 0; weakly connected component size 4975.",
+      "evidence_ids": [
+       "subgraph:261387954:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 2 outgoing neighbours found: 106320422 (outgoing neighbour at hop 1, score 2e-06, not alerted); 106319919 (outgoing neighbour at hop 2, score 1e-06, not alerted).",
+      "evidence_ids": [
+       "neighbors:261387954:2:out"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:261387954",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:44",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:261387954:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:261387954:1:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:261387954:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:261387954:2:out",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+     "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 7,
+    "llm_calls": 6,
+    "critic_rounds": 0,
+    "latency_s": 29.389,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "29055204": {
+   "tx_id": 29055204,
+   "status": "verified",
+   "time_step": 37,
+   "memo": {
+    "header": {
+     "tx_id": 29055204,
+     "time_step": 37,
+     "risk_band": "low",
+     "score": 0.000426,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.0,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.971074,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 242
+     },
+     "generated_at": "2026-10-23T13:02:16+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": "Signal conflict: the model score 0.000426 (risk band low; evidence score:29055204) and the structural pattern chain (evidence direction raises_risk; evidence typology:29055204) point in different directions.",
+    "signal_conflict_evidence_ids": [
+     "score:29055204",
+     "typology:29055204"
+    ],
+    "executive_summary": [
+     {
+      "text": "At time step 37 the model gave a raw score of 0.000426 in the low risk band while features f53, f59, f2 pushed the score up.",
+      "evidence_ids": [
+       "score:29055204"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Structural pattern chain matched with direction raises_risk and an illicit rate of 0.257318 against a baseline of 0.115809, creating a signal conflict with the low model score.",
+      "evidence_ids": [
+       "typology:29055204",
+       "score:29055204"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The undirected subgraph of radius 2 contains 5 nodes and 4 directed edges with 0 alerted nodes, while model health status was ok with a recall of 0.971074.",
+      "evidence_ids": [
+       "subgraph:29055204:2",
+       "health:37"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether incoming neighbour transactions share common counterparties.",
+     "Check whether outgoing node activity aligns with structural pattern chains.",
+     "Check whether model feature inputs correspond to historical patterns."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 37 the model gave a raw score of 0.000426 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:29055204"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f2 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:29055204"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 37: status ok; recall in the delayed-label window was 0.971074 against a reference recall of 0.98308 over 242 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:37"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Structural pattern chain matched (chain_len 35 >= 4); evidence direction raises_risk; among 1469 labeled nodes with this pattern in the training period the illicit rate was 0.257318 against a baseline of 0.115809 (lift 2.221913), above the baseline.",
+      "evidence_ids": [
+       "typology:29055204"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 29055195 (incoming neighbour at hop 1, score 0.000316, not alerted).",
+      "evidence_ids": [
+       "neighbors:29055204:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 5 nodes, 4 directed edges, 0 alerted nodes (share 0.0); focal in-degree 1, focal out-degree 1; chain length 35; weakly connected component size 3306.",
+      "evidence_ids": [
+       "subgraph:29055204:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 2 hops; 4 neighbours found: 29062216 (outgoing neighbour at hop 1, score 0.000557, not alerted); 29055195 (incoming neighbour at hop 1, score 0.000316, not alerted); 29055189 (incoming neighbour at hop 2, score 0.000203, not alerted); 29062679 (outgoing neighbour at hop 2, score 2.2e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:29055204:2:both"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:29055204",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "typology:29055204",
+      "tool": "match_typology"
+     },
+     {
+      "evidence_id": "health:37",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:29055204:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:29055204:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:29055204:2:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "tool": "search_regulations"
+     }
+    ],
+    "regulatory_background": [
+     {
+      "paraphrase": "Retrieved guidance: Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative, pages 7-8, reg:fincen_2003_sar_narrative:p7:c11 (quotable; excerpt shortened)",
+      "source_doc": "FinCEN 2003: Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+      "doc_id": "fincen_2003_sar_narrative",
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "quotable": true,
+      "quote": "For example, if what appears to be structuring of currency deposits is matched with outgoing wire transfers from the accounts, the SAR narrative should include information about both the structuring and outbound transfers (including dates, destinations, amounts, accounts, frequency, and",
+      "source": "code"
+     }
+    ],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 7,
+    "llm_calls": 7,
+    "critic_rounds": 0,
+    "latency_s": 43.035,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "regulation",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "29584495": {
+   "tx_id": 29584495,
+   "status": "partially_verified",
+   "time_step": 37,
+   "memo": {
+    "header": {
+     "tx_id": 29584495,
+     "time_step": 37,
+     "risk_band": "medium",
+     "score": 0.259718,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.136364,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.971074,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 242
+     },
+     "generated_at": "2026-10-23T13:00:07+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 37 the model gave a raw score of 0.259718 placing it in risk band medium with features f53, f59, and f163 pushing the score up.",
+      "evidence_ids": [
+       "score:29584495"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The model health check at time step 37 showed status ok.",
+      "evidence_ids": [
+       "health:37"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether outgoing neighbours share common identifiers or routing patterns.",
+     "Check whether the unalerted outgoing neighbour exhibits distinct transactional characteristics."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 37 the model gave a raw score of 0.259718 (risk band medium); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:29584495"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f163 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:29584495"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 37: status ok; recall in the delayed-label window was 0.971074 against a reference recall of 0.98308 over 242 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:37"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; no incoming neighbours found.",
+      "evidence_ids": [
+       "neighbors:29584495:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 5 nodes, 4 directed edges, 4 alerted nodes (share 0.8); focal in-degree 0, focal out-degree 2; chain length 0; weakly connected component size 3306.",
+      "evidence_ids": [
+       "subgraph:29584495:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 4 outgoing neighbours found: 37341170 (outgoing neighbour at hop 2, score 0.998713, alerted); 46290687 (outgoing neighbour at hop 1, score 0.962553, alerted); 30180432 (outgoing neighbour at hop 1, score 0.434385, alerted); 29784938 (outgoing neighbour at hop 2, score 0.036237, not alerted).",
+      "evidence_ids": [
+       "neighbors:29584495:2:out"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:29584495",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:37",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:29584495:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:29584495:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:29584495:2:out",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "partially_verified",
+    "verification": "partially verified",
+    "removed_claims": [
+     "summary 3: Neighborhood analysis found no incoming neighbours and 4 outgoing neighbours. (reasons: reviewer says overstated: The evidence for incoming neighbors shows total_found: 0, but the evidence for outgoing neighbors is specifically for hops: 2 (total_found: 4) and does not cover all outgoing neighbors across hops, making the claim about 4 outgoing neighbours unsupported or overstated by the specific hop parameters.)"
+    ],
+    "notes": [
+     "1 item(s) failed the critic after 2 rewrite(s) and were removed."
+    ]
+   },
+   "trace_summary": {
+    "tool_calls": 6,
+    "llm_calls": 9,
+    "critic_rounds": 2,
+    "latency_s": 47.814,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "30122458": {
+   "tx_id": 30122458,
+   "status": "verified",
+   "time_step": 37,
+   "memo": {
+    "header": {
+     "tx_id": 30122458,
+     "time_step": 37,
+     "risk_band": "medium",
+     "score": 0.550728,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.4,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.971074,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 242
+     },
+     "generated_at": "2026-10-23T12:58:48+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 37 the model produced a raw score of 0.550728 placing the transaction in the medium risk band above the alert threshold of 0.258181 and features f53, f59, f55 pushed the score up.",
+      "evidence_ids": [
+       "score:30122458"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The health check at time step 37 showed status ok with a recall of 0.971074 against a reference recall of 0.98308 across 242 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:37"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Neighborhood analysis identified 1 incoming neighbour at hop 1 with a score of 0.0009 while the undirected subgraph of radius 2 contained 22 nodes, 21 directed edges, and 6 alerted nodes.",
+      "evidence_ids": [
+       "neighbors:30122458:1:in",
+       "subgraph:30122458:2"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the incoming neighbour exhibits any unusual transaction frequency.",
+     "Check the communication logs between the focal entity and the incoming neighbour.",
+     "Review the structural connectivity patterns within the weakly connected component."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 37 the model gave a raw score of 0.550728 (risk band medium); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:30122458"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f55 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:30122458"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 37: status ok; recall in the delayed-label window was 0.971074 against a reference recall of 0.98308 over 242 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:37"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 28992836 (incoming neighbour at hop 1, score 0.0009, not alerted).",
+      "evidence_ids": [
+       "neighbors:30122458:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 neighbour found: 28992836 (incoming neighbour at hop 1, score 0.0009, not alerted).",
+      "evidence_ids": [
+       "neighbors:30122458:1:both"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 22 nodes, 21 directed edges, 6 alerted nodes (share 0.272727); focal in-degree 1, focal out-degree 0; chain length 0; weakly connected component size 3306.",
+      "evidence_ids": [
+       "subgraph:30122458:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 2 hops; 1 incoming neighbour found: 28992836 (incoming neighbour at hop 1, score 0.0009, not alerted).",
+      "evidence_ids": [
+       "neighbors:30122458:2:in"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:30122458",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:37",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:30122458:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:30122458:1:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:30122458:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:30122458:2:in",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 7,
+    "llm_calls": 5,
+    "critic_rounds": 0,
+    "latency_s": 24.366,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "44282463": {
+   "tx_id": 44282463,
+   "status": "no_action_model_based",
+   "time_step": 39,
+   "memo": {
+    "header": {
+     "tx_id": 44282463,
+     "time_step": 39,
+     "risk_band": "low",
+     "score": 0.129222,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.038462,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.937255,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 255
+     },
+     "generated_at": "2026-10-23T13:08:26+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v2",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [],
+    "next_checks": [],
+    "activity_description": [
+     {
+      "text": "At time step 39 the model gave a raw score of 0.129222 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:44282463"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 39: status ok; recall in the delayed-label window was 0.937255 against a reference recall of 0.98308 over 255 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:39"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "No structural pattern with a risk-raising direction matched this transaction.",
+      "evidence_ids": [
+       "typology:44282463"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:44282463",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:39",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "typology:44282463",
+      "tool": "match_typology"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "no action suggested, model-based only",
+    "status": "no_action_model_based",
+    "verification": "not applicable",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 4,
+    "llm_calls": 0,
+    "critic_rounds": 0,
+    "latency_s": 0.037,
+    "nodes_visited": [
+     "triage",
+     "finalize"
+    ]
+   }
+  },
+  "61745735": {
+   "tx_id": 61745735,
+   "status": "partially_verified",
+   "time_step": 42,
+   "memo": {
+    "header": {
+     "tx_id": 61745735,
+     "time_step": 42,
+     "risk_band": "medium",
+     "score": 0.400043,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.136364,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304
+     },
+     "generated_at": "2026-10-23T12:57:53+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.400043 in the medium risk band with features f53, f59, f163 pushing the score up, and the model health check status was ok.",
+      "evidence_ids": [
+       "score:61745735",
+       "health:42"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The neighbourhood search found 1 incoming neighbour at hop 1 with score 0.562644 and up to 2 hops total including 4 neighbours.",
+      "evidence_ids": [
+       "neighbors:61745735:1:in",
+       "neighbors:61745735:2:both"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the incoming neighbour shares common identifiers or counterparties with the focal node.",
+     "Check the transactional activity linked to the outgoing neighbours."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.400043 (risk band medium); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:61745735"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f163 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:61745735"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 42: status ok; recall in the delayed-label window was 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 72339001 (incoming neighbour at hop 1, score 0.562644, alerted).",
+      "evidence_ids": [
+       "neighbors:61745735:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 6 nodes, 5 directed edges, 3 alerted nodes (share 0.5); focal in-degree 1, focal out-degree 1; chain length 3; weakly connected component size 7140.",
+      "evidence_ids": [
+       "subgraph:61745735:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 2 hops; 4 neighbours found: 72339001 (incoming neighbour at hop 1, score 0.562644, alerted); 73325496 (outgoing neighbour at hop 2, score 0.35464, alerted); 71466440 (incoming neighbour at hop 2, score 0.160962, not alerted); 80960417 (outgoing neighbour at hop 1, score 0.007142, not alerted).",
+      "evidence_ids": [
+       "neighbors:61745735:2:both"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:61745735",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:42",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:61745735:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:61745735:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:61745735:2:both",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "partially_verified",
+    "verification": "partially verified",
+    "removed_claims": [
+     "summary 2: The undirected subgraph of radius 2 contains 6 nodes, 5 directed edges, 3 alerted nodes, and a weakly connected component size of 7140. (reasons: reviewer says overstated: The claim refers to an 'undirected subgraph' containing 'directed edges', but the evidence simply states n_edges: 5 without specifying if they are directed or undirected, and the term directed edges conflicts with undirected subgraph.)"
+    ],
+    "notes": [
+     "1 item(s) failed the critic after 2 rewrite(s) and were removed."
+    ]
+   },
+   "trace_summary": {
+    "tool_calls": 6,
+    "llm_calls": 9,
+    "critic_rounds": 2,
+    "latency_s": 46.677,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "64413379": {
+   "tx_id": 64413379,
+   "status": "verified",
+   "time_step": 35,
+   "memo": {
+    "header": {
+     "tx_id": 64413379,
+     "time_step": 35,
+     "risk_band": "low",
+     "score": 0.000126,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.0,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.987261,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 471
+     },
+     "generated_at": "2026-10-23T13:07:46+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": "Signal conflict: the model score 0.000126 (risk band low; evidence score:64413379) and the structural pattern chain (evidence direction raises_risk; evidence typology:64413379) point in different directions.",
+    "signal_conflict_evidence_ids": [
+     "score:64413379",
+     "typology:64413379"
+    ],
+    "executive_summary": [
+     {
+      "text": "At time step 35 the model generated a raw score of 0.000126 placing the node in the low risk band, where features f46 and f47 pushed the score up and feature f59 pushed it down.",
+      "evidence_ids": [
+       "score:64413379"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The structural pattern chain matched with a chain length of 10 and a raises_risk direction, showing an illicit rate of 0.257318 among 1469 labeled nodes against a baseline of 0.115809.",
+      "evidence_ids": [
+       "typology:64413379"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "A signal conflict exists because the low model score of 0.000126 and the structural pattern chain point in different directions.",
+      "evidence_ids": [
+       "score:64413379",
+       "typology:64413379"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the incoming neighbour at hop one exhibits similar pattern characteristics.",
+     "Check whether the subgraph connectivity features align with the structural pattern chain."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 35 the model gave a raw score of 0.000126 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:64413379"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f46, f47 pushed the score up; feature f59 pushed the score down; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:64413379"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 35: status ok; recall in the delayed-label window was 0.987261 against a reference recall of 0.98308 over 471 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:35"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Structural pattern chain matched (chain_len 10 >= 4); evidence direction raises_risk; among 1469 labeled nodes with this pattern in the training period the illicit rate was 0.257318 against a baseline of 0.115809 (lift 2.221913), above the baseline.",
+      "evidence_ids": [
+       "typology:64413379"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 100791505 (incoming neighbour at hop 1, score 9.3e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:64413379:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 5 nodes, 4 directed edges, 0 alerted nodes (share 0.0); focal in-degree 1, focal out-degree 1; chain length 10; weakly connected component size 5507.",
+      "evidence_ids": [
+       "subgraph:64413379:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 2 neighbours found: 9070211 (outgoing neighbour at hop 1, score 0.000204, not alerted); 100791505 (incoming neighbour at hop 1, score 9.3e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:64413379:1:both"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:64413379",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "typology:64413379",
+      "tool": "match_typology"
+     },
+     {
+      "evidence_id": "health:35",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:64413379:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:64413379:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:64413379:1:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "tool": "search_regulations"
+     }
+    ],
+    "regulatory_background": [
+     {
+      "paraphrase": "Retrieved guidance: Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative, pages 7-8, reg:fincen_2003_sar_narrative:p7:c11 (quotable; excerpt shortened)",
+      "source_doc": "FinCEN 2003: Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+      "doc_id": "fincen_2003_sar_narrative",
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "quotable": true,
+      "quote": "For example, if what appears to be structuring of currency deposits is matched with outgoing wire transfers from the accounts, the SAR narrative should include information about both the structuring and outbound transfers (including dates, destinations, amounts, accounts, frequency, and",
+      "source": "code"
+     }
+    ],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 7,
+    "llm_calls": 7,
+    "critic_rounds": 0,
+    "latency_s": 34.631,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "regulation",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "69662492": {
+   "tx_id": 69662492,
+   "status": "verified",
+   "time_step": 35,
+   "memo": {
+    "header": {
+     "tx_id": 69662492,
+     "time_step": 35,
+     "risk_band": "high",
+     "score": 0.999978,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 1.0,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.987261,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 471
+     },
+     "generated_at": "2026-10-23T12:51:52+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 35 the model assigned a raw score of 0.999978 placing the transaction in the high risk band above the alert threshold of 0.258181 and the high risk threshold of 0.788025, with features f53, f59, and f90 pushing the score up.",
+      "evidence_ids": [
+       "score:69662492"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Model health check status was ok with a recall of 0.987261 in the delayed label window compared to a reference recall of 0.98308 over 471 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:35"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Analysis of neighbors showed no incoming neighbors up to 1 hop, while 2 outgoing neighbors were found up to 2 hops, and the undirected subgraph of radius 2 contained 3 nodes, 2 directed edges, and 2 alerted nodes.",
+      "evidence_ids": [
+       "neighbors:69662492:1:in",
+       "subgraph:69662492:2",
+       "neighbors:69662492:2:out"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the outgoing neighbor accounts exhibit similar feature attribution patterns",
+     "Check whether the weakly connected component shares common transactional attributes",
+     "Check whether the model health recall metrics remain stable over subsequent time steps"
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 35 the model gave a raw score of 0.999978 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:69662492"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f90 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:69662492"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 35: status ok; recall in the delayed-label window was 0.987261 against a reference recall of 0.98308 over 471 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:35"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; no incoming neighbours found.",
+      "evidence_ids": [
+       "neighbors:69662492:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 3 nodes, 2 directed edges, 2 alerted nodes (share 0.666667); focal in-degree 0, focal out-degree 1; chain length 0; weakly connected component size 5507.",
+      "evidence_ids": [
+       "subgraph:69662492:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 2 outgoing neighbours found: 70410628 (outgoing neighbour at hop 1, score 0.99966, alerted); 8570131 (outgoing neighbour at hop 2, score 0.000163, not alerted).",
+      "evidence_ids": [
+       "neighbors:69662492:2:out"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:69662492",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:35",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:69662492:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:69662492:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:69662492:2:out",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 6,
+    "llm_calls": 5,
+    "critic_rounds": 0,
+    "latency_s": 23.245,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "69779650": {
+   "tx_id": 69779650,
+   "status": "verified",
+   "time_step": 35,
+   "memo": {
+    "header": {
+     "tx_id": 69779650,
+     "time_step": 35,
+     "risk_band": "low",
+     "score": 0.000146,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.0,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.987261,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 471
+     },
+     "generated_at": "2026-10-23T13:06:26+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": "Signal conflict: the model score 0.000146 (risk band low; evidence score:69779650) and the structural pattern chain (evidence direction raises_risk; evidence typology:69779650) point in different directions.",
+    "signal_conflict_evidence_ids": [
+     "score:69779650",
+     "typology:69779650"
+    ],
+    "executive_summary": [
+     {
+      "text": "At time step 35 the model gave a raw score of 0.000146 with a low risk band, while model health status was ok with a recall of 0.987261 against a reference recall of 0.98308 over 471 labeled illicit nodes.",
+      "evidence_ids": [
+       "score:69779650",
+       "health:35"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Feature f59 pushed the score up and features f5, f52 pushed the score down, presenting a signal conflict with the structural pattern chain which raises risk with an illicit rate of 0.257318 against a baseline of 0.115809.",
+      "evidence_ids": [
+       "score:69779650",
+       "typology:69779650",
+       "score:69779650"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The transaction shows 1 incoming neighbour at hop 1 and 4 neighbours found up to 2 hops, within an undirected subgraph of radius 2 containing 5 nodes, 4 directed edges, and 0 alerted nodes.",
+      "evidence_ids": [
+       "neighbors:69779650:1:in",
+       "neighbors:69779650:2:both",
+       "subgraph:69779650:2"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether feature importances align with historical patterns",
+     "Check whether neighboring transactions share similar structural traits",
+     "Check whether recent graph updates alter the local component size"
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 35 the model gave a raw score of 0.000146 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:69779650"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Feature f59 pushed the score up; features f5, f52 pushed the score down; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:69779650"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 35: status ok; recall in the delayed-label window was 0.987261 against a reference recall of 0.98308 over 471 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:35"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Structural pattern chain matched (chain_len 8 >= 4); evidence direction raises_risk; among 1469 labeled nodes with this pattern in the training period the illicit rate was 0.257318 against a baseline of 0.115809 (lift 2.221913), above the baseline.",
+      "evidence_ids": [
+       "typology:69779650"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 69779509 (incoming neighbour at hop 1, score 0.000805, not alerted).",
+      "evidence_ids": [
+       "neighbors:69779650:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 5 nodes, 4 directed edges, 0 alerted nodes (share 0.0); focal in-degree 1, focal out-degree 1; chain length 8; weakly connected component size 5507.",
+      "evidence_ids": [
+       "subgraph:69779650:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 2 hops; 4 neighbours found: 69779749 (outgoing neighbour at hop 1, score 0.004604, not alerted); 69779755 (outgoing neighbour at hop 2, score 0.002841, not alerted); 69779509 (incoming neighbour at hop 1, score 0.000805, not alerted); 69779493 (incoming neighbour at hop 2, score 1.8e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:69779650:2:both"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:69779650",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "typology:69779650",
+      "tool": "match_typology"
+     },
+     {
+      "evidence_id": "health:35",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:69779650:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:69779650:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:69779650:2:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "tool": "search_regulations"
+     }
+    ],
+    "regulatory_background": [
+     {
+      "paraphrase": "Retrieved guidance: Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative, pages 7-8, reg:fincen_2003_sar_narrative:p7:c11 (quotable; excerpt shortened)",
+      "source_doc": "FinCEN 2003: Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+      "doc_id": "fincen_2003_sar_narrative",
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "quotable": true,
+      "quote": "For example, if what appears to be structuring of currency deposits is matched with outgoing wire transfers from the accounts, the SAR narrative should include information about both the structuring and outbound transfers (including dates, destinations, amounts, accounts, frequency, and",
+      "source": "code"
+     }
+    ],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 7,
+    "llm_calls": 7,
+    "critic_rounds": 0,
+    "latency_s": 48.725,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "regulation",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "71769835": {
+   "tx_id": 71769835,
+   "status": "verified",
+   "time_step": 42,
+   "memo": {
+    "header": {
+     "tx_id": 71769835,
+     "time_step": 42,
+     "risk_band": "high",
+     "score": 0.927049,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.846154,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304
+     },
+     "generated_at": "2026-10-23T12:54:17+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.927049 which exceeds the high-risk threshold of 0.788025 and the alert threshold of 0.258181, with features f53, f59, and f3 pushing the score up.",
+      "evidence_ids": [
+       "score:71769835"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Model health check at time step 42 was status ok, showing a recall of 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "No incoming neighbours were found while 2 outgoing neighbours were found up to 2 hops, and the undirected subgraph of radius 2 contained 3 nodes, 2 directed edges, 1 alerted nodes sharing 0.333333, focal in-degree 0, focal out-degree 1, chain length 0, and a weakly connected component size of 7140.",
+      "evidence_ids": [
+       "neighbors:71769835:1:in",
+       "subgraph:71769835:2",
+       "neighbors:71769835:2:out"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether outgoing neighbours exhibit shared identifiers or common transactional patterns.",
+     "Check the status of downstream transaction flows connected to the outgoing neighbours.",
+     "Check feature attribution logs to understand the relative weight of features pushing the score up."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.927049 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:71769835"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f3 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:71769835"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 42: status ok; recall in the delayed-label window was 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; no incoming neighbours found.",
+      "evidence_ids": [
+       "neighbors:71769835:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 3 nodes, 2 directed edges, 1 alerted nodes (share 0.333333); focal in-degree 0, focal out-degree 1; chain length 0; weakly connected component size 7140.",
+      "evidence_ids": [
+       "subgraph:71769835:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 2 outgoing neighbours found: 72741245 (outgoing neighbour at hop 2, score 0.089175, not alerted); 72341023 (outgoing neighbour at hop 1, score 0.000138, not alerted).",
+      "evidence_ids": [
+       "neighbors:71769835:2:out"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:71769835",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:42",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:71769835:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:71769835:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:71769835:2:out",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 6,
+    "llm_calls": 5,
+    "critic_rounds": 0,
+    "latency_s": 25.168,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "71987847": {
+   "tx_id": 71987847,
+   "status": "verified",
+   "time_step": 42,
+   "memo": {
+    "header": {
+     "tx_id": 71987847,
+     "time_step": 42,
+     "risk_band": "high",
+     "score": 0.999825,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.988235,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304
+     },
+     "generated_at": "2026-10-23T12:51:01+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": "Signal conflict: the model score 0.999825 (risk band high; evidence score:71987847) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:71987847:1:in) point in different directions.",
+    "signal_conflict_evidence_ids": [
+     "score:71987847",
+     "neighbors:71987847:1:in"
+    ],
+    "executive_summary": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.999825 in the high risk band where features f53, f90, f161 pushed the score up.",
+      "evidence_ids": [
+       "score:71987847"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Model health check at time step 42 had status ok with recall in the delayed label window of 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "There is a signal conflict because the model score of 0.999825 points to high risk while none of the 1 in neighbours alerted.",
+      "evidence_ids": [
+       "score:71987847",
+       "neighbors:71987847:1:in",
+       "neighbors:71987847:1:both"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the incoming neighbour exhibits anomalous transaction patterns",
+     "Check whether feature contributions align with historical high risk cases",
+     "Check whether the weakly connected component size impacts subgraph metrics"
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.999825 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:71987847"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f90, f161 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:71987847"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 42: status ok; recall in the delayed-label window was 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 71811939 (incoming neighbour at hop 1, score 7.4e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:71987847:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 3 nodes, 2 directed edges, 1 alerted nodes (share 0.333333); focal in-degree 1, focal out-degree 0; chain length 0; weakly connected component size 7140.",
+      "evidence_ids": [
+       "subgraph:71987847:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 neighbour found: 71811939 (incoming neighbour at hop 1, score 7.4e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:71987847:1:both"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:71987847",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "neighbors:71987847:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "health:42",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "subgraph:71987847:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:71987847:1:both",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 6,
+    "llm_calls": 9,
+    "critic_rounds": 2,
+    "latency_s": 50.279,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "72097077": {
+   "tx_id": 72097077,
+   "status": "no_action_model_based",
+   "time_step": 42,
+   "memo": {
+    "header": {
+     "tx_id": 72097077,
+     "time_step": 42,
+     "risk_band": "low",
+     "score": 4e-06,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.0,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304
+     },
+     "generated_at": "2026-10-23T13:08:03+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v2",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [],
+    "next_checks": [],
+    "activity_description": [
+     {
+      "text": "At time step 42 the model gave a raw score of 4e-06 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:72097077"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 42: status ok; recall in the delayed-label window was 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Structural pattern fan_out matched (out_degree 6 >= 5); labeled nodes with this pattern in the training period had an illicit rate of 0.0 against a baseline of 0.115809, so this pattern lowers rather than raises risk and is not treated as suspicious.",
+      "evidence_ids": [
+       "typology:72097077"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "No structural pattern with a risk-raising direction matched this transaction.",
+      "evidence_ids": [
+       "typology:72097077"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:72097077",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:42",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "typology:72097077",
+      "tool": "match_typology"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "no action suggested, model-based only",
+    "status": "no_action_model_based",
+    "verification": "not applicable",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 4,
+    "llm_calls": 0,
+    "critic_rounds": 0,
+    "latency_s": 0.043,
+    "nodes_visited": [
+     "triage",
+     "finalize"
+    ]
+   }
+  },
+  "72624896": {
+   "tx_id": 72624896,
+   "status": "no_action_model_based",
+   "time_step": 42,
+   "memo": {
+    "header": {
+     "tx_id": 72624896,
+     "time_step": 42,
+     "risk_band": "low",
+     "score": 0.000843,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.0,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304
+     },
+     "generated_at": "2026-10-23T13:08:20+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v2",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [],
+    "next_checks": [],
+    "activity_description": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.000843 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:72624896"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 42: status ok; recall in the delayed-label window was 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "No structural pattern with a risk-raising direction matched this transaction.",
+      "evidence_ids": [
+       "typology:72624896"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:72624896",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:42",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "typology:72624896",
+      "tool": "match_typology"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "no action suggested, model-based only",
+    "status": "no_action_model_based",
+    "verification": "not applicable",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 4,
+    "llm_calls": 0,
+    "critic_rounds": 0,
+    "latency_s": 0.041,
+    "nodes_visited": [
+     "triage",
+     "finalize"
+    ]
+   }
+  },
+  "73002538": {
+   "tx_id": 73002538,
+   "status": "verified",
+   "time_step": 42,
+   "memo": {
+    "header": {
+     "tx_id": 73002538,
+     "time_step": 42,
+     "risk_band": "high",
+     "score": 0.999979,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 1.0,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304
+     },
+     "generated_at": "2026-10-23T12:47:22+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": "Signal conflict: the model score 0.999979 (risk band high; evidence score:73002538) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:73002538:1:in) point in different directions.",
+    "signal_conflict_evidence_ids": [
+     "score:73002538",
+     "neighbors:73002538:1:in"
+    ],
+    "executive_summary": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.999979 in the high risk band, with features f53, f59, and f90 pushing the score up.",
+      "evidence_ids": [
+       "score:73002538"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The model health check status was ok, showing a recall of 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "A signal conflict exists because the model score of 0.999979 and the in-neighbour alerts point in different directions, as none of the 1 in-neighbours were alerted.",
+      "evidence_ids": [
+       "score:73002538",
+       "neighbors:73002538:1:in"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the incoming neighbour exhibits anomalous transaction patterns",
+     "Check whether the outgoing neighbour shares identifiers with the focal node"
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.999979 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:73002538"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f90 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:73002538"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 42: status ok; recall in the delayed-label window was 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 72709511 (incoming neighbour at hop 1, score 4e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:73002538:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 30 nodes, 29 directed edges, 26 alerted nodes (share 0.866667); focal in-degree 1, focal out-degree 1; chain length 1; weakly connected component size 7140.",
+      "evidence_ids": [
+       "subgraph:73002538:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 2 hops; 3 neighbours found: 73282397 (outgoing neighbour at hop 1, score 0.994337, alerted); 72709511 (incoming neighbour at hop 1, score 4e-05, not alerted); 53892182 (incoming neighbour at hop 2, score 2e-05, not alerted).",
+      "evidence_ids": [
+       "neighbors:73002538:2:both"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:73002538",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "neighbors:73002538:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "health:42",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "subgraph:73002538:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:73002538:2:both",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 6,
+    "llm_calls": 5,
+    "critic_rounds": 0,
+    "latency_s": 34.56,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "73333415": {
+   "tx_id": 73333415,
+   "status": "verified",
+   "time_step": 42,
+   "memo": {
+    "header": {
+     "tx_id": 73333415,
+     "time_step": 42,
+     "risk_band": "high",
+     "score": 0.911319,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.846154,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304
+     },
+     "generated_at": "2026-10-23T12:55:08+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": "Signal conflict: the model score 0.911319 (risk band high; evidence score:73333415) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:73333415:1:in) point in different directions.",
+    "signal_conflict_evidence_ids": [
+     "score:73333415",
+     "neighbors:73333415:1:in"
+    ],
+    "executive_summary": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.911319 placing it in the high risk band above the alert threshold of 0.258181 and the high risk threshold of 0.788025 where features f53, f59, f163 pushed the score up.",
+      "evidence_ids": [
+       "score:73333415"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Model health check at time step 42 showed status ok with a recall in the delayed label window of 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes, while the undirected subgraph of radius 2 contained 3 nodes, 2 directed edges, 1 alerted nodes representing a share of 0.333333, focal in degree 1, focal out degree 0, chain length 0, and a weakly connected component size of 7140.",
+      "evidence_ids": [
+       "health:42",
+       "subgraph:73333415:2"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "There is a signal conflict between the model score of 0.911319 in the high risk band and the in neighbour alerts where none of the 1 in neighbours alerted.",
+      "evidence_ids": [
+       "score:73333415",
+       "neighbors:73333415:1:in"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check whether the incoming neighbour exhibits anomalous transaction patterns despite not being alerted.",
+     "Check whether the model health recall metrics show any degradation over subsequent time steps.",
+     "Check whether subgraph connectivity features align with the assigned high risk band score."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 42 the model gave a raw score of 0.911319 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:73333415"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f163 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:73333415"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 42: status ok; recall in the delayed-label window was 0.842105 against a reference recall of 0.98308 over 304 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:42"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 73333592 (incoming neighbour at hop 1, score 0.000258, not alerted).",
+      "evidence_ids": [
+       "neighbors:73333415:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 3 nodes, 2 directed edges, 1 alerted nodes (share 0.333333); focal in-degree 1, focal out-degree 0; chain length 0; weakly connected component size 7140.",
+      "evidence_ids": [
+       "subgraph:73333415:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 neighbour found: 73333592 (incoming neighbour at hop 1, score 0.000258, not alerted).",
+      "evidence_ids": [
+       "neighbors:73333415:1:both"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:73333415",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "neighbors:73333415:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "health:42",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "subgraph:73333415:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:73333415:1:both",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 6,
+    "llm_calls": 4,
+    "critic_rounds": 0,
+    "latency_s": 18.671,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  },
+  "97933782": {
+   "tx_id": 97933782,
+   "status": "verified",
+   "time_step": 40,
+   "memo": {
+    "header": {
+     "tx_id": 97933782,
+     "time_step": 40,
+     "risk_band": "high",
+     "score": 0.885416,
+     "score_scale": "raw_lightgbm_predict_proba",
+     "calibrated_probability": 0.75,
+     "thresholds": {
+      "alert": 0.258181,
+      "high": 0.788025
+     },
+     "model_health": {
+      "status": "ok",
+      "window_recall": 0.880435,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 184
+     },
+     "generated_at": "2026-10-23T12:56:25+0530"
+    },
+    "subject": {
+     "names": "not available in dataset",
+     "addresses": "not available in dataset",
+     "amounts": "not available in dataset",
+     "dates": "not available in dataset"
+    },
+    "design": "v3",
+    "signal_conflict": null,
+    "signal_conflict_evidence_ids": [],
+    "executive_summary": [
+     {
+      "text": "At time step 40 the model gave a raw score of 0.885416 which exceeded the high-risk threshold of 0.788025 and the alert threshold of 0.258181, with features f53, f59, and f163 pushing the score up.",
+      "evidence_ids": [
+       "score:97933782"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "The model health check at time step 40 returned status ok, showing a recall of 0.880435 in the delayed-label window against a reference recall of 0.98308 over 184 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:40"
+      ],
+      "source": "llm"
+     },
+     {
+      "text": "Neighbour analysis identified 1 incoming neighbour at hop 1 with score 0.263978 that was alerted, while the undirected subgraph of radius 2 contained 6 nodes, 5 directed edges, 2 alerted nodes, and a weakly connected component size of 4481.",
+      "evidence_ids": [
+       "neighbors:97933782:1:in",
+       "subgraph:97933782:2"
+      ],
+      "source": "llm"
+     }
+    ],
+    "next_checks": [
+     "Check feature importance drift over recent time steps for the contributing features.",
+     "Check historical transaction patterns of the incoming neighbour.",
+     "Check whether the outgoing neighbours share any common identifiers."
+    ],
+    "activity_description": [
+     {
+      "text": "At time step 40 the model gave a raw score of 0.885416 (risk band high); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+      "evidence_ids": [
+       "score:97933782"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Features f53, f59, f163 pushed the score up; feature names are anonymized in the dataset.",
+      "evidence_ids": [
+       "score:97933782"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "Model health check at time step 40: status ok; recall in the delayed-label window was 0.880435 against a reference recall of 0.98308 over 184 labeled illicit nodes.",
+      "evidence_ids": [
+       "health:40"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; 1 incoming neighbour found: 97013839 (incoming neighbour at hop 1, score 0.263978, alerted).",
+      "evidence_ids": [
+       "neighbors:97933782:1:in"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 6 nodes, 5 directed edges, 2 alerted nodes (share 0.333333); focal in-degree 1, focal out-degree 1; chain length 2; weakly connected component size 4481.",
+      "evidence_ids": [
+       "subgraph:97933782:2"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction both (directed chains only, never mixed in-and-out paths), up to 1 hop; 2 neighbours found: 97013839 (incoming neighbour at hop 1, score 0.263978, alerted); 97024534 (outgoing neighbour at hop 1, score 0.016718, not alerted).",
+      "evidence_ids": [
+       "neighbors:97933782:1:both"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 3 outgoing neighbours found: 97024534 (outgoing neighbour at hop 1, score 0.016718, not alerted); 97024529 (outgoing neighbour at hop 2, score 0.002602, not alerted); 28547465 (outgoing neighbour at hop 2, score 2e-06, not alerted).",
+      "evidence_ids": [
+       "neighbors:97933782:2:out"
+      ],
+      "source": "code"
+     },
+     {
+      "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 2 hops; 1 incoming neighbour found: 97013839 (incoming neighbour at hop 1, score 0.263978, alerted).",
+      "evidence_ids": [
+       "neighbors:97933782:2:in"
+      ],
+      "source": "code"
+     }
+    ],
+    "evidence_table": [
+     {
+      "evidence_id": "score:97933782",
+      "tool": "score_transaction"
+     },
+     {
+      "evidence_id": "health:40",
+      "tool": "check_model_health"
+     },
+     {
+      "evidence_id": "neighbors:97933782:1:in",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "subgraph:97933782:2",
+      "tool": "subgraph_summary"
+     },
+     {
+      "evidence_id": "neighbors:97933782:1:both",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:97933782:2:out",
+      "tool": "get_neighbors"
+     },
+     {
+      "evidence_id": "neighbors:97933782:2:in",
+      "tool": "get_neighbors"
+     }
+    ],
+    "regulatory_background": [],
+    "limitations": [
+     "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+     "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+     "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+     "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+     "Structural patterns are resemblances only: Elliptic has no typology labels.",
+     "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+     "This is a draft for a human analyst. It does not decide whether a report should be filed."
+    ],
+    "recommendation": "refer for human review",
+    "status": "verified",
+    "verification": "verified",
+    "removed_claims": [],
+    "notes": []
+   },
+   "trace_summary": {
+    "tool_calls": 8,
+    "llm_calls": 9,
+    "critic_rounds": 1,
+    "latency_s": 46.799,
+    "nodes_visited": [
+     "triage",
+     "investigator",
+     "writer",
+     "critic",
+     "writer",
+     "critic",
+     "finalize"
+    ]
+   }
+  }
+ }
+}

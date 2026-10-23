@@ -24,3 +24,4 @@ sentence-transformers
 
 rapidocr
 onnxruntime
+httpx
