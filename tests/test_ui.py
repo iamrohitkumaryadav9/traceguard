@@ -188,3 +188,52 @@ def test_evaluation_and_limits_pages_render():
     assert at.header[0].value == "How it was evaluated" and len(at.subheader) == len(render.EVAL_ITEMS)
     at = run_app(page="Known limits")
     assert len([m for m in at.markdown if m.value.startswith("- ")]) == len(render.LIMITS)
+
+
+# ---------- Phase 6b polish ----------
+def test_cannot_assess_recommendation_is_replaced_for_display_only():
+    e = entry(CANNOT)
+    stored = e["memo"]["recommendation"]
+    v = render.memo_view(e)
+    assert v.recommendation == "The model cannot assess this transaction; any review must proceed without model input."
+    assert e["memo"]["recommendation"] == stored != v.recommendation  # the stored memo is unchanged
+    assert render.memo_view(entry(LOW)).recommendation == entry(LOW)["memo"]["recommendation"]
+    assert render.memo_view(entry(HIGH)).recommendation == entry(HIGH)["memo"]["recommendation"]
+
+
+def test_excerpt_is_cut_at_a_clause_boundary_ends_with_an_ellipsis_and_has_the_general_background_note():
+    q = ("the SAR narrative should include information about both the structuring and outbound transfers "
+         "(including dates, destinations, amounts, accounts, frequency, and")
+    shown = render.display_excerpt(q)
+    assert shown.endswith("frequency…") and not shown.endswith("and…") and shown.count("…") == 1
+    assert render.display_excerpt("Funds moved through several accounts and the") == "Funds moved through several accounts…"
+    assert render.display_excerpt("A complete sentence.") == "A complete sentence…"
+    assert render.display_excerpt("") == ""
+    v = render.memo_view(entry(CHAIN))
+    assert v.background[0]["quote"].endswith("…") and v.background[0]["note"] == (
+        "General background from the retrieved guidance; it may not match this specific pattern.")
+    assert entry(CHAIN)["memo"]["regulatory_background"][0]["quote"].endswith("and")  # stored text unchanged
+
+
+def test_at_a_glance_has_status_band_score_conflict_and_model_health():
+    g = dict(render.memo_view(entry(CHAIN)).glance)
+    assert g == {"Status": "Verified", "Risk band": "low", "Raw score": 0.127512, "Signal conflict": "yes", "Model health": "ok"}
+    c = dict(render.memo_view(entry(CANNOT)).glance)
+    assert c["Risk band"] == "not rated" and c["Raw score"] == "withheld" and c["Status"].startswith("The model cannot be relied on")
+    assert render.label_keys(render.memo_view(entry(CHAIN))) == []
+
+
+def test_limits_page_says_next_checks_are_unconstrained_llm_text():
+    assert any("what a human analyst could check next" in x and "unconstrained LLM text" in x and "may not be actionable" in x for x in render.LIMITS)
+
+
+def test_memo_page_layout_glance_box_single_conflict_prefix_and_collapsed_activity_description():
+    at = run_app(page="Memo view", tx=CHAIN)
+    assert any("At a glance" in m.value for m in at.markdown) and len(at.metric) == 5
+    conflicts = [w.value for w in at.warning if "Signal conflict" in w.value]
+    assert len(conflicts) == 1 and conflicts[0].count("Signal conflict") == 1 and not conflicts[0].startswith("**")
+    act = next(e for e in at.expander if e.label.startswith("Activity description"))
+    assert act.proto.expanded is False
+    assert any("General background from the retrieved guidance" in str(c.value) for c in at.caption)
+    at = run_app(page="Memo view", tx=CANNOT)
+    assert any("any review must proceed without model input" in m.value for m in at.markdown)

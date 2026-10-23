@@ -49,6 +49,7 @@ class MemoView:
     subject: Dict[str, str]
     notes: List[str]
     removed: List[str]
+    glance: List[tuple] = field(default_factory=list)
     trace: Dict[str, object] = field(default_factory=dict)
 
 
@@ -126,9 +127,47 @@ def risk_lines(memo: dict) -> List[str]:
     return lines
 
 
+EXCERPT_NOTE = "General background from the retrieved guidance; it may not match this specific pattern."
+CANNOT_ASSESS_RECOMMENDATION = "The model cannot assess this transaction; any review must proceed without model input."
+_DANGLING = {"and", "or", "the", "of", "to", "a", "an", "in", "for", "with", "by", "as", "that", "which", "including", "is", "are"}
+
+
+def display_excerpt(quote: str) -> str:
+    """The excerpt as shown: cut at a clause boundary (or, failing that, a word boundary), never on a dangling connective,
+    and always ending with an ellipsis. Display only: the stored text is unchanged."""
+    text = " ".join((quote or "").split()).rstrip()
+    if not text:
+        return ""
+    for cut in (",", ";", ":"):  # prefer the last clause boundary when it keeps most of the excerpt
+        i = text.rfind(cut)
+        if i >= 0.6 * len(text) and not text.endswith((".", "!", "?")):
+            text = text[:i]
+            break
+    words = text.split()
+    while words and words[-1].lower().strip(",;:") in _DANGLING and not text.endswith((".", "!", "?")):
+        words.pop()
+        text = " ".join(words)
+    return text.rstrip(" ,;:-–—.") + "…"
+
+
+def display_recommendation(status: str, memo: dict) -> str:
+    """The recommendation as shown. For cannot_assess the stored text is replaced (display only)."""
+    return CANNOT_ASSESS_RECOMMENDATION if status == "cannot_assess" else memo["recommendation"]
+
+
+def glance(entry: dict, banner: "Banner", conflict: Optional[str]) -> List[tuple]:
+    """The 'At a glance' box: status, risk band, raw score, signal conflict yes or no, model-health status."""
+    h = entry["memo"]["header"]
+    rated = h.get("risk_band") is not None
+    return [("Status", banner.title), ("Risk band", h["risk_band"] if rated else "not rated"),
+            ("Raw score", h["score"] if rated else "withheld"), ("Signal conflict", "yes" if conflict else "no"),
+            ("Model health", (h.get("model_health") or {}).get("status") or "unknown")]
+
+
 def background_views(memo: dict) -> List[dict]:
     return [{"heading": "Context, not evidence about this transaction", "source_doc": b["source_doc"], "text": b["paraphrase"],
-             "quote": b.get("quote") if b.get("quotable") else None, "evidence_id": b["evidence_id"], "quotable": b.get("quotable", True)}
+             "quote": display_excerpt(b["quote"]) if (b.get("quotable") and b.get("quote")) else None, "note": EXCERPT_NOTE,
+             "evidence_id": b["evidence_id"], "quotable": b.get("quotable", True)}
             for b in memo.get("regulatory_background", [])]
 
 
@@ -142,8 +181,9 @@ def memo_view(entry: dict) -> MemoView:
         banner=status_banner(entry["status"], memo), risk=risk_lines(memo), conflict=conflict_callout(memo),
         summary=claim_views(memo.get("executive_summary", []), evidence), claims=claim_views(memo.get("activity_description", []), evidence),
         background=background_views(memo), next_checks=list(memo.get("next_checks", [])), limitations=list(memo.get("limitations", [])),
-        recommendation=memo["recommendation"], subject=subject, notes=list(memo.get("notes", [])),
+        recommendation=display_recommendation(entry["status"], memo), subject=subject, notes=list(memo.get("notes", [])),
         removed=list(memo.get("removed_claims", [])), trace=dict(entry.get("trace_summary") or {}))
+    view.glance = glance(entry, view.banner, view.conflict)
     assert_no_labels(view)
     return view
 
@@ -219,5 +259,6 @@ LIMITS = [
     "One LLM acts as investigator, writer and reviewer, and it is sometimes too strict or wrong in the critic's role.",
     "Regulation retrieval is weak (about 0.6 hit@3 on a small test set); retrieved text is a lead, not an authority.",
     "The evaluations are small (30 to 40 nodes, 110 hand-checked claims, one human reader), so every rate has a wide interval.",
+    "The \"what a human analyst could check next\" suggestions are unconstrained LLM text (only checked for numbers and evidence ids) and may not be actionable with this dataset.",
     "This is a draft for a human analyst. It does not decide whether a report should be filed, and nothing here measures that the agents improve detection.",
 ]
