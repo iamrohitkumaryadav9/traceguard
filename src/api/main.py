@@ -65,7 +65,12 @@ class AgentRunner:
         deps = Deps(llm=self._llm)
         state = run_agent(tx_id, deps)
         t = trace_dict(state, deps)
-        return {"status": state.status, "error": state.error, "memo": t["memo"], "trace_summary": trace_summary(t)}
+        from src.api.bundle import cited_ids, public_evidence
+
+        ledger = {k: v.model_dump() for k, v in state.ledger.items()}
+        evidence = public_evidence(ledger, cited_ids(t["memo"])) if t["memo"] else {}
+        return {"status": state.status, "error": state.error, "memo": t["memo"], "trace_summary": trace_summary(t),
+                "evidence": evidence}
 
 
 def json_safe(obj):
@@ -108,9 +113,9 @@ def create_app(settings=None, runner=None, llm_factory=None, readiness=None):
     async def _http(_, exc):
         return error(exc.status_code, "http_error", str(exc.detail))
 
-    def payload(tx_id, status, memo, trace, source):
-        return {"tx_id": tx_id, "status": status, "memo": json_safe(memo), "trace_summary": trace, "mode": s.mode,
-                "design_version": DESIGN_VERSION, "source": source}
+    def payload(tx_id, status, memo, trace, source, evidence=None):
+        return {"tx_id": tx_id, "status": status, "memo": json_safe(memo), "trace_summary": trace, "evidence": json_safe(evidence or {}),
+                "mode": s.mode, "design_version": DESIGN_VERSION, "source": source}
 
     @app.get("/health")
     def health():
@@ -137,7 +142,11 @@ def create_app(settings=None, runner=None, llm_factory=None, readiness=None):
         entry = bundle.get(tx_id)
         if entry is None:
             return error(404, "memo_not_found", f"No cached memo for transaction {tx_id}.", tx_id=tx_id)
-        return payload(tx_id, entry["status"], entry["memo"], entry["trace_summary"], "precomputed")
+        return payload(tx_id, entry["status"], entry["memo"], entry["trace_summary"], "precomputed", entry.get("evidence"))
+
+    @app.get("/memos")
+    def memos():
+        return {"memos": [{"tx_id": t, "status": e["status"], "time_step": e["time_step"]} for t, e in sorted(bundle.entries.items())]}
 
     @app.post("/investigate")
     async def investigate(req: InvestigateRequest, request: Request):
@@ -148,7 +157,7 @@ def create_app(settings=None, runner=None, llm_factory=None, readiness=None):
                 return error(403, "live_runs_disabled",
                              "This server runs in demo mode: it only serves pre-computed memos and never runs the agent. "
                              "See GET /examples for the available nodes.", tx_id=tx)
-            return payload(tx, entry["status"], entry["memo"], entry["trace_summary"], "precomputed")
+            return payload(tx, entry["status"], entry["memo"], entry["trace_summary"], "precomputed", entry.get("evidence"))
         if tx in live_cache and not req.refresh:
             return live_cache[tx]
         missing = readiness()
@@ -189,7 +198,7 @@ def create_app(settings=None, runner=None, llm_factory=None, readiness=None):
             return quota_503(res["error"])
         if res["status"] == "unknown_transaction":
             return error(404, "unknown_transaction", f"Transaction {tx} is not in the dataset.", tx_id=tx)
-        out = payload(tx, res["status"], res["memo"], res["trace_summary"], "live")
+        out = payload(tx, res["status"], res["memo"], res["trace_summary"], "live", res.get("evidence"))
         if res["status"] != "agent_error":
             live_cache[tx] = out
         return out

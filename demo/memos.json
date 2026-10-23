@@ -187,6 +187,136 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:44": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 44,
+      "status": "ok",
+      "window_steps": [
+       40,
+       41,
+       42
+      ],
+      "window_recall": 0.82227,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 467,
+      "lag": 2,
+      "evidence_id": "health:44"
+     }
+    },
+    "neighbors:106300125:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 106300125,
+      "time_step": 44,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 32455581,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.280955,
+        "alert": true
+       }
+      ],
+      "evidence_id": "neighbors:106300125:1:in"
+     }
+    },
+    "neighbors:106300125:2:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 106300125,
+      "time_step": 44,
+      "hops": 2,
+      "direction": "in",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 105787081,
+        "hop": 2,
+        "direction": "in",
+        "score": 0.460901,
+        "alert": true
+       },
+       {
+        "tx_id": 32455581,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.280955,
+        "alert": true
+       }
+      ],
+      "evidence_id": "neighbors:106300125:2:in"
+     }
+    },
+    "score:106300125": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 106300125,
+      "time_step": 44,
+      "score": 0.999862,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.988235,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f90",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f161",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f132",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:106300125"
+     }
+    },
+    "subgraph:106300125:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 106300125,
+      "time_step": 44,
+      "radius": 2,
+      "n_nodes": 3,
+      "n_edges": 2,
+      "density": 0.333333,
+      "focal_in_degree": 1,
+      "focal_out_degree": 0,
+      "max_in_degree": 1,
+      "max_out_degree": 1,
+      "n_alerted": 3,
+      "share_alerted": 1.0,
+      "focal_chain_len": 0,
+      "wcc_size": 4975,
+      "evidence_id": "subgraph:106300125:2"
+     }
+    }
    }
   },
   "109871125": {
@@ -359,6 +489,134 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:44": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 44,
+      "status": "ok",
+      "window_steps": [
+       40,
+       41,
+       42
+      ],
+      "window_recall": 0.82227,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 467,
+      "lag": 2,
+      "evidence_id": "health:44"
+     }
+    },
+    "neighbors:109871125:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 109871125,
+      "time_step": 44,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 0,
+      "truncated": false,
+      "neighbors": [],
+      "evidence_id": "neighbors:109871125:1:in"
+     }
+    },
+    "neighbors:109871125:2:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 109871125,
+      "time_step": 44,
+      "hops": 2,
+      "direction": "in",
+      "total_found": 0,
+      "truncated": false,
+      "neighbors": [],
+      "evidence_id": "neighbors:109871125:2:in"
+     }
+    },
+    "neighbors:109871125:2:out": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 109871125,
+      "time_step": 44,
+      "hops": 2,
+      "direction": "out",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 107212690,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.518892,
+        "alert": true
+       }
+      ],
+      "evidence_id": "neighbors:109871125:2:out"
+     }
+    },
+    "score:109871125": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 109871125,
+      "time_step": 44,
+      "score": 0.873789,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.75,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f3",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f52",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:109871125"
+     }
+    },
+    "subgraph:109871125:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 109871125,
+      "time_step": 44,
+      "radius": 2,
+      "n_nodes": 5,
+      "n_edges": 4,
+      "density": 0.2,
+      "focal_in_degree": 0,
+      "focal_out_degree": 1,
+      "max_in_degree": 4,
+      "max_out_degree": 1,
+      "n_alerted": 4,
+      "share_alerted": 0.8,
+      "focal_chain_len": 0,
+      "wcc_size": 4975,
+      "evidence_id": "subgraph:109871125:2"
+     }
+    }
    }
   },
   "114656654": {
@@ -472,6 +730,200 @@
      "triage",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:38": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 38,
+      "status": "ok",
+      "window_steps": [
+       34,
+       35,
+       36
+      ],
+      "window_recall": 0.988095,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 252,
+      "lag": 2,
+      "evidence_id": "health:38"
+     }
+    },
+    "neighbors:114656654:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 114656654,
+      "time_step": 38,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 12,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 114592143,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.999191,
+        "alert": true
+       },
+       {
+        "tx_id": 114515765,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.912245,
+        "alert": true
+       },
+       {
+        "tx_id": 114521057,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.817448,
+        "alert": true
+       },
+       {
+        "tx_id": 114548278,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.305786,
+        "alert": true
+       },
+       {
+        "tx_id": 114511943,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.248175,
+        "alert": false
+       },
+       {
+        "tx_id": 114438707,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.002291,
+        "alert": false
+       },
+       {
+        "tx_id": 114548633,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.00011,
+        "alert": false
+       },
+       {
+        "tx_id": 114446406,
+        "hop": 1,
+        "direction": "in",
+        "score": 8.5e-05,
+        "alert": false
+       },
+       {
+        "tx_id": 114446748,
+        "hop": 1,
+        "direction": "in",
+        "score": 6.7e-05,
+        "alert": false
+       },
+       {
+        "tx_id": 1005183,
+        "hop": 1,
+        "direction": "in",
+        "score": 2.7e-05,
+        "alert": false
+       },
+       {
+        "tx_id": 114481812,
+        "hop": 1,
+        "direction": "in",
+        "score": 2.5e-05,
+        "alert": false
+       },
+       {
+        "tx_id": 114443935,
+        "hop": 1,
+        "direction": "in",
+        "score": 1.4e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:114656654:1:in"
+     }
+    },
+    "score:114656654": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 114656654,
+      "time_step": 38,
+      "score": 6.2e-05,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.0,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f125",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f138",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f161",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       }
+      ],
+      "evidence_id": "score:114656654"
+     }
+    },
+    "typology:114656654": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 114656654,
+      "time_step": 38,
+      "flags": {
+       "fan_in": true,
+       "fan_out": false,
+       "chain": false
+      },
+      "in_degree": 12,
+      "out_degree": 1,
+      "chain_len": 0,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [
+       {
+        "pattern": "fan_in",
+        "evidence": "in_degree 12 >= 9",
+        "n_flagged": 1023,
+        "observed_illicit_rate": 0.018573,
+        "baseline_illicit_rate": 0.115809,
+        "lift": 0.160374,
+        "evidence_direction": "lowers_risk",
+        "retrieval_query": null,
+        "note": "In training-period data (steps 1-34) this pattern was associated with a LOWER illicit rate than the baseline, so no retrieval query is provided and the pattern must not be presented as suspicious.",
+        "caveat": "structural resemblance only; Elliptic has no typology labels. The evidence direction comes from training-period data (labeled nodes, time steps 1-34); a pattern with direction 'lowers_risk' must never be described as suspicious."
+       }
+      ],
+      "evidence_id": "typology:114656654"
+     }
+    }
    }
   },
   "125406909": {
@@ -550,6 +1002,25 @@
      "triage",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:47": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 47,
+      "status": "degraded",
+      "window_steps": [
+       43,
+       44,
+       45
+      ],
+      "window_recall": 0.037736,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 53,
+      "lag": 2,
+      "evidence_id": "health:47"
+     }
+    }
    }
   },
   "12664247": {
@@ -719,6 +1190,157 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:41": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 41,
+      "status": "ok",
+      "window_steps": [
+       37,
+       38,
+       39
+      ],
+      "window_recall": 0.883621,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 232,
+      "lag": 2,
+      "evidence_id": "health:41"
+     }
+    },
+    "neighbors:12664247:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 12664247,
+      "time_step": 41,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 12664249,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.951869,
+        "alert": true
+       }
+      ],
+      "evidence_id": "neighbors:12664247:1:both"
+     }
+    },
+    "neighbors:12664247:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 12664247,
+      "time_step": 41,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 12664249,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.951869,
+        "alert": true
+       }
+      ],
+      "evidence_id": "neighbors:12664247:1:in"
+     }
+    },
+    "neighbors:12664247:2:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 12664247,
+      "time_step": 41,
+      "hops": 2,
+      "direction": "in",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 12664249,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.951869,
+        "alert": true
+       },
+       {
+        "tx_id": 12671576,
+        "hop": 2,
+        "direction": "in",
+        "score": 9.7e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:12664247:2:in"
+     }
+    },
+    "score:12664247": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 12664247,
+      "time_step": 41,
+      "score": 0.999157,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.988235,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f90",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f132",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f161",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:12664247"
+     }
+    },
+    "subgraph:12664247:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 12664247,
+      "time_step": 41,
+      "radius": 2,
+      "n_nodes": 4,
+      "n_edges": 3,
+      "density": 0.25,
+      "focal_in_degree": 1,
+      "focal_out_degree": 0,
+      "max_in_degree": 1,
+      "max_out_degree": 2,
+      "n_alerted": 3,
+      "share_alerted": 0.75,
+      "focal_chain_len": 0,
+      "wcc_size": 5342,
+      "evidence_id": "subgraph:12664247:2"
+     }
+    }
    }
   },
   "12669334": {
@@ -832,6 +1454,102 @@
      "triage",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:41": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 41,
+      "status": "ok",
+      "window_steps": [
+       37,
+       38,
+       39
+      ],
+      "window_recall": 0.883621,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 232,
+      "lag": 2,
+      "evidence_id": "health:41"
+     }
+    },
+    "score:12669334": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 12669334,
+      "time_step": 41,
+      "score": 2e-06,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.0,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f5",
+        "group": "local",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f131",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f102",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:12669334"
+     }
+    },
+    "typology:12669334": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 12669334,
+      "time_step": 41,
+      "flags": {
+       "fan_in": false,
+       "fan_out": true,
+       "chain": false
+      },
+      "in_degree": 0,
+      "out_degree": 6,
+      "chain_len": 0,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [
+       {
+        "pattern": "fan_out",
+        "evidence": "out_degree 6 >= 5",
+        "n_flagged": 347,
+        "observed_illicit_rate": 0.0,
+        "baseline_illicit_rate": 0.115809,
+        "lift": 0.0,
+        "evidence_direction": "lowers_risk",
+        "retrieval_query": null,
+        "note": "In training-period data (steps 1-34) this pattern was associated with a LOWER illicit rate than the baseline, so no retrieval query is provided and the pattern must not be presented as suspicious.",
+        "caveat": "structural resemblance only; Elliptic has no typology labels. The evidence direction comes from training-period data (labeled nodes, time steps 1-34); a pattern with direction 'lowers_risk' must never be described as suspicious."
+       }
+      ],
+      "evidence_id": "typology:12669334"
+     }
+    }
    }
   },
   "149570741": {
@@ -1002,6 +1720,185 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:39": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 39,
+      "status": "ok",
+      "window_steps": [
+       35,
+       36,
+       37
+      ],
+      "window_recall": 0.937255,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 255,
+      "lag": 2,
+      "evidence_id": "health:39"
+     }
+    },
+    "neighbors:149570741:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 149570741,
+      "time_step": 39,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 3,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 161430303,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.902247,
+        "alert": true
+       },
+       {
+        "tx_id": 149157916,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.015299,
+        "alert": false
+       },
+       {
+        "tx_id": 148728283,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.000281,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:149570741:1:both"
+     }
+    },
+    "neighbors:149570741:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 149570741,
+      "time_step": 39,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 161430303,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.902247,
+        "alert": true
+       },
+       {
+        "tx_id": 148728283,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.000281,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:149570741:1:in"
+     }
+    },
+    "neighbors:149570741:2:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 149570741,
+      "time_step": 39,
+      "hops": 2,
+      "direction": "in",
+      "total_found": 3,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 161430303,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.902247,
+        "alert": true
+       },
+       {
+        "tx_id": 161430119,
+        "hop": 2,
+        "direction": "in",
+        "score": 0.231795,
+        "alert": false
+       },
+       {
+        "tx_id": 148728283,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.000281,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:149570741:2:in"
+     }
+    },
+    "score:149570741": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 149570741,
+      "time_step": 39,
+      "score": 0.88761,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.75,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f163",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f5",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:149570741"
+     }
+    },
+    "subgraph:149570741:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 149570741,
+      "time_step": 39,
+      "radius": 2,
+      "n_nodes": 14,
+      "n_edges": 13,
+      "density": 0.071429,
+      "focal_in_degree": 2,
+      "focal_out_degree": 1,
+      "max_in_degree": 9,
+      "max_out_degree": 1,
+      "n_alerted": 5,
+      "share_alerted": 0.357143,
+      "focal_chain_len": 0,
+      "wcc_size": 2760,
+      "evidence_id": "subgraph:149570741:2"
+     }
+    }
    }
   },
   "155603453": {
@@ -1175,6 +2072,156 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:45": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 45,
+      "status": "ok",
+      "window_steps": [
+       41,
+       42,
+       43
+      ],
+      "window_recall": 0.807388,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 379,
+      "lag": 2,
+      "evidence_id": "health:45"
+     }
+    },
+    "neighbors:155603453:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 155603453,
+      "time_step": 45,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 155603450,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.783844,
+        "alert": true
+       }
+      ],
+      "evidence_id": "neighbors:155603453:1:both"
+     }
+    },
+    "neighbors:155603453:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 155603453,
+      "time_step": 45,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 0,
+      "truncated": false,
+      "neighbors": [],
+      "evidence_id": "neighbors:155603453:1:in"
+     }
+    },
+    "neighbors:155603453:2:out": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 155603453,
+      "time_step": 45,
+      "hops": 2,
+      "direction": "out",
+      "total_found": 3,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 155603450,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.783844,
+        "alert": true
+       },
+       {
+        "tx_id": 155724513,
+        "hop": 2,
+        "direction": "out",
+        "score": 0.005611,
+        "alert": false
+       },
+       {
+        "tx_id": 144222637,
+        "hop": 2,
+        "direction": "out",
+        "score": 0.000191,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:155603453:2:out"
+     }
+    },
+    "score:155603453": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 155603453,
+      "time_step": 45,
+      "score": 0.609283,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.4,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "medium",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f161",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f162",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f3",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:155603453"
+     }
+    },
+    "subgraph:155603453:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 155603453,
+      "time_step": 45,
+      "radius": 2,
+      "n_nodes": 5,
+      "n_edges": 4,
+      "density": 0.2,
+      "focal_in_degree": 0,
+      "focal_out_degree": 1,
+      "max_in_degree": 2,
+      "max_out_degree": 2,
+      "n_alerted": 2,
+      "share_alerted": 0.4,
+      "focal_chain_len": 0,
+      "wcc_size": 5598,
+      "evidence_id": "subgraph:155603453:2"
+     }
+    }
    }
   },
   "156058072": {
@@ -1332,6 +2379,121 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:45": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 45,
+      "status": "ok",
+      "window_steps": [
+       41,
+       42,
+       43
+      ],
+      "window_recall": 0.807388,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 379,
+      "lag": 2,
+      "evidence_id": "health:45"
+     }
+    },
+    "neighbors:156058072:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 156058072,
+      "time_step": 45,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 0,
+      "truncated": false,
+      "neighbors": [],
+      "evidence_id": "neighbors:156058072:1:in"
+     }
+    },
+    "neighbors:156058072:2:out": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 156058072,
+      "time_step": 45,
+      "hops": 2,
+      "direction": "out",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 121225693,
+        "hop": 1,
+        "direction": "out",
+        "score": 1e-06,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:156058072:2:out"
+     }
+    },
+    "score:156058072": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 156058072,
+      "time_step": 45,
+      "score": 0.999748,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.988235,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f90",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f132",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f76",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:156058072"
+     }
+    },
+    "subgraph:156058072:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 156058072,
+      "time_step": 45,
+      "radius": 2,
+      "n_nodes": 89,
+      "n_edges": 97,
+      "density": 0.012385,
+      "focal_in_degree": 0,
+      "focal_out_degree": 1,
+      "max_in_degree": 88,
+      "max_out_degree": 2,
+      "n_alerted": 8,
+      "share_alerted": 0.089888,
+      "focal_chain_len": 0,
+      "wcc_size": 5598,
+      "evidence_id": "subgraph:156058072:2"
+     }
+    }
    }
   },
   "18477792": {
@@ -1438,6 +2600,102 @@
      "triage",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:42": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 42,
+      "status": "ok",
+      "window_steps": [
+       38,
+       39,
+       40
+      ],
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304,
+      "lag": 2,
+      "evidence_id": "health:42"
+     }
+    },
+    "score:18477792": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 18477792,
+      "time_step": 42,
+      "score": 7e-06,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.0,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f5",
+        "group": "local",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f131",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f125",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       }
+      ],
+      "evidence_id": "score:18477792"
+     }
+    },
+    "typology:18477792": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 18477792,
+      "time_step": 42,
+      "flags": {
+       "fan_in": false,
+       "fan_out": true,
+       "chain": false
+      },
+      "in_degree": 1,
+      "out_degree": 15,
+      "chain_len": 0,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [
+       {
+        "pattern": "fan_out",
+        "evidence": "out_degree 15 >= 5",
+        "n_flagged": 347,
+        "observed_illicit_rate": 0.0,
+        "baseline_illicit_rate": 0.115809,
+        "lift": 0.0,
+        "evidence_direction": "lowers_risk",
+        "retrieval_query": null,
+        "note": "In training-period data (steps 1-34) this pattern was associated with a LOWER illicit rate than the baseline, so no retrieval query is provided and the pattern must not be presented as suspicious.",
+        "caveat": "structural resemblance only; Elliptic has no typology labels. The evidence direction comes from training-period data (labeled nodes, time steps 1-34); a pattern with direction 'lowers_risk' must never be described as suspicious."
+       }
+      ],
+      "evidence_id": "typology:18477792"
+     }
+    }
    }
   },
   "196092852": {
@@ -1621,6 +2879,185 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:46": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 46,
+      "status": "ok",
+      "window_steps": [
+       42,
+       43,
+       44
+      ],
+      "window_recall": 0.689895,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 287,
+      "lag": 2,
+      "evidence_id": "health:46"
+     }
+    },
+    "neighbors:196092852:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 196092852,
+      "time_step": 46,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 196098540,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.61613,
+        "alert": true
+       },
+       {
+        "tx_id": 196090114,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.166069,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:196092852:1:both"
+     }
+    },
+    "neighbors:196092852:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 196092852,
+      "time_step": 46,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 196090114,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.166069,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:196092852:1:in"
+     }
+    },
+    "neighbors:196092852:2:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 196092852,
+      "time_step": 46,
+      "hops": 2,
+      "direction": "in",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 196090114,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.166069,
+        "alert": false
+       },
+       {
+        "tx_id": 194333185,
+        "hop": 2,
+        "direction": "in",
+        "score": 0.000147,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:196092852:2:in"
+     }
+    },
+    "neighbors:196092852:2:out": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 196092852,
+      "time_step": 46,
+      "hops": 2,
+      "direction": "out",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 196098540,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.61613,
+        "alert": true
+       }
+      ],
+      "evidence_id": "neighbors:196092852:2:out"
+     }
+    },
+    "score:196092852": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 196092852,
+      "time_step": 46,
+      "score": 0.998845,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.988235,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f90",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f132",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f161",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f55",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:196092852"
+     }
+    },
+    "subgraph:196092852:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 196092852,
+      "time_step": 46,
+      "radius": 2,
+      "n_nodes": 5,
+      "n_edges": 4,
+      "density": 0.2,
+      "focal_in_degree": 1,
+      "focal_out_degree": 1,
+      "max_in_degree": 1,
+      "max_out_degree": 2,
+      "n_alerted": 2,
+      "share_alerted": 0.4,
+      "focal_chain_len": 1,
+      "wcc_size": 3519,
+      "evidence_id": "subgraph:196092852:2"
+     }
+    }
    }
   },
   "200638883": {
@@ -1720,6 +3157,89 @@
      "triage",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:36": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 36,
+      "status": "ok",
+      "window_steps": [
+       32,
+       33,
+       34
+      ],
+      "window_recall": 0.99005,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 402,
+      "lag": 2,
+      "evidence_id": "health:36"
+     }
+    },
+    "score:200638883": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 200638883,
+      "time_step": 36,
+      "score": 0.15882,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.038462,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f125",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f127",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f100",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:200638883"
+     }
+    },
+    "typology:200638883": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 200638883,
+      "time_step": 36,
+      "flags": {
+       "fan_in": false,
+       "fan_out": false,
+       "chain": false
+      },
+      "in_degree": 1,
+      "out_degree": 1,
+      "chain_len": 2,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [],
+      "evidence_id": "typology:200638883"
+     }
+    }
    }
   },
   "200950509": {
@@ -1931,6 +3451,239 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:36": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 36,
+      "status": "ok",
+      "window_steps": [
+       32,
+       33,
+       34
+      ],
+      "window_recall": 0.99005,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 402,
+      "lag": 2,
+      "evidence_id": "health:36"
+     }
+    },
+    "neighbors:200950509:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 200950509,
+      "time_step": 36,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 200950508,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.002698,
+        "alert": false
+       },
+       {
+        "tx_id": 200618673,
+        "hop": 1,
+        "direction": "in",
+        "score": 8.8e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:200950509:1:both"
+     }
+    },
+    "neighbors:200950509:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 200950509,
+      "time_step": 36,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 200618673,
+        "hop": 1,
+        "direction": "in",
+        "score": 8.8e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:200950509:1:in"
+     }
+    },
+    "neighbors:200950509:2:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 200950509,
+      "time_step": 36,
+      "hops": 2,
+      "direction": "in",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 200618676,
+        "hop": 2,
+        "direction": "in",
+        "score": 0.014617,
+        "alert": false
+       },
+       {
+        "tx_id": 200618673,
+        "hop": 1,
+        "direction": "in",
+        "score": 8.8e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:200950509:2:in"
+     }
+    },
+    "neighbors:200950509:2:out": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 200950509,
+      "time_step": 36,
+      "hops": 2,
+      "direction": "out",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 200950508,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.002698,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:200950509:2:out"
+     }
+    },
+    "reg:fincen_2003_sar_narrative:p7:c11": {
+     "tool": "search_regulations",
+     "output": {
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "doc_id": "fincen_2003_sar_narrative",
+      "title": "Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+      "publisher": "FinCEN",
+      "year": 2003,
+      "jurisdiction": "US",
+      "page_start": 7,
+      "page_end": 8,
+      "text": "• transactions and/or volumes of aggregate activity inconsistent with the expected purpose of the account and expected levels and types of account activity conveyed to the financial institution by the accountholder at the time of the account opening; • beneficiaries maintaining accounts at foreign banks that have been subjects of previous SAR filings; • parties and businesses that do not meet the standards of routinely initiated due diligence and anti-money laundering oversight programs (e.g., unregistered/unlicensed businesses); • transactions seemingly designed to, or attempting to avoid reporting and recordkeeping requirements; and • correspondent accounts being utilized as “pass-through” points by foreign jurisdictions with subsequent outgoing funds to another foreign jurisdiction.5 How did the suspicious activity occur? Use the Narrative Section to describe the “modus operandi” or the method of operation of the subject conducting the suspicious activity. In a concise, accurate and logical manner, describe how the suspect transaction or pattern of transactions was committed. Provide as completely as possible a full picture of the suspicious activity involved. For example, if ...",
+      "text_truncated": true,
+      "quotable": true,
+      "score": 0.029851,
+      "dense_score": 0.714457,
+      "bm25_score": 5.681982
+     }
+    },
+    "score:200950509": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 200950509,
+      "time_step": 36,
+      "score": 0.127512,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.038462,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f90",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f163",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f100",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:200950509"
+     }
+    },
+    "subgraph:200950509:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 200950509,
+      "time_step": 36,
+      "radius": 2,
+      "n_nodes": 4,
+      "n_edges": 3,
+      "density": 0.25,
+      "focal_in_degree": 1,
+      "focal_out_degree": 1,
+      "max_in_degree": 1,
+      "max_out_degree": 1,
+      "n_alerted": 0,
+      "share_alerted": 0.0,
+      "focal_chain_len": 6,
+      "wcc_size": 6393,
+      "evidence_id": "subgraph:200950509:2"
+     }
+    },
+    "typology:200950509": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 200950509,
+      "time_step": 36,
+      "flags": {
+       "fan_in": false,
+       "fan_out": false,
+       "chain": true
+      },
+      "in_degree": 1,
+      "out_degree": 1,
+      "chain_len": 6,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [
+       {
+        "pattern": "chain",
+        "evidence": "chain_len 6 >= 4",
+        "n_flagged": 1469,
+        "observed_illicit_rate": 0.257318,
+        "baseline_illicit_rate": 0.115809,
+        "lift": 2.221913,
+        "evidence_direction": "raises_risk",
+        "retrieval_query": "sequential transfers through a chain of intermediary accounts, layering of funds",
+        "note": null,
+        "caveat": "structural resemblance only; Elliptic has no typology labels. The evidence direction comes from training-period data (labeled nodes, time steps 1-34); a pattern with direction 'lowers_risk' must never be described as suspicious."
+       }
+      ],
+      "evidence_id": "typology:200950509"
+     }
+    }
    }
   },
   "218683036": {
@@ -2009,6 +3762,25 @@
      "triage",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:47": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 47,
+      "status": "degraded",
+      "window_steps": [
+       43,
+       44,
+       45
+      ],
+      "window_recall": 0.037736,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 53,
+      "lag": 2,
+      "evidence_id": "health:47"
+     }
+    }
    }
   },
   "261387954": {
@@ -2178,6 +3950,149 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:44": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 44,
+      "status": "ok",
+      "window_steps": [
+       40,
+       41,
+       42
+      ],
+      "window_recall": 0.82227,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 467,
+      "lag": 2,
+      "evidence_id": "health:44"
+     }
+    },
+    "neighbors:261387954:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 261387954,
+      "time_step": 44,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 106320422,
+        "hop": 1,
+        "direction": "out",
+        "score": 2e-06,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:261387954:1:both"
+     }
+    },
+    "neighbors:261387954:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 261387954,
+      "time_step": 44,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 0,
+      "truncated": false,
+      "neighbors": [],
+      "evidence_id": "neighbors:261387954:1:in"
+     }
+    },
+    "neighbors:261387954:2:out": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 261387954,
+      "time_step": 44,
+      "hops": 2,
+      "direction": "out",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 106320422,
+        "hop": 1,
+        "direction": "out",
+        "score": 2e-06,
+        "alert": false
+       },
+       {
+        "tx_id": 106319919,
+        "hop": 2,
+        "direction": "out",
+        "score": 1e-06,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:261387954:2:out"
+     }
+    },
+    "score:261387954": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 261387954,
+      "time_step": 44,
+      "score": 0.766879,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.454545,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "medium",
+      "reasons": [
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f90",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f131",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f161",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:261387954"
+     }
+    },
+    "subgraph:261387954:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 261387954,
+      "time_step": 44,
+      "radius": 2,
+      "n_nodes": 121,
+      "n_edges": 123,
+      "density": 0.008471,
+      "focal_in_degree": 0,
+      "focal_out_degree": 1,
+      "max_in_degree": 119,
+      "max_out_degree": 2,
+      "n_alerted": 7,
+      "share_alerted": 0.057851,
+      "focal_chain_len": 0,
+      "wcc_size": 4975,
+      "evidence_id": "subgraph:261387954:2"
+     }
+    }
    }
   },
   "29055204": {
@@ -2366,6 +4281,204 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:37": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 37,
+      "status": "ok",
+      "window_steps": [
+       33,
+       34,
+       35
+      ],
+      "window_recall": 0.971074,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 242,
+      "lag": 2,
+      "evidence_id": "health:37"
+     }
+    },
+    "neighbors:29055204:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 29055204,
+      "time_step": 37,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 29055195,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.000316,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:29055204:1:in"
+     }
+    },
+    "neighbors:29055204:2:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 29055204,
+      "time_step": 37,
+      "hops": 2,
+      "direction": "both",
+      "total_found": 4,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 29062216,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.000557,
+        "alert": false
+       },
+       {
+        "tx_id": 29055195,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.000316,
+        "alert": false
+       },
+       {
+        "tx_id": 29055189,
+        "hop": 2,
+        "direction": "in",
+        "score": 0.000203,
+        "alert": false
+       },
+       {
+        "tx_id": 29062679,
+        "hop": 2,
+        "direction": "out",
+        "score": 2.2e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:29055204:2:both"
+     }
+    },
+    "reg:fincen_2003_sar_narrative:p7:c11": {
+     "tool": "search_regulations",
+     "output": {
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "doc_id": "fincen_2003_sar_narrative",
+      "title": "Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+      "publisher": "FinCEN",
+      "year": 2003,
+      "jurisdiction": "US",
+      "page_start": 7,
+      "page_end": 8,
+      "text": "• transactions and/or volumes of aggregate activity inconsistent with the expected purpose of the account and expected levels and types of account activity conveyed to the financial institution by the accountholder at the time of the account opening; • beneficiaries maintaining accounts at foreign banks that have been subjects of previous SAR filings; • parties and businesses that do not meet the standards of routinely initiated due diligence and anti-money laundering oversight programs (e.g., unregistered/unlicensed businesses); • transactions seemingly designed to, or attempting to avoid reporting and recordkeeping requirements; and • correspondent accounts being utilized as “pass-through” points by foreign jurisdictions with subsequent outgoing funds to another foreign jurisdiction.5 How did the suspicious activity occur? Use the Narrative Section to describe the “modus operandi” or the method of operation of the subject conducting the suspicious activity. In a concise, accurate and logical manner, describe how the suspect transaction or pattern of transactions was committed. Provide as completely as possible a full picture of the suspicious activity involved. For example, if ...",
+      "text_truncated": true,
+      "quotable": true,
+      "score": 0.029851,
+      "dense_score": 0.714457,
+      "bm25_score": 5.681982
+     }
+    },
+    "score:29055204": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 29055204,
+      "time_step": 37,
+      "score": 0.000426,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.0,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f138",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f52",
+        "group": "local",
+        "direction": "lowers illicit score"
+       }
+      ],
+      "evidence_id": "score:29055204"
+     }
+    },
+    "subgraph:29055204:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 29055204,
+      "time_step": 37,
+      "radius": 2,
+      "n_nodes": 5,
+      "n_edges": 4,
+      "density": 0.2,
+      "focal_in_degree": 1,
+      "focal_out_degree": 1,
+      "max_in_degree": 1,
+      "max_out_degree": 1,
+      "n_alerted": 0,
+      "share_alerted": 0.0,
+      "focal_chain_len": 35,
+      "wcc_size": 3306,
+      "evidence_id": "subgraph:29055204:2"
+     }
+    },
+    "typology:29055204": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 29055204,
+      "time_step": 37,
+      "flags": {
+       "fan_in": false,
+       "fan_out": false,
+       "chain": true
+      },
+      "in_degree": 1,
+      "out_degree": 1,
+      "chain_len": 35,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [
+       {
+        "pattern": "chain",
+        "evidence": "chain_len 35 >= 4",
+        "n_flagged": 1469,
+        "observed_illicit_rate": 0.257318,
+        "baseline_illicit_rate": 0.115809,
+        "lift": 2.221913,
+        "evidence_direction": "raises_risk",
+        "retrieval_query": "sequential transfers through a chain of intermediary accounts, layering of funds",
+        "note": null,
+        "caveat": "structural resemblance only; Elliptic has no typology labels. The evidence direction comes from training-period data (labeled nodes, time steps 1-34); a pattern with direction 'lowers_risk' must never be described as suspicious."
+       }
+      ],
+      "evidence_id": "typology:29055204"
+     }
+    }
    }
   },
   "29584495": {
@@ -2523,6 +4636,142 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:37": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 37,
+      "status": "ok",
+      "window_steps": [
+       33,
+       34,
+       35
+      ],
+      "window_recall": 0.971074,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 242,
+      "lag": 2,
+      "evidence_id": "health:37"
+     }
+    },
+    "neighbors:29584495:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 29584495,
+      "time_step": 37,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 0,
+      "truncated": false,
+      "neighbors": [],
+      "evidence_id": "neighbors:29584495:1:in"
+     }
+    },
+    "neighbors:29584495:2:out": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 29584495,
+      "time_step": 37,
+      "hops": 2,
+      "direction": "out",
+      "total_found": 4,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 37341170,
+        "hop": 2,
+        "direction": "out",
+        "score": 0.998713,
+        "alert": true
+       },
+       {
+        "tx_id": 46290687,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.962553,
+        "alert": true
+       },
+       {
+        "tx_id": 30180432,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.434385,
+        "alert": true
+       },
+       {
+        "tx_id": 29784938,
+        "hop": 2,
+        "direction": "out",
+        "score": 0.036237,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:29584495:2:out"
+     }
+    },
+    "score:29584495": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 29584495,
+      "time_step": 37,
+      "score": 0.259718,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.136364,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "medium",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f163",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f3",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f100",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:29584495"
+     }
+    },
+    "subgraph:29584495:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 29584495,
+      "time_step": 37,
+      "radius": 2,
+      "n_nodes": 5,
+      "n_edges": 4,
+      "density": 0.2,
+      "focal_in_degree": 0,
+      "focal_out_degree": 2,
+      "max_in_degree": 1,
+      "max_out_degree": 2,
+      "n_alerted": 4,
+      "share_alerted": 0.8,
+      "focal_chain_len": 0,
+      "wcc_size": 3306,
+      "evidence_id": "subgraph:29584495:2"
+     }
+    }
    }
   },
   "30122458": {
@@ -2692,6 +4941,150 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:37": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 37,
+      "status": "ok",
+      "window_steps": [
+       33,
+       34,
+       35
+      ],
+      "window_recall": 0.971074,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 242,
+      "lag": 2,
+      "evidence_id": "health:37"
+     }
+    },
+    "neighbors:30122458:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 30122458,
+      "time_step": 37,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 28992836,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.0009,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:30122458:1:both"
+     }
+    },
+    "neighbors:30122458:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 30122458,
+      "time_step": 37,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 28992836,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.0009,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:30122458:1:in"
+     }
+    },
+    "neighbors:30122458:2:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 30122458,
+      "time_step": 37,
+      "hops": 2,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 28992836,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.0009,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:30122458:2:in"
+     }
+    },
+    "score:30122458": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 30122458,
+      "time_step": 37,
+      "score": 0.550728,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.4,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "medium",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f55",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f163",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f125",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:30122458"
+     }
+    },
+    "subgraph:30122458:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 30122458,
+      "time_step": 37,
+      "radius": 2,
+      "n_nodes": 22,
+      "n_edges": 21,
+      "density": 0.045455,
+      "focal_in_degree": 1,
+      "focal_out_degree": 0,
+      "max_in_degree": 1,
+      "max_out_degree": 21,
+      "n_alerted": 6,
+      "share_alerted": 0.272727,
+      "focal_chain_len": 0,
+      "wcc_size": 3306,
+      "evidence_id": "subgraph:30122458:2"
+     }
+    }
    }
   },
   "44282463": {
@@ -2791,6 +5184,89 @@
      "triage",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:39": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 39,
+      "status": "ok",
+      "window_steps": [
+       35,
+       36,
+       37
+      ],
+      "window_recall": 0.937255,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 255,
+      "lag": 2,
+      "evidence_id": "health:39"
+     }
+    },
+    "score:44282463": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 44282463,
+      "time_step": 39,
+      "score": 0.129222,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.038462,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f55",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f3",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:44282463"
+     }
+    },
+    "typology:44282463": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 44282463,
+      "time_step": 39,
+      "flags": {
+       "fan_in": false,
+       "fan_out": false,
+       "chain": false
+      },
+      "in_degree": 1,
+      "out_degree": 0,
+      "chain_len": 0,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [],
+      "evidence_id": "typology:44282463"
+     }
+    }
    }
   },
   "61745735": {
@@ -2950,6 +5426,150 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:42": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 42,
+      "status": "ok",
+      "window_steps": [
+       38,
+       39,
+       40
+      ],
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304,
+      "lag": 2,
+      "evidence_id": "health:42"
+     }
+    },
+    "neighbors:61745735:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 61745735,
+      "time_step": 42,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 72339001,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.562644,
+        "alert": true
+       }
+      ],
+      "evidence_id": "neighbors:61745735:1:in"
+     }
+    },
+    "neighbors:61745735:2:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 61745735,
+      "time_step": 42,
+      "hops": 2,
+      "direction": "both",
+      "total_found": 4,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 72339001,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.562644,
+        "alert": true
+       },
+       {
+        "tx_id": 73325496,
+        "hop": 2,
+        "direction": "out",
+        "score": 0.35464,
+        "alert": true
+       },
+       {
+        "tx_id": 71466440,
+        "hop": 2,
+        "direction": "in",
+        "score": 0.160962,
+        "alert": false
+       },
+       {
+        "tx_id": 80960417,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.007142,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:61745735:2:both"
+     }
+    },
+    "score:61745735": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 61745735,
+      "time_step": 42,
+      "score": 0.400043,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.136364,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "medium",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f163",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f138",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:61745735"
+     }
+    },
+    "subgraph:61745735:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 61745735,
+      "time_step": 42,
+      "radius": 2,
+      "n_nodes": 6,
+      "n_edges": 5,
+      "density": 0.166667,
+      "focal_in_degree": 1,
+      "focal_out_degree": 1,
+      "max_in_degree": 1,
+      "max_out_degree": 2,
+      "n_alerted": 3,
+      "share_alerted": 0.5,
+      "focal_chain_len": 3,
+      "wcc_size": 7140,
+      "evidence_id": "subgraph:61745735:2"
+     }
+    }
    }
   },
   "64413379": {
@@ -3136,6 +5756,190 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:35": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 35,
+      "status": "ok",
+      "window_steps": [
+       31,
+       32,
+       33
+      ],
+      "window_recall": 0.987261,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 471,
+      "lag": 2,
+      "evidence_id": "health:35"
+     }
+    },
+    "neighbors:64413379:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 64413379,
+      "time_step": 35,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 9070211,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.000204,
+        "alert": false
+       },
+       {
+        "tx_id": 100791505,
+        "hop": 1,
+        "direction": "in",
+        "score": 9.3e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:64413379:1:both"
+     }
+    },
+    "neighbors:64413379:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 64413379,
+      "time_step": 35,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 100791505,
+        "hop": 1,
+        "direction": "in",
+        "score": 9.3e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:64413379:1:in"
+     }
+    },
+    "reg:fincen_2003_sar_narrative:p7:c11": {
+     "tool": "search_regulations",
+     "output": {
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "doc_id": "fincen_2003_sar_narrative",
+      "title": "Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+      "publisher": "FinCEN",
+      "year": 2003,
+      "jurisdiction": "US",
+      "page_start": 7,
+      "page_end": 8,
+      "text": "• transactions and/or volumes of aggregate activity inconsistent with the expected purpose of the account and expected levels and types of account activity conveyed to the financial institution by the accountholder at the time of the account opening; • beneficiaries maintaining accounts at foreign banks that have been subjects of previous SAR filings; • parties and businesses that do not meet the standards of routinely initiated due diligence and anti-money laundering oversight programs (e.g., unregistered/unlicensed businesses); • transactions seemingly designed to, or attempting to avoid reporting and recordkeeping requirements; and • correspondent accounts being utilized as “pass-through” points by foreign jurisdictions with subsequent outgoing funds to another foreign jurisdiction.5 How did the suspicious activity occur? Use the Narrative Section to describe the “modus operandi” or the method of operation of the subject conducting the suspicious activity. In a concise, accurate and logical manner, describe how the suspect transaction or pattern of transactions was committed. Provide as completely as possible a full picture of the suspicious activity involved. For example, if ...",
+      "text_truncated": true,
+      "quotable": true,
+      "score": 0.029851,
+      "dense_score": 0.714457,
+      "bm25_score": 5.681982
+     }
+    },
+    "score:64413379": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 64413379,
+      "time_step": 35,
+      "score": 0.000126,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.0,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f46",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f47",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f138",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:64413379"
+     }
+    },
+    "subgraph:64413379:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 64413379,
+      "time_step": 35,
+      "radius": 2,
+      "n_nodes": 5,
+      "n_edges": 4,
+      "density": 0.2,
+      "focal_in_degree": 1,
+      "focal_out_degree": 1,
+      "max_in_degree": 1,
+      "max_out_degree": 1,
+      "n_alerted": 0,
+      "share_alerted": 0.0,
+      "focal_chain_len": 10,
+      "wcc_size": 5507,
+      "evidence_id": "subgraph:64413379:2"
+     }
+    },
+    "typology:64413379": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 64413379,
+      "time_step": 35,
+      "flags": {
+       "fan_in": false,
+       "fan_out": false,
+       "chain": true
+      },
+      "in_degree": 1,
+      "out_degree": 1,
+      "chain_len": 10,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [
+       {
+        "pattern": "chain",
+        "evidence": "chain_len 10 >= 4",
+        "n_flagged": 1469,
+        "observed_illicit_rate": 0.257318,
+        "baseline_illicit_rate": 0.115809,
+        "lift": 2.221913,
+        "evidence_direction": "raises_risk",
+        "retrieval_query": "sequential transfers through a chain of intermediary accounts, layering of funds",
+        "note": null,
+        "caveat": "structural resemblance only; Elliptic has no typology labels. The evidence direction comes from training-period data (labeled nodes, time steps 1-34); a pattern with direction 'lowers_risk' must never be described as suspicious."
+       }
+      ],
+      "evidence_id": "typology:64413379"
+     }
+    }
    }
   },
   "69662492": {
@@ -3295,6 +6099,128 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:35": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 35,
+      "status": "ok",
+      "window_steps": [
+       31,
+       32,
+       33
+      ],
+      "window_recall": 0.987261,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 471,
+      "lag": 2,
+      "evidence_id": "health:35"
+     }
+    },
+    "neighbors:69662492:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 69662492,
+      "time_step": 35,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 0,
+      "truncated": false,
+      "neighbors": [],
+      "evidence_id": "neighbors:69662492:1:in"
+     }
+    },
+    "neighbors:69662492:2:out": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 69662492,
+      "time_step": 35,
+      "hops": 2,
+      "direction": "out",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 70410628,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.99966,
+        "alert": true
+       },
+       {
+        "tx_id": 8570131,
+        "hop": 2,
+        "direction": "out",
+        "score": 0.000163,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:69662492:2:out"
+     }
+    },
+    "score:69662492": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 69662492,
+      "time_step": 35,
+      "score": 0.999978,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 1.0,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f90",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f161",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f132",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:69662492"
+     }
+    },
+    "subgraph:69662492:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 69662492,
+      "time_step": 35,
+      "radius": 2,
+      "n_nodes": 3,
+      "n_edges": 2,
+      "density": 0.333333,
+      "focal_in_degree": 0,
+      "focal_out_degree": 1,
+      "max_in_degree": 1,
+      "max_out_degree": 1,
+      "n_alerted": 2,
+      "share_alerted": 0.666667,
+      "focal_chain_len": 0,
+      "wcc_size": 5507,
+      "evidence_id": "subgraph:69662492:2"
+     }
+    }
    }
   },
   "69779650": {
@@ -3486,6 +6412,204 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:35": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 35,
+      "status": "ok",
+      "window_steps": [
+       31,
+       32,
+       33
+      ],
+      "window_recall": 0.987261,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 471,
+      "lag": 2,
+      "evidence_id": "health:35"
+     }
+    },
+    "neighbors:69779650:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 69779650,
+      "time_step": 35,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 69779509,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.000805,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:69779650:1:in"
+     }
+    },
+    "neighbors:69779650:2:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 69779650,
+      "time_step": 35,
+      "hops": 2,
+      "direction": "both",
+      "total_found": 4,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 69779749,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.004604,
+        "alert": false
+       },
+       {
+        "tx_id": 69779755,
+        "hop": 2,
+        "direction": "out",
+        "score": 0.002841,
+        "alert": false
+       },
+       {
+        "tx_id": 69779509,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.000805,
+        "alert": false
+       },
+       {
+        "tx_id": 69779493,
+        "hop": 2,
+        "direction": "in",
+        "score": 1.8e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:69779650:2:both"
+     }
+    },
+    "reg:fincen_2003_sar_narrative:p7:c11": {
+     "tool": "search_regulations",
+     "output": {
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "doc_id": "fincen_2003_sar_narrative",
+      "title": "Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+      "publisher": "FinCEN",
+      "year": 2003,
+      "jurisdiction": "US",
+      "page_start": 7,
+      "page_end": 8,
+      "text": "• transactions and/or volumes of aggregate activity inconsistent with the expected purpose of the account and expected levels and types of account activity conveyed to the financial institution by the accountholder at the time of the account opening; • beneficiaries maintaining accounts at foreign banks that have been subjects of previous SAR filings; • parties and businesses that do not meet the standards of routinely initiated due diligence and anti-money laundering oversight programs (e.g., unregistered/unlicensed businesses); • transactions seemingly designed to, or attempting to avoid reporting and recordkeeping requirements; and • correspondent accounts being utilized as “pass-through” points by foreign jurisdictions with subsequent outgoing funds to another foreign jurisdiction.5 How did the suspicious activity occur? Use the Narrative Section to describe the “modus operandi” or the method of operation of the subject conducting the suspicious activity. In a concise, accurate and logical manner, describe how the suspect transaction or pattern of transactions was committed. Provide as completely as possible a full picture of the suspicious activity involved. For example, if ...",
+      "text_truncated": true,
+      "quotable": true,
+      "score": 0.029851,
+      "dense_score": 0.714457,
+      "bm25_score": 5.681982
+     }
+    },
+    "score:69779650": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 69779650,
+      "time_step": 35,
+      "score": 0.000146,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.0,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f5",
+        "group": "local",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f52",
+        "group": "local",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f100",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:69779650"
+     }
+    },
+    "subgraph:69779650:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 69779650,
+      "time_step": 35,
+      "radius": 2,
+      "n_nodes": 5,
+      "n_edges": 4,
+      "density": 0.2,
+      "focal_in_degree": 1,
+      "focal_out_degree": 1,
+      "max_in_degree": 1,
+      "max_out_degree": 1,
+      "n_alerted": 0,
+      "share_alerted": 0.0,
+      "focal_chain_len": 8,
+      "wcc_size": 5507,
+      "evidence_id": "subgraph:69779650:2"
+     }
+    },
+    "typology:69779650": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 69779650,
+      "time_step": 35,
+      "flags": {
+       "fan_in": false,
+       "fan_out": false,
+       "chain": true
+      },
+      "in_degree": 1,
+      "out_degree": 1,
+      "chain_len": 8,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [
+       {
+        "pattern": "chain",
+        "evidence": "chain_len 8 >= 4",
+        "n_flagged": 1469,
+        "observed_illicit_rate": 0.257318,
+        "baseline_illicit_rate": 0.115809,
+        "lift": 2.221913,
+        "evidence_direction": "raises_risk",
+        "retrieval_query": "sequential transfers through a chain of intermediary accounts, layering of funds",
+        "note": null,
+        "caveat": "structural resemblance only; Elliptic has no typology labels. The evidence direction comes from training-period data (labeled nodes, time steps 1-34); a pattern with direction 'lowers_risk' must never be described as suspicious."
+       }
+      ],
+      "evidence_id": "typology:69779650"
+     }
+    }
    }
   },
   "71769835": {
@@ -3645,6 +6769,128 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:42": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 42,
+      "status": "ok",
+      "window_steps": [
+       38,
+       39,
+       40
+      ],
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304,
+      "lag": 2,
+      "evidence_id": "health:42"
+     }
+    },
+    "neighbors:71769835:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 71769835,
+      "time_step": 42,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 0,
+      "truncated": false,
+      "neighbors": [],
+      "evidence_id": "neighbors:71769835:1:in"
+     }
+    },
+    "neighbors:71769835:2:out": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 71769835,
+      "time_step": 42,
+      "hops": 2,
+      "direction": "out",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 72741245,
+        "hop": 2,
+        "direction": "out",
+        "score": 0.089175,
+        "alert": false
+       },
+       {
+        "tx_id": 72341023,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.000138,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:71769835:2:out"
+     }
+    },
+    "score:71769835": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 71769835,
+      "time_step": 42,
+      "score": 0.927049,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.846154,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f3",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f138",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f58",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:71769835"
+     }
+    },
+    "subgraph:71769835:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 71769835,
+      "time_step": 42,
+      "radius": 2,
+      "n_nodes": 3,
+      "n_edges": 2,
+      "density": 0.333333,
+      "focal_in_degree": 0,
+      "focal_out_degree": 1,
+      "max_in_degree": 1,
+      "max_out_degree": 1,
+      "n_alerted": 1,
+      "share_alerted": 0.333333,
+      "focal_chain_len": 0,
+      "wcc_size": 7140,
+      "evidence_id": "subgraph:71769835:2"
+     }
+    }
    }
   },
   "71987847": {
@@ -3811,6 +7057,129 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:42": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 42,
+      "status": "ok",
+      "window_steps": [
+       38,
+       39,
+       40
+      ],
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304,
+      "lag": 2,
+      "evidence_id": "health:42"
+     }
+    },
+    "neighbors:71987847:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 71987847,
+      "time_step": 42,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 71811939,
+        "hop": 1,
+        "direction": "in",
+        "score": 7.4e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:71987847:1:both"
+     }
+    },
+    "neighbors:71987847:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 71987847,
+      "time_step": 42,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 71811939,
+        "hop": 1,
+        "direction": "in",
+        "score": 7.4e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:71987847:1:in"
+     }
+    },
+    "score:71987847": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 71987847,
+      "time_step": 42,
+      "score": 0.999825,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.988235,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f90",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f161",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:71987847"
+     }
+    },
+    "subgraph:71987847:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 71987847,
+      "time_step": 42,
+      "radius": 2,
+      "n_nodes": 3,
+      "n_edges": 2,
+      "density": 0.333333,
+      "focal_in_degree": 1,
+      "focal_out_degree": 0,
+      "max_in_degree": 1,
+      "max_out_degree": 2,
+      "n_alerted": 1,
+      "share_alerted": 0.333333,
+      "focal_chain_len": 0,
+      "wcc_size": 7140,
+      "evidence_id": "subgraph:71987847:2"
+     }
+    }
    }
   },
   "72097077": {
@@ -3917,6 +7286,102 @@
      "triage",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:42": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 42,
+      "status": "ok",
+      "window_steps": [
+       38,
+       39,
+       40
+      ],
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304,
+      "lag": 2,
+      "evidence_id": "health:42"
+     }
+    },
+    "score:72097077": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 72097077,
+      "time_step": 42,
+      "score": 4e-06,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.0,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f5",
+        "group": "local",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f131",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f138",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:72097077"
+     }
+    },
+    "typology:72097077": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 72097077,
+      "time_step": 42,
+      "flags": {
+       "fan_in": false,
+       "fan_out": true,
+       "chain": false
+      },
+      "in_degree": 0,
+      "out_degree": 6,
+      "chain_len": 0,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [
+       {
+        "pattern": "fan_out",
+        "evidence": "out_degree 6 >= 5",
+        "n_flagged": 347,
+        "observed_illicit_rate": 0.0,
+        "baseline_illicit_rate": 0.115809,
+        "lift": 0.0,
+        "evidence_direction": "lowers_risk",
+        "retrieval_query": null,
+        "note": "In training-period data (steps 1-34) this pattern was associated with a LOWER illicit rate than the baseline, so no retrieval query is provided and the pattern must not be presented as suspicious.",
+        "caveat": "structural resemblance only; Elliptic has no typology labels. The evidence direction comes from training-period data (labeled nodes, time steps 1-34); a pattern with direction 'lowers_risk' must never be described as suspicious."
+       }
+      ],
+      "evidence_id": "typology:72097077"
+     }
+    }
    }
   },
   "72624896": {
@@ -4016,6 +7481,89 @@
      "triage",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:42": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 42,
+      "status": "ok",
+      "window_steps": [
+       38,
+       39,
+       40
+      ],
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304,
+      "lag": 2,
+      "evidence_id": "health:42"
+     }
+    },
+    "score:72624896": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 72624896,
+      "time_step": 42,
+      "score": 0.000843,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.0,
+      "alert": false,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "low",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f2",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f52",
+        "group": "local",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f18",
+        "group": "local",
+        "direction": "lowers illicit score"
+       }
+      ],
+      "evidence_id": "score:72624896"
+     }
+    },
+    "typology:72624896": {
+     "tool": "match_typology",
+     "output": {
+      "tx_id": 72624896,
+      "time_step": 42,
+      "flags": {
+       "fan_in": false,
+       "fan_out": false,
+       "chain": false
+      },
+      "in_degree": 1,
+      "out_degree": 1,
+      "chain_len": 2,
+      "thresholds": {
+       "fan_in": 9,
+       "fan_out": 5,
+       "chain_len": 4
+      },
+      "matches": [],
+      "evidence_id": "typology:72624896"
+     }
+    }
    }
   },
   "73002538": {
@@ -4176,6 +7724,143 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:42": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 42,
+      "status": "ok",
+      "window_steps": [
+       38,
+       39,
+       40
+      ],
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304,
+      "lag": 2,
+      "evidence_id": "health:42"
+     }
+    },
+    "neighbors:73002538:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 73002538,
+      "time_step": 42,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 72709511,
+        "hop": 1,
+        "direction": "in",
+        "score": 4e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:73002538:1:in"
+     }
+    },
+    "neighbors:73002538:2:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 73002538,
+      "time_step": 42,
+      "hops": 2,
+      "direction": "both",
+      "total_found": 3,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 73282397,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.994337,
+        "alert": true
+       },
+       {
+        "tx_id": 72709511,
+        "hop": 1,
+        "direction": "in",
+        "score": 4e-05,
+        "alert": false
+       },
+       {
+        "tx_id": 53892182,
+        "hop": 2,
+        "direction": "in",
+        "score": 2e-05,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:73002538:2:both"
+     }
+    },
+    "score:73002538": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 73002538,
+      "time_step": 42,
+      "score": 0.999979,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 1.0,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f90",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f132",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f5",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:73002538"
+     }
+    },
+    "subgraph:73002538:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 73002538,
+      "time_step": 42,
+      "radius": 2,
+      "n_nodes": 30,
+      "n_edges": 29,
+      "density": 0.033333,
+      "focal_in_degree": 1,
+      "focal_out_degree": 1,
+      "max_in_degree": 25,
+      "max_out_degree": 3,
+      "n_alerted": 26,
+      "share_alerted": 0.866667,
+      "focal_chain_len": 1,
+      "wcc_size": 7140,
+      "evidence_id": "subgraph:73002538:2"
+     }
+    }
    }
   },
   "73333415": {
@@ -4338,6 +8023,129 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:42": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 42,
+      "status": "ok",
+      "window_steps": [
+       38,
+       39,
+       40
+      ],
+      "window_recall": 0.842105,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 304,
+      "lag": 2,
+      "evidence_id": "health:42"
+     }
+    },
+    "neighbors:73333415:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 73333415,
+      "time_step": 42,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 73333592,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.000258,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:73333415:1:both"
+     }
+    },
+    "neighbors:73333415:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 73333415,
+      "time_step": 42,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 73333592,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.000258,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:73333415:1:in"
+     }
+    },
+    "score:73333415": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 73333415,
+      "time_step": 42,
+      "score": 0.911319,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.846154,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f163",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f3",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f100",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:73333415"
+     }
+    },
+    "subgraph:73333415:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 73333415,
+      "time_step": 42,
+      "radius": 2,
+      "n_nodes": 3,
+      "n_edges": 2,
+      "density": 0.333333,
+      "focal_in_degree": 1,
+      "focal_out_degree": 0,
+      "max_in_degree": 1,
+      "max_out_degree": 2,
+      "n_alerted": 1,
+      "share_alerted": 0.333333,
+      "focal_chain_len": 0,
+      "wcc_size": 7140,
+      "evidence_id": "subgraph:73333415:2"
+     }
+    }
    }
   },
   "97933782": {
@@ -4520,6 +8328,192 @@
      "critic",
      "finalize"
     ]
+   },
+   "evidence": {
+    "health:40": {
+     "tool": "check_model_health",
+     "output": {
+      "time_step": 40,
+      "status": "ok",
+      "window_steps": [
+       36,
+       37,
+       38
+      ],
+      "window_recall": 0.880435,
+      "reference_recall": 0.98308,
+      "n_illicit_in_window": 184,
+      "lag": 2,
+      "evidence_id": "health:40"
+     }
+    },
+    "neighbors:97933782:1:both": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 97933782,
+      "time_step": 40,
+      "hops": 1,
+      "direction": "both",
+      "total_found": 2,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 97013839,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.263978,
+        "alert": true
+       },
+       {
+        "tx_id": 97024534,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.016718,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:97933782:1:both"
+     }
+    },
+    "neighbors:97933782:1:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 97933782,
+      "time_step": 40,
+      "hops": 1,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 97013839,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.263978,
+        "alert": true
+       }
+      ],
+      "evidence_id": "neighbors:97933782:1:in"
+     }
+    },
+    "neighbors:97933782:2:in": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 97933782,
+      "time_step": 40,
+      "hops": 2,
+      "direction": "in",
+      "total_found": 1,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 97013839,
+        "hop": 1,
+        "direction": "in",
+        "score": 0.263978,
+        "alert": true
+       }
+      ],
+      "evidence_id": "neighbors:97933782:2:in"
+     }
+    },
+    "neighbors:97933782:2:out": {
+     "tool": "get_neighbors",
+     "output": {
+      "tx_id": 97933782,
+      "time_step": 40,
+      "hops": 2,
+      "direction": "out",
+      "total_found": 3,
+      "truncated": false,
+      "neighbors": [
+       {
+        "tx_id": 97024534,
+        "hop": 1,
+        "direction": "out",
+        "score": 0.016718,
+        "alert": false
+       },
+       {
+        "tx_id": 97024529,
+        "hop": 2,
+        "direction": "out",
+        "score": 0.002602,
+        "alert": false
+       },
+       {
+        "tx_id": 28547465,
+        "hop": 2,
+        "direction": "out",
+        "score": 2e-06,
+        "alert": false
+       }
+      ],
+      "evidence_id": "neighbors:97933782:2:out"
+     }
+    },
+    "score:97933782": {
+     "tool": "score_transaction",
+     "output": {
+      "tx_id": 97933782,
+      "time_step": 40,
+      "score": 0.885416,
+      "score_scale": "raw_lightgbm_predict_proba",
+      "calibrated_probability": 0.75,
+      "alert": true,
+      "alert_threshold": 0.258181,
+      "high_threshold": 0.788025,
+      "risk_band": "high",
+      "reasons": [
+       {
+        "feature": "f53",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f59",
+        "group": "local",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f163",
+        "group": "aggregated",
+        "direction": "raises illicit score"
+       },
+       {
+        "feature": "f132",
+        "group": "aggregated",
+        "direction": "lowers illicit score"
+       },
+       {
+        "feature": "f3",
+        "group": "local",
+        "direction": "raises illicit score"
+       }
+      ],
+      "evidence_id": "score:97933782"
+     }
+    },
+    "subgraph:97933782:2": {
+     "tool": "subgraph_summary",
+     "output": {
+      "tx_id": 97933782,
+      "time_step": 40,
+      "radius": 2,
+      "n_nodes": 6,
+      "n_edges": 5,
+      "density": 0.166667,
+      "focal_in_degree": 1,
+      "focal_out_degree": 1,
+      "max_in_degree": 1,
+      "max_out_degree": 2,
+      "n_alerted": 2,
+      "share_alerted": 0.333333,
+      "focal_chain_len": 2,
+      "wcc_size": 4481,
+      "evidence_id": "subgraph:97933782:2"
+     }
+    }
    }
   }
  }

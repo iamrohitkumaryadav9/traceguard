@@ -1,4 +1,4 @@
-﻿# TraceGuard
+# TraceGuard
 
 An ML model flags suspicious Bitcoin transactions, and a team of LLM agents investigates each flag and drafts a grounded report. A critic agent then checks every claim in the report against the collected evidence. The project uses real data from the Elliptic Bitcoin dataset.
 
@@ -97,10 +97,10 @@ Motivation: the Phase 5b hand check found 7 errors in 110 claims, all of them an
 
 A FastAPI service (`src/api/main.py`) on top of the frozen agent (tag `agent-v3.1`; no agent behaviour, prompt or threshold was changed). Endpoints: `GET /health` (status, design version, mode), `POST /investigate {"tx_id": ...}` (memo JSON, status and a trace summary: tool calls, LLM calls, critic rounds, latency), `GET /memo/{tx_id}` (cached memo), `GET /examples` (five curated nodes taken from the Phase 5c runs: a high-band node, a chain node with a signal conflict, a fan_in lowers_risk node, a post-shutdown cannot_assess node and a low-band no-action node). Errors have the shape `{"error": {"code", "message", ...}}` (unknown transaction: 404 `unknown_transaction`). No endpoint returns a ground-truth label. Interactive docs at `/docs`.
 
-**Demo mode** (`TRACEGUARD_MODE=demo`, the default). Serves only the pre-computed memos in `demo/memos.json` (30 memos from the Phase 5c agent-v3 runs, memo JSON only: no raw Elliptic files, feature matrix, evidence ledger or model files). It needs no data, no model and no key, never imports the agent code and cannot run it; `POST /investigate` for a node outside the bundle returns 403 `live_runs_disabled`. Rebuild the bundle with `python -m scripts.build_demo_bundle` (it prints the included fields, a ground-truth label check and the node-level values that appear).
+**Demo mode** (`TRACEGUARD_MODE=demo`, the default). Serves only the pre-computed memos in `demo/memos.json` (30 memos from the Phase 5c agent-v3 runs: the memo JSON, a trace summary and, since Phase 6b, the cited tool outputs as `evidence` with SHAP feature values, SHAP magnitudes and any label-like key removed; no raw Elliptic files, feature matrix, uncited ledger entries or model files; `GET /memos` lists the bundled nodes). It needs no data, no model and no key, never imports the agent code and cannot run it; `POST /investigate` for a node outside the bundle returns 403 `live_runs_disabled`. Rebuild the bundle with `python -m scripts.build_demo_bundle` (it prints the included fields, a ground-truth label check and the node-level values that appear).
 
 ```
-pip install -r requirements-demo.txt
+pip install -r requirements-api.txt
 TRACEGUARD_MODE=demo uvicorn src.api.main:app --port 8000
 # or: docker compose --profile demo up --build
 ```
@@ -114,3 +114,23 @@ TRACEGUARD_MODE=live uvicorn src.api.main:app --port 8000
 ```
 
 **Docker.** `Dockerfile` has two targets: `demo` (python slim plus fastapi, uvicorn and pydantic only) and `live` (CPU-only PyTorch, `requirements-live.txt`; the data and models are mounted, never copied). `.dockerignore` excludes `data/`, `models/`, `.env`, the eval traces and the evaluation results. First live request is slow (it loads the model and the retrieval index, and downloads the BGE embedding model into the `hf_cache` volume).
+
+
+## Phase 6b: Streamlit UI
+
+`app/streamlit_app.py` is a four-page UI over the demo bundle. **Examples**: the five curated nodes with one-line descriptions, plus a selector for the other 25 bundled memos. **Memo view**: a status banner in words (green verified, orange partially verified, blue no action model-based only, and a red banner for `cannot_assess` saying the model cannot be relied on at that time step); risk band, raw score and thresholds (the calibrated estimate is shown separately); the signal conflict as a highlighted callout; the executive summary (LLM-written) and the activity description (rendered by code), every claim with expandable evidence chips that show the cited tool output; the regulatory background marked "Context, not evidence about this transaction"; subject fields ("not available in dataset"); limitations and the recommendation. **How it was evaluated**: the collapse after time step 43 (figure `notebooks/figures/baseline_per_step_recall.png`), the Phase 5b hand-check, the critic's recall on natural errors (4 of 7) versus synthetic faults (98 of 98), and the Phase 5c pre-registered keep rule that was not met (+0.031 against 0.05), each linked to its report. **Known limits**: a plain list. No ground-truth label is read or drawn anywhere; the views are built from a whitelist of memo fields and a guard fails loudly if a label-like key would be rendered. Render logic is in `src/ui/render.py` (no Streamlit imports, unit-tested in `tests/test_ui.py`); the pages run headless in the tests with Streamlit's `AppTest`.
+
+**Run locally (demo, no data, no key, no model).**
+
+```
+pip install -r requirements-demo.txt
+streamlit run app/streamlit_app.py
+```
+
+**Run against the API** (live mode when that server runs live): start the API as in Phase 6a, then `API_URL=http://localhost:8000 streamlit run app/streamlit_app.py` (PowerShell: `$env:API_URL="http://localhost:8000"; streamlit run app/streamlit_app.py`). Set `REPO_URL=https://github.com/<you>/<repo>` to make the report paths on the evaluation page links.
+
+**Deploy to Streamlit Community Cloud** (demo mode). Push the repository to GitHub, create an app at share.streamlit.io, choose the repository and branch, set the main file to `app/streamlit_app.py`. The app finds `app/requirements.txt` (streamlit only) before the root `requirements.txt`, so the full ML stack is not installed. Optionally add `REPO_URL` under Secrets or Environment. The bundle `demo/memos.json` and the figures in `notebooks/figures/` must be in the repository; no data, model or key is needed.
+
+**Deploy to a Hugging Face Space** (demo mode). Create a Space with the Streamlit SDK, push the repository (the app only needs `app/`, `src/ui/`, `demo/` and `notebooks/figures/`), set `app_file: app/streamlit_app.py` in the Space's README front matter, and use `app/requirements.txt`'s content as the Space's `requirements.txt` (the Space reads the root file). Do not add a key.
+
+**Record the demo (not generated here; run these yourself).** Start the app (`streamlit run app/streamlit_app.py --server.headless true --server.port 8501`), then either record the screen with a GIF tool (Windows: ScreenToGif, or the Xbox Game Bar `Win+Alt+R`; macOS: Cmd+Shift+5) while you click Examples, open the chain node (200950509: conflict callout, then an evidence chip), open the post-shutdown node (125406909: red banner), and the evaluation page; or take scripted screenshots with Playwright: `pip install playwright && playwright install chromium`, then `python -c "from playwright.sync_api import sync_playwright as p; w=p().start(); b=w.chromium.launch(); pg=b.new_page(viewport={'width':1400,'height':900}); pg.goto('http://localhost:8501'); pg.wait_for_timeout(3000); pg.screenshot(path='examples.png'); pg.get_by_role('button', name='Open memo').nth(1).click(); pg.wait_for_timeout(2500); pg.screenshot(path='memo.png', full_page=True); b.close()"`. Convert a screen recording to a GIF with `ffmpeg -i demo.mp4 -vf "fps=10,scale=900:-1" demo.gif`.

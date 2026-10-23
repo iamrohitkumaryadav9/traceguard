@@ -82,6 +82,16 @@ def test_memo_endpoint_returns_a_cached_memo_or_a_structured_404():
     assert r.status_code == 404 and r.json()["error"]["code"] == "memo_not_found"
 
 
+def test_memos_lists_the_bundle_and_memo_payloads_carry_sanitized_evidence():
+    c = demo_client()
+    ms = c.get("/memos").json()["memos"]
+    assert len(ms) == 30 and set(ms[0]) == {"tx_id", "status", "time_step"}
+    body = c.post("/investigate", json={"tx_id": EXAMPLES[1][0]}).json()
+    ev = body["evidence"][f"score:{EXAMPLES[1][0]}"]
+    assert ev["tool"] == "score_transaction" and "shap_value" not in json.dumps(body) and "feature_value" not in json.dumps(body)
+    assert c.get(f"/memo/{EXAMPLES[1][0]}").json()["evidence"] == body["evidence"]
+
+
 def test_invalid_body_is_a_structured_422():
     r = demo_client().post("/investigate", json={"tx_id": "abc"})
     assert r.status_code == 422 and r.json()["error"]["code"] == "invalid_request"
@@ -224,15 +234,21 @@ def test_request_timeout_is_504_and_concurrency_is_one_until_the_run_really_ends
 # ---------- the bundle builder ----------
 def test_bundle_builder_copies_only_memo_and_trace_summary(tmp_path):
     raw = {"tx_id": 7, "status": "verified", "time_step": 5, "stratum": "1 high band, illicit", "ground_truth": "illicit",
-           "ledger": {"score:7": {"output": {"label": 1}}}, "trace": [{"event": "x"}], "nodes_visited": ["triage"],
+           "ledger": {"score:7": {"tool": "score_transaction", "output": {"label": 1, "score": 0.5, "reasons": [
+               {"feature": "f1", "direction": "raises illicit score", "shap_value": 1.2, "feature_value": 0.3}]}},
+                      "neighbors:7:1:in": {"tool": "get_neighbors", "output": {"total_found": 0}}},
+           "trace": [{"event": "x"}], "nodes_visited": ["triage"],
            "counts": {"tool_calls_total": 2, "llm_calls": 3, "critic_loops": 0}, "latency_s": {"total": 1.5},
-           "memo": {"header": {"tx_id": 7}, "activity_description": []}}
+           "memo": {"header": {"tx_id": 7}, "activity_description": [{"text": "t", "evidence_ids": ["score:7"]}],
+                    "evidence_table": [{"evidence_id": "score:7", "tool": "score_transaction"}]}}
     (tmp_path / "raw").mkdir()
     (tmp_path / "raw" / "7_v3.json").write_text(json.dumps(raw), encoding="utf-8")
     out = tmp_path / "memos.json"
     bundle = build(tmp_path / "raw", out)
     text = out.read_text(encoding="utf-8")
-    assert list(bundle["memos"]["7"]) == ["tx_id", "status", "time_step", "memo", "trace_summary"]
-    for leaked in ("stratum", "ground_truth", "ledger", "label", "event"):
+    assert list(bundle["memos"]["7"]) == ["tx_id", "status", "time_step", "memo", "trace_summary", "evidence"]
+    assert list(bundle["memos"]["7"]["evidence"]) == ["score:7"]  # only the cited tool output, not the uncited one
+    assert bundle["memos"]["7"]["evidence"]["score:7"]["output"]["score"] == 0.5
+    for leaked in ("stratum", "ground_truth", "ledger", "label", "event", "shap_value", "feature_value", "neighbors:7"):
         assert leaked not in text
     assert Bundle(out).get(7)["trace_summary"]["llm_calls"] == 3

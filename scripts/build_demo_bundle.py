@@ -1,7 +1,7 @@
 """Build demo/memos.json from the existing Phase 5c run records (agent-v3 runs: eval/results/agent_eval_5c/raw/*_v3.json).
 
-Only the memo JSON and a small trace summary are copied. Not copied: the evidence ledger (raw tool outputs, including SHAP
-feature values), the trace events, the stratum, the case file (which holds ground-truth labels), raw Elliptic files, the
+Only the memo JSON, a small trace summary and the cited tool outputs (sanitized: no SHAP feature values or magnitudes, no
+label-like keys) are copied. Not copied: the uncited ledger entries, the trace events, the stratum, the case file (which holds ground-truth labels), raw Elliptic files, the
 feature matrix and the model files. The script prints the included fields, a ground-truth label check and the node-level
 values that appear, so the dataset's licence can be checked before the bundle is published.
 
@@ -13,7 +13,7 @@ import re
 from collections import Counter
 from pathlib import Path
 
-from src.api.bundle import LABEL_KEYS, label_keys_in
+from src.api.bundle import LABEL_KEYS, cited_ids, label_keys_in, public_evidence
 
 EXAMPLES = [  # (tx_id, description): chosen by the type of case, from the Phase 5c evaluation runs
     (73002538, "High-band node at time step 42: high raw score, verified memo with code-rendered facts."),
@@ -30,6 +30,8 @@ def entry_from_raw(raw):
         "tx_id": raw["tx_id"], "status": raw["status"], "time_step": raw["time_step"], "memo": raw["memo"],
         "trace_summary": {"tool_calls": c["tool_calls_total"], "llm_calls": c["llm_calls"], "critic_rounds": c["critic_loops"],
                           "latency_s": lat["total"], "nodes_visited": raw["nodes_visited"]},
+        # the cited tool outputs, so a reader can open the evidence behind a claim (sanitized: no feature values, no SHAP magnitudes)
+        "evidence": public_evidence(raw["ledger"], cited_ids(raw["memo"])),
     }
 
 
@@ -94,7 +96,9 @@ def report(bundle, out):
     print("   - structural pattern matches with training-period aggregate rates (illicit rate, baseline, lift, n labeled nodes)")
     print("   - model-health values per time step (window recall, reference recall, number of labeled illicit nodes in the window)")
     print("   - retrieved regulation excerpts (verbatim, at most 40 words, from quotable public documents) and their chunk ids")
-    print("   NOT included: the 165 feature values, the evidence ledger, raw Elliptic files, edges, model files, stratum, case file.")
+    print("   - (Phase 6b) per memo, the cited tool outputs ('evidence'): the same values as above plus the full retrieved chunk text "
+          "(truncated preview, public documents); SHAP feature_value and shap_value and any label-like key are dropped")
+    print("   NOT included: the 165 feature values, SHAP magnitudes, uncited ledger entries, raw Elliptic files, edges, model files, stratum, case file.")
 
 
 if __name__ == "__main__":

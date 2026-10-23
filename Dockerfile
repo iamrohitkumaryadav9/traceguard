@@ -1,4 +1,4 @@
-﻿# TraceGuard API. Two targets:
+# TraceGuard API. Two targets:
 #   demo: small image, no data, no model, no key; serves the pre-computed memos in demo/memos.json.
 #   live: CPU only; runs the agent. The data and models are NOT in the image: mount data/ and models/ read-only.
 # Build: docker build --target demo -t traceguard:demo .    docker build --target live -t traceguard:live .
@@ -9,8 +9,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
 WORKDIR /app
 
 FROM base AS demo
-COPY requirements-demo.txt .
-RUN pip install -r requirements-demo.txt
+COPY requirements-api.txt .
+RUN pip install -r requirements-api.txt
 COPY src/api src/api
 COPY demo demo
 ENV TRACEGUARD_MODE=demo
