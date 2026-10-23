@@ -3,12 +3,24 @@
 **Flags suspicious Bitcoin transactions with a gradient-boosting model, then has an LLM agent investigate each flag and draft a memo in which every claim cites evidence and is checked by a critic.** Built on the public Elliptic dataset, with pre-registered evaluations and the negative results left in.
 
 [![CI](https://github.com/iamrohitkumaryadav9/traceguard/actions/workflows/ci.yml/badge.svg)](https://github.com/iamrohitkumaryadav9/traceguard/actions/workflows/ci.yml)
-&nbsp; **Live demo:** _[link to be added after deployment]_
+&nbsp; **Live demo:** [traceguardfirstversionusingelliptical.streamlit.app](https://traceguardfirstversionusingelliptical.streamlit.app/)
+
+The demo is the Streamlit Community Cloud deployment of [app/streamlit_app.py](app/streamlit_app.py). It reads the bundled [demo/memos.json](demo/memos.json) (30 pre-generated memos): no live model calls and no API key. Free-tier apps sleep when idle, so the first visit may show a "wake up" button.
 
 | | |
 |---|---|
 | _[screenshot: Examples page]_ | _[screenshot: memo with signal-conflict callout and evidence chips]_ |
 | _[screenshot: red "model cannot be relied on" banner]_ | _[screenshot: "How it was evaluated" page]_ |
+
+**Try these first** (the five nodes on the app's Examples page):
+
+| Transaction | Time step | What it shows |
+|---|---|---|
+| 73002538 | 42 | High-band node at time step 42: high raw score, verified memo with code-rendered facts. |
+| 200950509 | 36 | Chain node: a risk-raising chain pattern but a low model score, so the memo states a signal conflict. |
+| 114656654 | 38 | Fan-in node: the fan_in pattern lowers risk in the training data, so the model's low band stands (no action suggested). |
+| 125406909 | 47 | Post-shutdown node (time step 47): the model-health check reports degradation, so the agent declines to assess. |
+| 200638883 | 36 | Low-band node: no risk-raising pattern, so the memo suggests no action (model-based only) without any LLM call. |
 
 ## What it is, and what it is not
 
