@@ -269,6 +269,25 @@ def test_the_critic_rejects_a_tampered_rendered_background():
     assert facts_problems([], [], [], exp)  # a dropped background item is a problem too
 
 
+@pytest.mark.parametrize("text", [
+    "Check whether the incoming neighbour at hop 1 shares counterparties.", "Check feature attribution for f53, f59, f163.",
+    "Check features f53, f90, f161 against known indicators.", "Check the neighbours within 2 hops.",
+    "Check what changed after time step 44."])
+def test_next_checks_may_reference_feature_ids_hops_and_time_steps(text):
+    from src.agents.checks import next_check_reasons
+
+    assert next_check_reasons(text, {}) == []
+
+
+@pytest.mark.parametrize("text", [
+    "Check why the score 0.9 is so high.", "Check the 5 neighbours.", "Check whether 0.25 is a typical value.",
+    "Check hop 1.5 neighbours.", "Check f53 and the 3 alerted nodes."])
+def test_next_checks_still_reject_any_other_number(text):
+    from src.agents.checks import next_check_reasons
+
+    assert any("contains a number" in r for r in next_check_reasons(text, {}))
+
+
 def test_summary_longer_than_three_sentences_and_bad_next_checks_are_rejected(ctx):
     four = SummaryDraft(executive_summary=[Claim(text=f"The model gave transaction 4 a raw score of 0.95 at time step 1 ({i}).", evidence_ids=["score:4"])
                                            for i in range(4)] + [], next_checks=["Check the 3 neighbours.", "Check whether the owner is the same."])

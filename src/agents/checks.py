@@ -112,11 +112,17 @@ def signal_conflict_reasons(expected: Optional[str], actual: Optional[str]) -> L
     return []
 
 
+# Phase 5c bugfix (agent-v3.1): references that are not numbers about the transaction: feature ids (f53), hop references
+# ("hop 1", "2 hops") and time step references ("time step 44"). Any other digit is still rejected.
+NEXT_CHECK_ALLOWED = re.compile(
+    r"\bf\d+\b|\bhops?\s+\d+\b(?!\.\d)|\b\d+\s+hops?\b|\btime\s*steps?\s+\d+\b(?!\.\d)", re.I)
+
+
 def next_check_reasons(text: str, ledger: Dict[str, LedgerEntry]) -> List[str]:
     """A 'what a human analyst could check next' item must contain no factual claim: no numbers, no evidence ids, short,
     and it may not call a lowers_risk pattern suspicious."""
     reasons = []
-    if re.search(r"\d", text):
+    if re.search(r"\d", NEXT_CHECK_ALLOWED.sub(" ", text)):
         reasons.append("a next-check item contains a number (it must contain no factual claim)")
     if re.search(r"\b(score|typology|health|neighbors|subgraph|reg):", text):
         reasons.append("a next-check item contains an evidence id")
