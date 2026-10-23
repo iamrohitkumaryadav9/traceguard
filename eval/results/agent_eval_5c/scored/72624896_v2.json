@@ -1,0 +1,107 @@
+{
+ "case": {
+  "stratum": "6 low band",
+  "tx_id": 72624896,
+  "time_step": 42,
+  "ground_truth": "unknown",
+  "score": 0.000843,
+  "candidates": 31306,
+  "k": 3,
+  "note": ""
+ },
+ "metrics": {
+  "tx_id": 72624896,
+  "design": "v2",
+  "status": "no_action_model_based",
+  "reached_writer": false,
+  "groundedness": {
+   "grounded": 3,
+   "total": 3,
+   "ungrounded": []
+  },
+  "completeness": {
+   "share": 1.0,
+   "elements": {
+    "score": {
+     "applicable": true,
+     "present": true
+    },
+    "band": {
+     "applicable": true,
+     "present": true
+    },
+    "health status": {
+     "applicable": true,
+     "present": true
+    },
+    "typology evidence with direction": {
+     "applicable": false,
+     "present": false
+    },
+    "neighbour summary": {
+     "applicable": false,
+     "present": false
+    },
+    "signal conflict": {
+     "applicable": false,
+     "present": false
+    },
+    "period note": {
+     "applicable": false,
+     "present": false
+    },
+    "limitations": {
+     "applicable": true,
+     "present": true
+    },
+    "subject fields": {
+     "applicable": true,
+     "present": true
+    }
+   }
+  },
+  "violations": {
+   "a_lowers_risk_called_suspicious": [],
+   "b_low_risk_while_degraded": [],
+   "c_quote_from_non_quotable": [],
+   "d_label_leak": []
+  },
+  "info_only": {
+   "quotes_not_in_stored_text": 0,
+   "claims_with_quote_field": 0
+  },
+  "tool_correctness": {
+   "r1_applicable": false,
+   "r1_ok": null,
+   "searches": 0,
+   "r2_violation": false,
+   "search_with_only_uninformative": false,
+   "search_with_lowers_risk_only": false,
+   "within_caps": true,
+   "budget_exceeded": false,
+   "agent_tool_calls": 0,
+   "invalid_argument_calls": 0
+  },
+  "critic": {
+   "rounds": 0,
+   "deterministic": {},
+   "llm": {
+    "unsupported": 0,
+    "overstated": 0
+   },
+   "false_rejection_candidates": [],
+   "rejected_items": 0
+  },
+  "sources": {
+   "code": 3,
+   "llm": 0
+  },
+  "cost": {
+   "llm_calls": 0,
+   "prompt_tokens": 0,
+   "output_tokens": 0,
+   "wall_s": 3.365,
+   "wall_s_no_wait": 3.365
+  }
+ }
+}

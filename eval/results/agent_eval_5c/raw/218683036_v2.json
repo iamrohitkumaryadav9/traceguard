@@ -1,0 +1,242 @@
+{
+ "tx_id": 218683036,
+ "stratum": "7 late steps (43-49), band at least medium",
+ "design": "v2",
+ "status": "cannot_assess",
+ "error": null,
+ "time_step": 47,
+ "counts": {
+  "tool_calls_investigator": 0,
+  "searches": 0,
+  "chunk_fetches": 0,
+  "llm_calls": 0,
+  "critic_loops": 0,
+  "tool_calls_total": 3
+ },
+ "latency_s": {
+  "total": 3.148,
+  "llm_throttle_wait": 0.0
+ },
+ "tokens": {
+  "prompt": 0,
+  "output": 0
+ },
+ "nodes_visited": [
+  "triage",
+  "finalize"
+ ],
+ "critic_verdicts": [],
+ "trace": [
+  {
+   "t": 3.135,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 218683036
+   },
+   "evidence_id": "score:218683036",
+   "ms": 3123.2,
+   "error": null
+  },
+  {
+   "t": 3.144,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 47
+   },
+   "evidence_id": "health:47",
+   "ms": 8.9,
+   "error": null
+  },
+  {
+   "t": 3.144,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 218683036
+   },
+   "evidence_id": "typology:218683036",
+   "ms": 0.2,
+   "error": null
+  },
+  {
+   "t": 3.144,
+   "node": "triage",
+   "event": "decision",
+   "status": "cannot_assess",
+   "risk_band": "high",
+   "health": "degraded",
+   "patterns": [],
+   "signal_conflict": null
+  }
+ ],
+ "ledger": {
+  "score:218683036": {
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 218683036
+   },
+   "output": {
+    "tx_id": 218683036,
+    "time_step": 47,
+    "score": 0.981565,
+    "score_scale": "raw_lightgbm_predict_proba",
+    "calibrated_probability": 0.987013,
+    "alert": true,
+    "alert_threshold": 0.258181,
+    "high_threshold": 0.788025,
+    "risk_band": "high",
+    "reasons": [
+     {
+      "feature": "f59",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 1.409659,
+      "feature_value": -0.172893
+     },
+     {
+      "feature": "f2",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 1.200816,
+      "feature_value": -0.132936
+     },
+     {
+      "feature": "f90",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 1.033975,
+      "feature_value": -0.694235
+     },
+     {
+      "feature": "f132",
+      "group": "aggregated",
+      "direction": "raises illicit score",
+      "shap_value": 0.899261,
+      "feature_value": -0.188716
+     },
+     {
+      "feature": "f76",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.798656,
+      "feature_value": -0.094805
+     }
+    ],
+    "evidence_id": "score:218683036"
+   }
+  },
+  "health:47": {
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 47
+   },
+   "output": {
+    "time_step": 47,
+    "status": "degraded",
+    "window_steps": [
+     43,
+     44,
+     45
+    ],
+    "window_recall": 0.037736,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 53,
+    "lag": 2,
+    "evidence_id": "health:47"
+   }
+  },
+  "typology:218683036": {
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 218683036
+   },
+   "output": {
+    "tx_id": 218683036,
+    "time_step": 47,
+    "flags": {
+     "fan_in": false,
+     "fan_out": false,
+     "chain": false
+    },
+    "in_degree": 1,
+    "out_degree": 0,
+    "chain_len": 0,
+    "thresholds": {
+     "fan_in": 9,
+     "fan_out": 5,
+     "chain_len": 4
+    },
+    "matches": [],
+    "evidence_id": "typology:218683036"
+   }
+  }
+ },
+ "memo": {
+  "header": {
+   "tx_id": 218683036,
+   "time_step": 47,
+   "risk_band": null,
+   "score": null,
+   "score_scale": "raw_lightgbm_predict_proba",
+   "calibrated_probability": null,
+   "thresholds": {
+    "alert": 0.258181,
+    "high": 0.788025
+   },
+   "model_health": {
+    "status": "degraded",
+    "window_recall": 0.037736,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 53
+   },
+   "generated_at": "2026-10-23T13:15:42+0530"
+  },
+  "subject": {
+   "names": "not available in dataset",
+   "addresses": "not available in dataset",
+   "amounts": "not available in dataset",
+   "dates": "not available in dataset"
+  },
+  "signal_conflict": null,
+  "signal_conflict_evidence_ids": [],
+  "activity_description": [
+   {
+    "text": "The model cannot be relied on at time step 47: in the delayed-label window its recall was 0.037736 against a reference of 0.98308, so no risk assessment is given for this transaction.",
+    "evidence_ids": [
+     "health:47"
+    ]
+   }
+  ],
+  "evidence_table": [
+   {
+    "evidence_id": "health:47",
+    "tool": "check_model_health"
+   }
+  ],
+  "regulatory_background": [],
+  "limitations": [
+   "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+   "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+   "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+   "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+   "Structural patterns are resemblances only: Elliptic has no typology labels.",
+   "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+   "This is a draft for a human analyst. It does not decide whether a report should be filed.",
+   "Dataset-specific note, based on hindsight from the published test results: model performance collapsed from time step 43 onward. A deployed system would not know this in advance."
+  ],
+  "recommendation": "refer for human review",
+  "status": "cannot_assess",
+  "verification": "not applicable",
+  "removed_claims": [],
+  "notes": []
+ },
+ "first_draft": null,
+ "signal_conflict": null,
+ "signal_conflict_evidence_ids": [],
+ "attempts": 1
+}

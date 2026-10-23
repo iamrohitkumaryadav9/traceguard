@@ -1,0 +1,624 @@
+{
+ "tx_id": 71987847,
+ "stratum": "1 high band, illicit",
+ "design": "v2",
+ "status": "verified",
+ "error": null,
+ "time_step": 42,
+ "counts": {
+  "tool_calls_investigator": 3,
+  "searches": 0,
+  "chunk_fetches": 0,
+  "llm_calls": 5,
+  "critic_loops": 0,
+  "tool_calls_total": 7
+ },
+ "latency_s": {
+  "total": 28.012,
+  "llm_throttle_wait": 17.99
+ },
+ "tokens": {
+  "prompt": 7273,
+  "output": 834
+ },
+ "nodes_visited": [
+  "triage",
+  "investigator",
+  "writer",
+  "critic",
+  "finalize"
+ ],
+ "critic_verdicts": [
+  {
+   "round": 1,
+   "item": "claim 1",
+   "text": "The transaction received a raw LightGBM predict proba score of 0.999825, a calibrated probability of 0.988235, and fell into the high risk band.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The cited evidence explicitly states the raw LightGBM predict proba score is 0.999825, the calibrated probability is 0.988235, and the risk band is high."
+  },
+  {
+   "round": 1,
+   "item": "claim 2",
+   "text": "Features f53, f90, f161, f59, and f2 pushed the score up.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The cited evidence lists features f53, f90, f161, f59, and f2 with the direction 'raises illicit score', meaning they pushed the score up."
+  },
+  {
+   "round": 1,
+   "item": "claim 3",
+   "text": "Model health check status was ok with a window recall of 0.842105 against a reference recall of 0.98308 across 304 illicit instances in the window.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The cited evidence confirms the status is ok, window recall is 0.842105, reference recall is 0.98308, and there are 304 illicit instances in the window."
+  },
+  {
+   "round": 1,
+   "item": "claim 4",
+   "text": "Graph analysis found 1 incoming neighbor and 0 outgoing neighbors, with a subgraph radius of 2 and density of 0.333333.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The cited evidence shows an in_degree of 1, an out_degree of 0, a radius of 2, and a density of 0.333333."
+  },
+  {
+   "round": 1,
+   "item": "signal_conflict",
+   "text": "Signal conflict: the model score 0.999825 (risk band high; evidence score:71987847) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:71987847:1:in) point in different directions.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": null,
+   "llm_reason": null
+  }
+ ],
+ "trace": [
+  {
+   "t": 3.889,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 71987847
+   },
+   "evidence_id": "score:71987847",
+   "ms": 3874.4,
+   "error": null
+  },
+  {
+   "t": 3.898,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 42
+   },
+   "evidence_id": "health:42",
+   "ms": 8.9,
+   "error": null
+  },
+  {
+   "t": 3.899,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 71987847
+   },
+   "evidence_id": "typology:71987847",
+   "ms": 0.2,
+   "error": null
+  },
+  {
+   "t": 3.899,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "get_neighbors",
+   "args": {
+    "tx_id": 71987847,
+    "hops": 1,
+    "direction": "in"
+   },
+   "evidence_id": "neighbors:71987847:1:in",
+   "ms": 0.1,
+   "error": null
+  },
+  {
+   "t": 3.899,
+   "node": "triage",
+   "event": "decision",
+   "status": "investigating",
+   "risk_band": "high",
+   "health": "ok",
+   "patterns": [],
+   "signal_conflict": "Signal conflict: the model score 0.999825 (risk band high; evidence score:71987847) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:71987847:1:in) point in different directions."
+  },
+  {
+   "t": 4.472,
+   "node": "investigator",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 5.475,
+   "node": "investigator",
+   "event": "llm_result",
+   "latency_ms": 997.0,
+   "usage": {
+    "prompt_tokens": 1096,
+    "output_tokens": 66
+   },
+   "tool_calls": [
+    "subgraph_summary",
+    "get_neighbors"
+   ]
+  },
+  {
+   "t": 5.476,
+   "node": "investigator",
+   "event": "tool_call",
+   "tool": "subgraph_summary",
+   "args": {
+    "radius": 2,
+    "tx_id": 71987847
+   },
+   "evidence_id": "subgraph:71987847:2",
+   "ms": 0.9,
+   "error": null
+  },
+  {
+   "t": 5.476,
+   "node": "investigator",
+   "event": "tool_call",
+   "tool": "get_neighbors",
+   "args": {
+    "tx_id": 71987847,
+    "direction": "both",
+    "hops": 1,
+    "limit": 25
+   },
+   "evidence_id": "neighbors:71987847:1:both",
+   "ms": 0.1,
+   "error": null
+  },
+  {
+   "t": 5.476,
+   "node": "investigator",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 10.832,
+   "node": "investigator",
+   "event": "llm_result",
+   "latency_ms": 856.5,
+   "usage": {
+    "prompt_tokens": 1423,
+    "output_tokens": 38
+   },
+   "tool_calls": [
+    "get_neighbors"
+   ]
+  },
+  {
+   "t": 10.832,
+   "node": "investigator",
+   "event": "tool_call",
+   "tool": "get_neighbors",
+   "args": {
+    "limit": 25,
+    "tx_id": 71987847,
+    "hops": 2,
+    "direction": "in"
+   },
+   "evidence_id": "neighbors:71987847:2:in",
+   "ms": 0.1,
+   "error": null
+  },
+  {
+   "t": 10.832,
+   "node": "investigator",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 15.987,
+   "node": "investigator",
+   "event": "llm_result",
+   "latency_ms": 654.1,
+   "usage": {
+    "prompt_tokens": 1572,
+    "output_tokens": 1
+   },
+   "tool_calls": []
+  },
+  {
+   "t": 15.988,
+   "node": "writer",
+   "event": "llm_call",
+   "purpose": "draft 1"
+  },
+  {
+   "t": 22.146,
+   "node": "writer",
+   "event": "llm_result",
+   "latency_ms": 1659.0,
+   "usage": {
+    "prompt_tokens": 1711,
+    "output_tokens": 427
+   },
+   "claims": 4,
+   "background": 0
+  },
+  {
+   "t": 22.147,
+   "node": "critic",
+   "event": "llm_call",
+   "purpose": "support check round 1"
+  },
+  {
+   "t": 28.01,
+   "node": "critic",
+   "event": "llm_result",
+   "latency_ms": 1363.7,
+   "usage": {
+    "prompt_tokens": 1471,
+    "output_tokens": 302
+   }
+  },
+  {
+   "t": 28.01,
+   "node": "critic",
+   "event": "verdicts",
+   "round": 1,
+   "items": 4,
+   "failed": 0,
+   "empty_draft": false,
+   "conflict_ok": true
+  }
+ ],
+ "ledger": {
+  "score:71987847": {
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 71987847
+   },
+   "output": {
+    "tx_id": 71987847,
+    "time_step": 42,
+    "score": 0.999825,
+    "score_scale": "raw_lightgbm_predict_proba",
+    "calibrated_probability": 0.988235,
+    "alert": true,
+    "alert_threshold": 0.258181,
+    "high_threshold": 0.788025,
+    "risk_band": "high",
+    "reasons": [
+     {
+      "feature": "f53",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 2.873693,
+      "feature_value": -0.488348
+     },
+     {
+      "feature": "f90",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 1.19813,
+      "feature_value": -0.694235
+     },
+     {
+      "feature": "f161",
+      "group": "aggregated",
+      "direction": "raises illicit score",
+      "shap_value": 0.998549,
+      "feature_value": -0.106715
+     },
+     {
+      "feature": "f59",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.996534,
+      "feature_value": -0.172893
+     },
+     {
+      "feature": "f2",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.967887,
+      "feature_value": 0.159759
+     }
+    ],
+    "evidence_id": "score:71987847"
+   }
+  },
+  "health:42": {
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 42
+   },
+   "output": {
+    "time_step": 42,
+    "status": "ok",
+    "window_steps": [
+     38,
+     39,
+     40
+    ],
+    "window_recall": 0.842105,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 304,
+    "lag": 2,
+    "evidence_id": "health:42"
+   }
+  },
+  "typology:71987847": {
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 71987847
+   },
+   "output": {
+    "tx_id": 71987847,
+    "time_step": 42,
+    "flags": {
+     "fan_in": false,
+     "fan_out": false,
+     "chain": false
+    },
+    "in_degree": 1,
+    "out_degree": 0,
+    "chain_len": 0,
+    "thresholds": {
+     "fan_in": 9,
+     "fan_out": 5,
+     "chain_len": 4
+    },
+    "matches": [],
+    "evidence_id": "typology:71987847"
+   }
+  },
+  "neighbors:71987847:1:in": {
+   "tool": "get_neighbors",
+   "args": {
+    "tx_id": 71987847,
+    "hops": 1,
+    "direction": "in"
+   },
+   "output": {
+    "tx_id": 71987847,
+    "time_step": 42,
+    "hops": 1,
+    "direction": "in",
+    "total_found": 1,
+    "truncated": false,
+    "neighbors": [
+     {
+      "tx_id": 71811939,
+      "hop": 1,
+      "direction": "in",
+      "score": 7.4e-05,
+      "alert": false
+     }
+    ],
+    "evidence_id": "neighbors:71987847:1:in"
+   }
+  },
+  "subgraph:71987847:2": {
+   "tool": "subgraph_summary",
+   "args": {
+    "radius": 2,
+    "tx_id": 71987847
+   },
+   "output": {
+    "tx_id": 71987847,
+    "time_step": 42,
+    "radius": 2,
+    "n_nodes": 3,
+    "n_edges": 2,
+    "density": 0.333333,
+    "focal_in_degree": 1,
+    "focal_out_degree": 0,
+    "max_in_degree": 1,
+    "max_out_degree": 2,
+    "n_alerted": 1,
+    "share_alerted": 0.333333,
+    "focal_chain_len": 0,
+    "wcc_size": 7140,
+    "evidence_id": "subgraph:71987847:2"
+   }
+  },
+  "neighbors:71987847:1:both": {
+   "tool": "get_neighbors",
+   "args": {
+    "tx_id": 71987847,
+    "direction": "both",
+    "hops": 1,
+    "limit": 25
+   },
+   "output": {
+    "tx_id": 71987847,
+    "time_step": 42,
+    "hops": 1,
+    "direction": "both",
+    "total_found": 1,
+    "truncated": false,
+    "neighbors": [
+     {
+      "tx_id": 71811939,
+      "hop": 1,
+      "direction": "in",
+      "score": 7.4e-05,
+      "alert": false
+     }
+    ],
+    "evidence_id": "neighbors:71987847:1:both"
+   }
+  },
+  "neighbors:71987847:2:in": {
+   "tool": "get_neighbors",
+   "args": {
+    "limit": 25,
+    "tx_id": 71987847,
+    "hops": 2,
+    "direction": "in"
+   },
+   "output": {
+    "tx_id": 71987847,
+    "time_step": 42,
+    "hops": 2,
+    "direction": "in",
+    "total_found": 1,
+    "truncated": false,
+    "neighbors": [
+     {
+      "tx_id": 71811939,
+      "hop": 1,
+      "direction": "in",
+      "score": 7.4e-05,
+      "alert": false
+     }
+    ],
+    "evidence_id": "neighbors:71987847:2:in"
+   }
+  }
+ },
+ "memo": {
+  "header": {
+   "tx_id": 71987847,
+   "time_step": 42,
+   "risk_band": "high",
+   "score": 0.999825,
+   "score_scale": "raw_lightgbm_predict_proba",
+   "calibrated_probability": 0.988235,
+   "thresholds": {
+    "alert": 0.258181,
+    "high": 0.788025
+   },
+   "model_health": {
+    "status": "ok",
+    "window_recall": 0.842105,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 304
+   },
+   "generated_at": "2026-10-23T12:50:10+0530"
+  },
+  "subject": {
+   "names": "not available in dataset",
+   "addresses": "not available in dataset",
+   "amounts": "not available in dataset",
+   "dates": "not available in dataset"
+  },
+  "signal_conflict": "Signal conflict: the model score 0.999825 (risk band high; evidence score:71987847) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:71987847:1:in) point in different directions.",
+  "signal_conflict_evidence_ids": [
+   "score:71987847",
+   "neighbors:71987847:1:in"
+  ],
+  "activity_description": [
+   {
+    "text": "The transaction received a raw LightGBM predict proba score of 0.999825, a calibrated probability of 0.988235, and fell into the high risk band.",
+    "evidence_ids": [
+     "score:71987847"
+    ]
+   },
+   {
+    "text": "Features f53, f90, f161, f59, and f2 pushed the score up.",
+    "evidence_ids": [
+     "score:71987847"
+    ]
+   },
+   {
+    "text": "Model health check status was ok with a window recall of 0.842105 against a reference recall of 0.98308 across 304 illicit instances in the window.",
+    "evidence_ids": [
+     "health:42"
+    ]
+   },
+   {
+    "text": "Graph analysis found 1 incoming neighbor and 0 outgoing neighbors, with a subgraph radius of 2 and density of 0.333333.",
+    "evidence_ids": [
+     "typology:71987847",
+     "neighbors:71987847:1:in",
+     "subgraph:71987847:2"
+    ]
+   }
+  ],
+  "evidence_table": [
+   {
+    "evidence_id": "score:71987847",
+    "tool": "score_transaction"
+   },
+   {
+    "evidence_id": "neighbors:71987847:1:in",
+    "tool": "get_neighbors"
+   },
+   {
+    "evidence_id": "health:42",
+    "tool": "check_model_health"
+   },
+   {
+    "evidence_id": "typology:71987847",
+    "tool": "match_typology"
+   },
+   {
+    "evidence_id": "subgraph:71987847:2",
+    "tool": "subgraph_summary"
+   }
+  ],
+  "regulatory_background": [],
+  "limitations": [
+   "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+   "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+   "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+   "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+   "Structural patterns are resemblances only: Elliptic has no typology labels.",
+   "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+   "This is a draft for a human analyst. It does not decide whether a report should be filed."
+  ],
+  "recommendation": "refer for human review",
+  "status": "verified",
+  "verification": "verified",
+  "removed_claims": [],
+  "notes": []
+ },
+ "first_draft": {
+  "signal_conflict": "Signal conflict: the model score 0.999825 (risk band high; evidence score:71987847) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:71987847:1:in) point in different directions.",
+  "activity_description": [
+   {
+    "text": "The transaction received a raw LightGBM predict proba score of 0.999825, a calibrated probability of 0.988235, and fell into the high risk band.",
+    "evidence_ids": [
+     "score:71987847"
+    ]
+   },
+   {
+    "text": "Features f53, f90, f161, f59, and f2 pushed the score up.",
+    "evidence_ids": [
+     "score:71987847"
+    ]
+   },
+   {
+    "text": "Model health check status was ok with a window recall of 0.842105 against a reference recall of 0.98308 across 304 illicit instances in the window.",
+    "evidence_ids": [
+     "health:42"
+    ]
+   },
+   {
+    "text": "Graph analysis found 1 incoming neighbor and 0 outgoing neighbors, with a subgraph radius of 2 and density of 0.333333.",
+    "evidence_ids": [
+     "typology:71987847",
+     "neighbors:71987847:1:in",
+     "subgraph:71987847:2"
+    ]
+   }
+  ],
+  "regulatory_background": []
+ },
+ "signal_conflict": "Signal conflict: the model score 0.999825 (risk band high; evidence score:71987847) and the in-neighbour alerts (none of the 1 in-neighbours alerted; evidence neighbors:71987847:1:in) point in different directions.",
+ "signal_conflict_evidence_ids": [
+  "score:71987847",
+  "neighbors:71987847:1:in"
+ ],
+ "attempts": 1
+}

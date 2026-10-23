@@ -1,0 +1,109 @@
+{
+ "case": {
+  "stratum": "2 high band, licit",
+  "tx_id": 97933782,
+  "time_step": 40,
+  "ground_truth": "licit",
+  "score": 0.885416,
+  "candidates": 32,
+  "k": 4,
+  "note": ""
+ },
+ "metrics": {
+  "tx_id": 97933782,
+  "design": "v3",
+  "status": "verified",
+  "reached_writer": true,
+  "groundedness": {
+   "grounded": 11,
+   "total": 11,
+   "ungrounded": []
+  },
+  "completeness": {
+   "share": 1.0,
+   "elements": {
+    "score": {
+     "applicable": true,
+     "present": true
+    },
+    "band": {
+     "applicable": true,
+     "present": true
+    },
+    "health status": {
+     "applicable": true,
+     "present": true
+    },
+    "typology evidence with direction": {
+     "applicable": false,
+     "present": false
+    },
+    "neighbour summary": {
+     "applicable": true,
+     "present": true
+    },
+    "signal conflict": {
+     "applicable": false,
+     "present": false
+    },
+    "period note": {
+     "applicable": false,
+     "present": false
+    },
+    "limitations": {
+     "applicable": true,
+     "present": true
+    },
+    "subject fields": {
+     "applicable": true,
+     "present": true
+    }
+   }
+  },
+  "violations": {
+   "a_lowers_risk_called_suspicious": [],
+   "b_low_risk_while_degraded": [],
+   "c_quote_from_non_quotable": [],
+   "d_label_leak": []
+  },
+  "info_only": {
+   "quotes_not_in_stored_text": 0,
+   "claims_with_quote_field": 0
+  },
+  "tool_correctness": {
+   "r1_applicable": false,
+   "r1_ok": null,
+   "searches": 0,
+   "r2_violation": false,
+   "search_with_only_uninformative": false,
+   "search_with_lowers_risk_only": false,
+   "within_caps": true,
+   "budget_exceeded": false,
+   "agent_tool_calls": 4,
+   "invalid_argument_calls": 0
+  },
+  "critic": {
+   "rounds": 2,
+   "deterministic": {
+    "other deterministic": 1
+   },
+   "llm": {
+    "unsupported": 0,
+    "overstated": 0
+   },
+   "false_rejection_candidates": [],
+   "rejected_items": 1
+  },
+  "sources": {
+   "code": 8,
+   "llm": 3
+  },
+  "cost": {
+   "llm_calls": 9,
+   "prompt_tokens": 12138,
+   "output_tokens": 1351,
+   "wall_s": 46.799,
+   "wall_s_no_wait": 10.809
+  }
+ }
+}

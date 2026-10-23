@@ -1,0 +1,493 @@
+{
+ "seed": 43,
+ "n_llm_summary": 61,
+ "n_code_built": 20,
+ "items": {
+  "H001": {
+   "claim_source": "llm",
+   "tx_id": 12664247,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H002": {
+   "claim_source": "llm",
+   "tx_id": 29584495,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H003": {
+   "claim_source": "llm",
+   "tx_id": 12664247,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H004": {
+   "claim_source": "llm",
+   "tx_id": 196092852,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H005": {
+   "claim_source": "code",
+   "tx_id": 156058072,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H006": {
+   "claim_source": "llm",
+   "tx_id": 29055204,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H007": {
+   "claim_source": "llm",
+   "tx_id": 29055204,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H008": {
+   "claim_source": "llm",
+   "tx_id": 106300125,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H009": {
+   "claim_source": "llm",
+   "tx_id": 73333415,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H010": {
+   "claim_source": "code",
+   "tx_id": 12664247,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H011": {
+   "claim_source": "llm",
+   "tx_id": 64413379,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H012": {
+   "claim_source": "llm",
+   "tx_id": 61745735,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H013": {
+   "claim_source": "code",
+   "tx_id": 64413379,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H014": {
+   "claim_source": "llm",
+   "tx_id": 29055204,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H015": {
+   "claim_source": "code",
+   "tx_id": 69779650,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H016": {
+   "claim_source": "llm",
+   "tx_id": 261387954,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H017": {
+   "claim_source": "llm",
+   "tx_id": 109871125,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H018": {
+   "claim_source": "llm",
+   "tx_id": 71987847,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H019": {
+   "claim_source": "llm",
+   "tx_id": 200950509,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H020": {
+   "claim_source": "llm",
+   "tx_id": 30122458,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H021": {
+   "claim_source": "llm",
+   "tx_id": 73333415,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H022": {
+   "claim_source": "llm",
+   "tx_id": 155603453,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H023": {
+   "claim_source": "llm",
+   "tx_id": 261387954,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H024": {
+   "claim_source": "llm",
+   "tx_id": 71769835,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H025": {
+   "claim_source": "llm",
+   "tx_id": 71987847,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H026": {
+   "claim_source": "code",
+   "tx_id": 200950509,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H027": {
+   "claim_source": "code",
+   "tx_id": 71769835,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H028": {
+   "claim_source": "llm",
+   "tx_id": 149570741,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H029": {
+   "claim_source": "llm",
+   "tx_id": 71769835,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H030": {
+   "claim_source": "code",
+   "tx_id": 261387954,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H031": {
+   "claim_source": "code",
+   "tx_id": 71987847,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H032": {
+   "claim_source": "llm",
+   "tx_id": 200950509,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H033": {
+   "claim_source": "llm",
+   "tx_id": 97933782,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H034": {
+   "claim_source": "llm",
+   "tx_id": 149570741,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H035": {
+   "claim_source": "code",
+   "tx_id": 44282463,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H036": {
+   "claim_source": "code",
+   "tx_id": 71987847,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H037": {
+   "claim_source": "code",
+   "tx_id": 149570741,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H038": {
+   "claim_source": "code",
+   "tx_id": 12664247,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H039": {
+   "claim_source": "llm",
+   "tx_id": 30122458,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H040": {
+   "claim_source": "llm",
+   "tx_id": 29584495,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H041": {
+   "claim_source": "code",
+   "tx_id": 155603453,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H042": {
+   "claim_source": "llm",
+   "tx_id": 69779650,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H043": {
+   "claim_source": "llm",
+   "tx_id": 109871125,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H044": {
+   "claim_source": "code",
+   "tx_id": 261387954,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H045": {
+   "claim_source": "llm",
+   "tx_id": 69779650,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H046": {
+   "claim_source": "llm",
+   "tx_id": 97933782,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H047": {
+   "claim_source": "llm",
+   "tx_id": 64413379,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H048": {
+   "claim_source": "llm",
+   "tx_id": 61745735,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H049": {
+   "claim_source": "llm",
+   "tx_id": 69662492,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H050": {
+   "claim_source": "llm",
+   "tx_id": 30122458,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H051": {
+   "claim_source": "llm",
+   "tx_id": 106300125,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H052": {
+   "claim_source": "llm",
+   "tx_id": 196092852,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H053": {
+   "claim_source": "code",
+   "tx_id": 69779650,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H054": {
+   "claim_source": "llm",
+   "tx_id": 73002538,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H055": {
+   "claim_source": "llm",
+   "tx_id": 64413379,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H056": {
+   "claim_source": "llm",
+   "tx_id": 156058072,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H057": {
+   "claim_source": "llm",
+   "tx_id": 71987847,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H058": {
+   "claim_source": "llm",
+   "tx_id": 69662492,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H059": {
+   "claim_source": "code",
+   "tx_id": 73002538,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H060": {
+   "claim_source": "llm",
+   "tx_id": 149570741,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H061": {
+   "claim_source": "llm",
+   "tx_id": 71769835,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H062": {
+   "claim_source": "llm",
+   "tx_id": 109871125,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H063": {
+   "claim_source": "llm",
+   "tx_id": 106300125,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H064": {
+   "claim_source": "code",
+   "tx_id": 61745735,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H065": {
+   "claim_source": "llm",
+   "tx_id": 73333415,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H066": {
+   "claim_source": "llm",
+   "tx_id": 97933782,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H067": {
+   "claim_source": "llm",
+   "tx_id": 155603453,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H068": {
+   "claim_source": "llm",
+   "tx_id": 12664247,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H069": {
+   "claim_source": "llm",
+   "tx_id": 155603453,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H070": {
+   "claim_source": "code",
+   "tx_id": 106300125,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H071": {
+   "claim_source": "llm",
+   "tx_id": 196092852,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H072": {
+   "claim_source": "llm",
+   "tx_id": 73002538,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H073": {
+   "claim_source": "llm",
+   "tx_id": 200950509,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H074": {
+   "claim_source": "llm",
+   "tx_id": 156058072,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H075": {
+   "claim_source": "llm",
+   "tx_id": 69662492,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H076": {
+   "claim_source": "code",
+   "tx_id": 97933782,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H077": {
+   "claim_source": "llm",
+   "tx_id": 261387954,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H078": {
+   "claim_source": "llm",
+   "tx_id": 69779650,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H079": {
+   "claim_source": "code",
+   "tx_id": 73333415,
+   "kind": "claim",
+   "deterministic_grounded": true
+  },
+  "H080": {
+   "claim_source": "llm",
+   "tx_id": 156058072,
+   "kind": "summary",
+   "deterministic_grounded": true
+  },
+  "H081": {
+   "claim_source": "llm",
+   "tx_id": 73002538,
+   "kind": "summary",
+   "deterministic_grounded": true
+  }
+ }
+}

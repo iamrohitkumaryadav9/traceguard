@@ -1,0 +1,1019 @@
+{
+ "tx_id": 69779650,
+ "stratum": "4 chain-flagged",
+ "design": "v2",
+ "status": "verified",
+ "error": null,
+ "time_step": 35,
+ "counts": {
+  "tool_calls_investigator": 2,
+  "searches": 1,
+  "chunk_fetches": 0,
+  "llm_calls": 9,
+  "critic_loops": 1,
+  "tool_calls_total": 7
+ },
+ "latency_s": {
+  "total": 60.935,
+  "llm_throttle_wait": 31.49
+ },
+ "tokens": {
+  "prompt": 20935,
+  "output": 1975
+ },
+ "nodes_visited": [
+  "triage",
+  "investigator",
+  "regulation",
+  "writer",
+  "critic",
+  "writer",
+  "critic",
+  "finalize"
+ ],
+ "critic_verdicts": [
+  {
+   "round": 1,
+   "item": "claim 1",
+   "text": "Features f5 and f52 pushed the score down; features f59, f53, and f100 pushed the score up.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence shows f5 and f52 lower the illicit score, while f59, f53, and f100 raise the illicit score, exactly matching the claim."
+  },
+  {
+   "round": 1,
+   "item": "claim 2",
+   "text": "Model health check status is ok, with window recall 0.987261, reference recall 0.98308, 471 illicit instances in window, and a lag of 2 steps.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "Every component of the claim (status, window recall, reference recall, n_illicit_in_window, and lag) matches the cited evidence."
+  },
+  {
+   "round": 1,
+   "item": "claim 3",
+   "text": "The transaction matched a chain structural pattern with a chain length of 8, which meets or exceeds the threshold of 4.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The cited evidence shows a chain length of 8 and a threshold of 4, meaning it meets or exceeds the threshold."
+  },
+  {
+   "round": 1,
+   "item": "claim 4",
+   "text": "The structural pattern matched training-period data associating it with a higher illicit rate.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence states the pattern comes from training-period data and points to an evidence_direction of 'raises_risk'."
+  },
+  {
+   "round": 1,
+   "item": "claim 5",
+   "text": "The transaction subgraph has a radius of 2, containing 5 nodes, 4 edges, a density of 0.2, a focal in-degree of 1, a focal out-degree of 1, a maximum in-degree of 1, a maximum out-degree of 1, 0 alerted nodes, a share alerted of 0.0, a focal chain length of 8, and a weakly connected component size of 5507.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "All subgraph metrics mentioned in the claim match the values in the cited evidence object."
+  },
+  {
+   "round": 1,
+   "item": "background 1",
+   "text": "FATF guidance discusses indicators involving sequential transfers and multiple layering of funds.",
+   "ok": false,
+   "deterministic_reasons": [],
+   "llm_verdict": "overstated",
+   "llm_reason": "The text discusses specific case studies involving multiple layering of fiat funds and sequential transfers, but the claim generalizes this as 'FATF guidance discusses indicators involving sequential transfers' which is broader than the specific South Africa case study text provided."
+  },
+  {
+   "round": 1,
+   "item": "background 2",
+   "text": "FinCEN guidance highlights unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions as potential red flags.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The cited text explicitly includes 'unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions'."
+  },
+  {
+   "round": 1,
+   "item": "signal_conflict",
+   "text": "Signal conflict: the model score 0.000146 (risk band low; evidence score:69779650) and the structural pattern chain (evidence direction raises_risk; evidence typology:69779650) point in different directions.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": null,
+   "llm_reason": null
+  },
+  {
+   "round": 2,
+   "item": "claim 1",
+   "text": "The transaction matched a structural chain pattern with a length of 8.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence explicitly states that chain is true and chain_len is 8."
+  },
+  {
+   "round": 2,
+   "item": "claim 2",
+   "text": "Model evaluation showed score 0.000146, score scale raw_lightgbm_predict_proba, calibrated probability 0.0, alert false, alert threshold 0.258181, high threshold 0.788025, and risk band low.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence matches every stated metric: score 0.000146, score_scale raw_lightgbm_predict_proba, calibrated_probability 0.0, alert false, alert_threshold 0.258181, high_threshold 0.788025, and risk_band low."
+  },
+  {
+   "round": 2,
+   "item": "claim 3",
+   "text": "Features f5 and f52 pushed the score down; features f59, f53, and f100 pushed the score up.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence shows f5 and f52 have direction 'lowers illicit score' while f59, f53, and f100 have direction 'raises illicit score'."
+  },
+  {
+   "round": 2,
+   "item": "claim 4",
+   "text": "Model health status was ok with window recall 0.987261, reference recall 0.98308, 471 illicit in window, and a lag of 2.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence matches status ok, window_recall 0.987261, reference_recall 0.98308, n_illicit_in_window 471, and lag 2."
+  },
+  {
+   "round": 2,
+   "item": "background 1",
+   "text": "FATF guidance notes a case study involving multiple layering of fiat funds arranged prior to virtual asset purchases.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence explicitly notes 'multiple layering of the fiat funds was arranged prior to the VA purchase by mules'."
+  },
+  {
+   "round": 2,
+   "item": "signal_conflict",
+   "text": "Signal conflict: the model score 0.000146 (risk band low; evidence score:69779650) and the structural pattern chain (evidence direction raises_risk; evidence typology:69779650) point in different directions.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": null,
+   "llm_reason": null
+  }
+ ],
+ "trace": [
+  {
+   "t": 3.307,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 69779650
+   },
+   "evidence_id": "score:69779650",
+   "ms": 3294.5,
+   "error": null
+  },
+  {
+   "t": 3.315,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 35
+   },
+   "evidence_id": "health:35",
+   "ms": 8.4,
+   "error": null
+  },
+  {
+   "t": 3.315,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 69779650
+   },
+   "evidence_id": "typology:69779650",
+   "ms": 0.2,
+   "error": null
+  },
+  {
+   "t": 3.316,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "get_neighbors",
+   "args": {
+    "tx_id": 69779650,
+    "hops": 1,
+    "direction": "in"
+   },
+   "evidence_id": "neighbors:69779650:1:in",
+   "ms": 0.1,
+   "error": null
+  },
+  {
+   "t": 3.316,
+   "node": "triage",
+   "event": "decision",
+   "status": "investigating",
+   "risk_band": "low",
+   "health": "ok",
+   "patterns": [
+    [
+     "chain",
+     "raises_risk"
+    ]
+   ],
+   "signal_conflict": "Signal conflict: the model score 0.000146 (risk band low; evidence score:69779650) and the structural pattern chain (evidence direction raises_risk; evidence typology:69779650) point in different directions."
+  },
+  {
+   "t": 3.783,
+   "node": "investigator",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 4.801,
+   "node": "investigator",
+   "event": "llm_result",
+   "latency_ms": 1013.6,
+   "usage": {
+    "prompt_tokens": 1248,
+    "output_tokens": 28
+   },
+   "tool_calls": [
+    "subgraph_summary"
+   ]
+  },
+  {
+   "t": 4.802,
+   "node": "investigator",
+   "event": "tool_call",
+   "tool": "subgraph_summary",
+   "args": {
+    "tx_id": 69779650,
+    "radius": 2
+   },
+   "evidence_id": "subgraph:69779650:2",
+   "ms": 0.7,
+   "error": null
+  },
+  {
+   "t": 4.802,
+   "node": "investigator",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 10.023,
+   "node": "investigator",
+   "event": "llm_result",
+   "latency_ms": 720.8,
+   "usage": {
+    "prompt_tokens": 1416,
+    "output_tokens": 38
+   },
+   "tool_calls": [
+    "get_neighbors"
+   ]
+  },
+  {
+   "t": 10.023,
+   "node": "investigator",
+   "event": "tool_call",
+   "tool": "get_neighbors",
+   "args": {
+    "direction": "both",
+    "tx_id": 69779650,
+    "limit": 25,
+    "hops": 2
+   },
+   "evidence_id": "neighbors:69779650:2:both",
+   "ms": 0.1,
+   "error": null
+  },
+  {
+   "t": 10.023,
+   "node": "investigator",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 15.225,
+   "node": "investigator",
+   "event": "llm_result",
+   "latency_ms": 701.7,
+   "usage": {
+    "prompt_tokens": 1679,
+    "output_tokens": 1
+   },
+   "tool_calls": []
+  },
+  {
+   "t": 15.228,
+   "node": "regulation",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 20.446,
+   "node": "regulation",
+   "event": "llm_result",
+   "latency_ms": 719.5,
+   "usage": {
+    "prompt_tokens": 461,
+    "output_tokens": 28
+   },
+   "tool_calls": [
+    "search_regulations"
+   ]
+  },
+  {
+   "t": 33.414,
+   "node": "regulation",
+   "event": "tool_call",
+   "tool": "search_regulations",
+   "args": {
+    "query": "sequential transfers through a chain of intermediary accounts, layering of funds"
+   },
+   "evidence_id": "search:2505173356",
+   "ms": 12967.8,
+   "error": null
+  },
+  {
+   "t": 33.414,
+   "node": "regulation",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 34.431,
+   "node": "regulation",
+   "event": "llm_result",
+   "latency_ms": 1016.9,
+   "usage": {
+    "prompt_tokens": 2469,
+    "output_tokens": 1
+   },
+   "tool_calls": []
+  },
+  {
+   "t": 34.433,
+   "node": "writer",
+   "event": "llm_call",
+   "purpose": "draft 1"
+  },
+  {
+   "t": 41.491,
+   "node": "writer",
+   "event": "llm_result",
+   "latency_ms": 2559.3,
+   "usage": {
+    "prompt_tokens": 4644,
+    "output_tokens": 641
+   },
+   "claims": 5,
+   "background": 2
+  },
+  {
+   "t": 41.493,
+   "node": "critic",
+   "event": "llm_call",
+   "purpose": "support check round 1"
+  },
+  {
+   "t": 47.855,
+   "node": "critic",
+   "event": "llm_result",
+   "latency_ms": 1863.3,
+   "usage": {
+    "prompt_tokens": 2445,
+    "output_tokens": 422
+   }
+  },
+  {
+   "t": 47.855,
+   "node": "critic",
+   "event": "verdicts",
+   "round": 1,
+   "items": 7,
+   "failed": 1,
+   "empty_draft": false,
+   "conflict_ok": true
+  },
+  {
+   "t": 47.856,
+   "node": "writer",
+   "event": "llm_call",
+   "purpose": "draft 2"
+  },
+  {
+   "t": 54.824,
+   "node": "writer",
+   "event": "llm_result",
+   "latency_ms": 2468.5,
+   "usage": {
+    "prompt_tokens": 4741,
+    "output_tokens": 461
+   },
+   "claims": 4,
+   "background": 1
+  },
+  {
+   "t": 54.826,
+   "node": "critic",
+   "event": "llm_call",
+   "purpose": "support check round 2"
+  },
+  {
+   "t": 60.934,
+   "node": "critic",
+   "event": "llm_result",
+   "latency_ms": 1608.3,
+   "usage": {
+    "prompt_tokens": 1832,
+    "output_tokens": 355
+   }
+  },
+  {
+   "t": 60.934,
+   "node": "critic",
+   "event": "verdicts",
+   "round": 2,
+   "items": 5,
+   "failed": 0,
+   "empty_draft": false,
+   "conflict_ok": true
+  }
+ ],
+ "ledger": {
+  "score:69779650": {
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 69779650
+   },
+   "output": {
+    "tx_id": 69779650,
+    "time_step": 35,
+    "score": 0.000146,
+    "score_scale": "raw_lightgbm_predict_proba",
+    "calibrated_probability": 0.0,
+    "alert": false,
+    "alert_threshold": 0.258181,
+    "high_threshold": 0.788025,
+    "risk_band": "low",
+    "reasons": [
+     {
+      "feature": "f5",
+      "group": "local",
+      "direction": "lowers illicit score",
+      "shap_value": -1.951402,
+      "feature_value": -0.024025
+     },
+     {
+      "feature": "f52",
+      "group": "local",
+      "direction": "lowers illicit score",
+      "shap_value": -0.836401,
+      "feature_value": -0.414031
+     },
+     {
+      "feature": "f59",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.679294,
+      "feature_value": -0.172837
+     },
+     {
+      "feature": "f53",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.492666,
+      "feature_value": -0.488362
+     },
+     {
+      "feature": "f100",
+      "group": "aggregated",
+      "direction": "raises illicit score",
+      "shap_value": 0.448784,
+      "feature_value": 0.737338
+     }
+    ],
+    "evidence_id": "score:69779650"
+   }
+  },
+  "health:35": {
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 35
+   },
+   "output": {
+    "time_step": 35,
+    "status": "ok",
+    "window_steps": [
+     31,
+     32,
+     33
+    ],
+    "window_recall": 0.987261,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 471,
+    "lag": 2,
+    "evidence_id": "health:35"
+   }
+  },
+  "typology:69779650": {
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 69779650
+   },
+   "output": {
+    "tx_id": 69779650,
+    "time_step": 35,
+    "flags": {
+     "fan_in": false,
+     "fan_out": false,
+     "chain": true
+    },
+    "in_degree": 1,
+    "out_degree": 1,
+    "chain_len": 8,
+    "thresholds": {
+     "fan_in": 9,
+     "fan_out": 5,
+     "chain_len": 4
+    },
+    "matches": [
+     {
+      "pattern": "chain",
+      "evidence": "chain_len 8 >= 4",
+      "n_flagged": 1469,
+      "observed_illicit_rate": 0.257318,
+      "baseline_illicit_rate": 0.115809,
+      "lift": 2.221913,
+      "evidence_direction": "raises_risk",
+      "retrieval_query": "sequential transfers through a chain of intermediary accounts, layering of funds",
+      "note": null,
+      "caveat": "structural resemblance only; Elliptic has no typology labels. The evidence direction comes from training-period data (labeled nodes, time steps 1-34); a pattern with direction 'lowers_risk' must never be described as suspicious."
+     }
+    ],
+    "evidence_id": "typology:69779650"
+   }
+  },
+  "neighbors:69779650:1:in": {
+   "tool": "get_neighbors",
+   "args": {
+    "tx_id": 69779650,
+    "hops": 1,
+    "direction": "in"
+   },
+   "output": {
+    "tx_id": 69779650,
+    "time_step": 35,
+    "hops": 1,
+    "direction": "in",
+    "total_found": 1,
+    "truncated": false,
+    "neighbors": [
+     {
+      "tx_id": 69779509,
+      "hop": 1,
+      "direction": "in",
+      "score": 0.000805,
+      "alert": false
+     }
+    ],
+    "evidence_id": "neighbors:69779650:1:in"
+   }
+  },
+  "subgraph:69779650:2": {
+   "tool": "subgraph_summary",
+   "args": {
+    "tx_id": 69779650,
+    "radius": 2
+   },
+   "output": {
+    "tx_id": 69779650,
+    "time_step": 35,
+    "radius": 2,
+    "n_nodes": 5,
+    "n_edges": 4,
+    "density": 0.2,
+    "focal_in_degree": 1,
+    "focal_out_degree": 1,
+    "max_in_degree": 1,
+    "max_out_degree": 1,
+    "n_alerted": 0,
+    "share_alerted": 0.0,
+    "focal_chain_len": 8,
+    "wcc_size": 5507,
+    "evidence_id": "subgraph:69779650:2"
+   }
+  },
+  "neighbors:69779650:2:both": {
+   "tool": "get_neighbors",
+   "args": {
+    "direction": "both",
+    "tx_id": 69779650,
+    "limit": 25,
+    "hops": 2
+   },
+   "output": {
+    "tx_id": 69779650,
+    "time_step": 35,
+    "hops": 2,
+    "direction": "both",
+    "total_found": 4,
+    "truncated": false,
+    "neighbors": [
+     {
+      "tx_id": 69779749,
+      "hop": 1,
+      "direction": "out",
+      "score": 0.004604,
+      "alert": false
+     },
+     {
+      "tx_id": 69779755,
+      "hop": 2,
+      "direction": "out",
+      "score": 0.002841,
+      "alert": false
+     },
+     {
+      "tx_id": 69779509,
+      "hop": 1,
+      "direction": "in",
+      "score": 0.000805,
+      "alert": false
+     },
+     {
+      "tx_id": 69779493,
+      "hop": 2,
+      "direction": "in",
+      "score": 1.8e-05,
+      "alert": false
+     }
+    ],
+    "evidence_id": "neighbors:69779650:2:both"
+   }
+  },
+  "search:2505173356": {
+   "tool": "search_regulations",
+   "args": {
+    "query": "sequential transfers through a chain of intermediary accounts, layering of funds"
+   },
+   "output": {
+    "query": "sequential transfers through a chain of intermediary accounts, layering of funds",
+    "search_query": "sequential transfers through a chain of intermediary accounts, layering of funds",
+    "k": 5,
+    "jurisdiction": null,
+    "hits": [
+     {
+      "evidence_id": "reg:fatf_2020_va_red_flags:p8:c11",
+      "doc_id": "fatf_2020_va_red_flags",
+      "title": "Virtual Assets Red Flag Indicators of Money Laundering and Terrorist Financing",
+      "publisher": "FATF",
+      "year": 2020,
+      "jurisdiction": "FATF",
+      "page_start": 8,
+      "page_end": 9,
+      "text": "In various instances, the individuals shared the same resid ential address; and most of the VA addresses were accessed from the same IP address \u2013 indicating the potential use of money mules by professional money launderers to launder the illicit proceeds. In addition, multiple layering of the fiat funds was arranged prior to the VA purchase by mules. To disguise the fund s\u2019 origin, cash w as first deposited into various accounts at different FIs across the jurisdiction. Those funds were then further transferred to various accounts held in the name of entities registered in the jurisdiction. Electronic payments were made into the accounts in smaller amounts. After that, funds were transferred to another group of accounts before reaching the mules\u2019 accounts held with local VASPs. VAs were immediately purchased and transferred to foreign VASPs. More than 150 individuals were involved in this case, responsible for transf erring a total of about USD 108 352 900 (or BTC 11,960) to multiple VA accounts held by two overseas VASPs. Source: South Africa Case Study 2. Multiple VAs and multiple transfers to foreign VASPs A local VA exchange reported that app roximately KRW 400 million (EUR ...",
+      "text_truncated": true,
+      "quotable": true,
+      "score": 0.031746,
+      "dense_score": 0.73065,
+      "bm25_score": 8.592892
+     },
+     {
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c10",
+      "doc_id": "fincen_2003_sar_narrative",
+      "title": "Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+      "publisher": "FinCEN",
+      "year": 2003,
+      "jurisdiction": "US",
+      "page_start": 7,
+      "page_end": 7,
+      "text": "\u2022 a lack of evidence of legitimate business activity, or any business operations at all, undertaken by many of the parties to the transaction(s); \u2022 unusual financial nexuses and transactions occurring among certain business types (e.g., food importer dealing with an auto parts exporter); \u2022 transactions that are not commensurate with the stated business type and/or that are unusual and unexpected in comparison with the volumes of similar businesses operating in the same locale; \u2022 unusually large numbers and/or volumes of wire transfers and/or repetitive wire transfer patterns; \u2022 unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions; \u2022 suspected shell entities; \u2022 bulk cash and monetary instrument transactions; \u2022 unusual mixed deposits of money orders, third party checks, payroll checks, etc., into a business account; \u2022 transactions being conducted in bursts of activities within a short period of time, especially in previously dormant accounts; \u2022 transactions and/or volumes of aggregate activity inconsistent with the expected purpose of the account and expected levels and types of account activity conveyed ...",
+      "text_truncated": true,
+      "quotable": true,
+      "score": 0.03101,
+      "dense_score": 0.725903,
+      "bm25_score": 6.279168
+     },
+     {
+      "evidence_id": "reg:fiuind_2026_vda_guidelines:p4:c2",
+      "doc_id": "fiuind_2026_vda_guidelines",
+      "title": "AML & CFT Guidelines for Reporting Entities Providing Services Related to Virtual Digital Assets",
+      "publisher": "Financial Intelligence Unit - India (FIU-IND)",
+      "year": 2026,
+      "jurisdiction": "India",
+      "page_start": 4,
+      "page_end": 6,
+      "text": "ICO /ITO Initial Coin Offering / Initial Token Offering Intermediary Refers to a Service Provider (SP) in a serial chain that receives and re- Service transmits a VDA transfer on behalf of the Originator SP and the Beneficiary Provider SP or another intermediary SP KYC Know Your Customer ML/TF/PF Money Laundering, Terrorism Financing and Proliferation Financing NFT Non-Fungible Token NRA National Risk Assessment OFAC Office of Foreign Assets Control (US) OTC Over-the-Counter P2P Peer-to-Peer DPRE PEPs Politically Exposed Persons PMLA Prevention of Money Laundering Act 2002 PMLR Prevention of Money-laundering (Maintenance of Records) Rules 2005 RBA Risk-Based Approach RE Reporting Entities SP Service Provider providing services relating to Virtual Digital Assets STR Suspicious Transaction Reporting UAPA Unlawful Activities (Prevention) Act, 1967 UNSC United Nations Security Council VDA Virtual Digital Assets VDA SP Virtual Digital Asset Service Provider 1. Introduction 1.1 Definition",
+      "text_truncated": false,
+      "quotable": false,
+      "score": 0.030835,
+      "dense_score": 0.709738,
+      "bm25_score": 9.545353
+     },
+     {
+      "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+      "doc_id": "fincen_2003_sar_narrative",
+      "title": "Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+      "publisher": "FinCEN",
+      "year": 2003,
+      "jurisdiction": "US",
+      "page_start": 7,
+      "page_end": 8,
+      "text": "\u2022 transactions and/or volumes of aggregate activity inconsistent with the expected purpose of the account and expected levels and types of account activity conveyed to the financial institution by the accountholder at the time of the account opening; \u2022 beneficiaries maintaining accounts at foreign banks that have been subjects of previous SAR filings; \u2022 parties and businesses that do not meet the standards of routinely initiated due diligence and anti-money laundering oversight programs (e.g., unregistered/unlicensed businesses); \u2022 transactions seemingly designed to, or attempting to avoid reporting and recordkeeping requirements; and \u2022 correspondent accounts being utilized as \u201cpass-through\u201d points by foreign jurisdictions with subsequent outgoing funds to another foreign jurisdiction.5 How did the suspicious activity occur? Use the Narrative Section to describe the \u201cmodus operandi\u201d or the method of operation of the subject conducting the suspicious activity. In a concise, accurate and logical manner, describe how the suspect transaction or pattern of transactions was committed. Provide as completely as possible a full picture of the suspicious activity involved. For example, if ...",
+      "text_truncated": true,
+      "quotable": true,
+      "score": 0.029851,
+      "dense_score": 0.714457,
+      "bm25_score": 5.681982
+     },
+     {
+      "evidence_id": "reg:fatf_2020_va_red_flags:p10:c16",
+      "doc_id": "fatf_2020_va_red_flags",
+      "title": "Virtual Assets Red Flag Indicators of Money Laundering and Terrorist Financing",
+      "publisher": "FATF",
+      "year": 2020,
+      "jurisdiction": "FATF",
+      "page_start": 10,
+      "page_end": 11,
+      "text": "month, etc.) to the same VA account \u2013 o by more than one person; o from the same IP address by one or more persons; or o concerning large amounts. \u2022 Incoming transactions from many unrelated wallets in relatively small amounts (accumulation of funds) with subsequent transfer to another wallet or full exchange for fiat currency. Such transactions by a number of related accumulating accounts may initially use VAs instead of fiat currency. \u2022 Conducting VA-fiat currency exchange at a potential loss (e.g. when the value of VA is fluctuating, or regardless of abnormally high commission fees as compared to industry standards, and especially when the transactions have no logical business explanation). \u2022 Converting a large amount of fiat currency into VAs, or a large amount of one type of VA into other types of VAs, with no logical business explanation. Case Study 4. Transfers conducted in a recurrent time A local FI (securities firm) filed an STR regarding unauthorised payments between the VA accounts of their broker and a foreign national. The securities firm reported the activity after it determined that the foreign national intended to make transfers totalling USD 4.8 million (two ...",
+      "text_truncated": true,
+      "quotable": true,
+      "score": 0.029052,
+      "dense_score": 0.743965,
+      "bm25_score": 3.676702
+     }
+    ],
+    "evidence_id": "search:2505173356"
+   }
+  },
+  "reg:fatf_2020_va_red_flags:p8:c11": {
+   "tool": "search_regulations",
+   "args": {
+    "query": "sequential transfers through a chain of intermediary accounts, layering of funds"
+   },
+   "output": {
+    "evidence_id": "reg:fatf_2020_va_red_flags:p8:c11",
+    "doc_id": "fatf_2020_va_red_flags",
+    "title": "Virtual Assets Red Flag Indicators of Money Laundering and Terrorist Financing",
+    "publisher": "FATF",
+    "year": 2020,
+    "jurisdiction": "FATF",
+    "page_start": 8,
+    "page_end": 9,
+    "text": "In various instances, the individuals shared the same resid ential address; and most of the VA addresses were accessed from the same IP address \u2013 indicating the potential use of money mules by professional money launderers to launder the illicit proceeds. In addition, multiple layering of the fiat funds was arranged prior to the VA purchase by mules. To disguise the fund s\u2019 origin, cash w as first deposited into various accounts at different FIs across the jurisdiction. Those funds were then further transferred to various accounts held in the name of entities registered in the jurisdiction. Electronic payments were made into the accounts in smaller amounts. After that, funds were transferred to another group of accounts before reaching the mules\u2019 accounts held with local VASPs. VAs were immediately purchased and transferred to foreign VASPs. More than 150 individuals were involved in this case, responsible for transf erring a total of about USD 108 352 900 (or BTC 11,960) to multiple VA accounts held by two overseas VASPs. Source: South Africa Case Study 2. Multiple VAs and multiple transfers to foreign VASPs A local VA exchange reported that app roximately KRW 400 million (EUR ...",
+    "text_truncated": true,
+    "quotable": true,
+    "score": 0.031746,
+    "dense_score": 0.73065,
+    "bm25_score": 8.592892
+   }
+  },
+  "reg:fincen_2003_sar_narrative:p7:c10": {
+   "tool": "search_regulations",
+   "args": {
+    "query": "sequential transfers through a chain of intermediary accounts, layering of funds"
+   },
+   "output": {
+    "evidence_id": "reg:fincen_2003_sar_narrative:p7:c10",
+    "doc_id": "fincen_2003_sar_narrative",
+    "title": "Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+    "publisher": "FinCEN",
+    "year": 2003,
+    "jurisdiction": "US",
+    "page_start": 7,
+    "page_end": 7,
+    "text": "\u2022 a lack of evidence of legitimate business activity, or any business operations at all, undertaken by many of the parties to the transaction(s); \u2022 unusual financial nexuses and transactions occurring among certain business types (e.g., food importer dealing with an auto parts exporter); \u2022 transactions that are not commensurate with the stated business type and/or that are unusual and unexpected in comparison with the volumes of similar businesses operating in the same locale; \u2022 unusually large numbers and/or volumes of wire transfers and/or repetitive wire transfer patterns; \u2022 unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions; \u2022 suspected shell entities; \u2022 bulk cash and monetary instrument transactions; \u2022 unusual mixed deposits of money orders, third party checks, payroll checks, etc., into a business account; \u2022 transactions being conducted in bursts of activities within a short period of time, especially in previously dormant accounts; \u2022 transactions and/or volumes of aggregate activity inconsistent with the expected purpose of the account and expected levels and types of account activity conveyed ...",
+    "text_truncated": true,
+    "quotable": true,
+    "score": 0.03101,
+    "dense_score": 0.725903,
+    "bm25_score": 6.279168
+   }
+  },
+  "reg:fiuind_2026_vda_guidelines:p4:c2": {
+   "tool": "search_regulations",
+   "args": {
+    "query": "sequential transfers through a chain of intermediary accounts, layering of funds"
+   },
+   "output": {
+    "evidence_id": "reg:fiuind_2026_vda_guidelines:p4:c2",
+    "doc_id": "fiuind_2026_vda_guidelines",
+    "title": "AML & CFT Guidelines for Reporting Entities Providing Services Related to Virtual Digital Assets",
+    "publisher": "Financial Intelligence Unit - India (FIU-IND)",
+    "year": 2026,
+    "jurisdiction": "India",
+    "page_start": 4,
+    "page_end": 6,
+    "text": "ICO /ITO Initial Coin Offering / Initial Token Offering Intermediary Refers to a Service Provider (SP) in a serial chain that receives and re- Service transmits a VDA transfer on behalf of the Originator SP and the Beneficiary Provider SP or another intermediary SP KYC Know Your Customer ML/TF/PF Money Laundering, Terrorism Financing and Proliferation Financing NFT Non-Fungible Token NRA National Risk Assessment OFAC Office of Foreign Assets Control (US) OTC Over-the-Counter P2P Peer-to-Peer DPRE PEPs Politically Exposed Persons PMLA Prevention of Money Laundering Act 2002 PMLR Prevention of Money-laundering (Maintenance of Records) Rules 2005 RBA Risk-Based Approach RE Reporting Entities SP Service Provider providing services relating to Virtual Digital Assets STR Suspicious Transaction Reporting UAPA Unlawful Activities (Prevention) Act, 1967 UNSC United Nations Security Council VDA Virtual Digital Assets VDA SP Virtual Digital Asset Service Provider 1. Introduction 1.1 Definition",
+    "text_truncated": false,
+    "quotable": false,
+    "score": 0.030835,
+    "dense_score": 0.709738,
+    "bm25_score": 9.545353
+   }
+  },
+  "reg:fincen_2003_sar_narrative:p7:c11": {
+   "tool": "search_regulations",
+   "args": {
+    "query": "sequential transfers through a chain of intermediary accounts, layering of funds"
+   },
+   "output": {
+    "evidence_id": "reg:fincen_2003_sar_narrative:p7:c11",
+    "doc_id": "fincen_2003_sar_narrative",
+    "title": "Guidance on Preparing A Complete & Sufficient Suspicious Activity Report Narrative",
+    "publisher": "FinCEN",
+    "year": 2003,
+    "jurisdiction": "US",
+    "page_start": 7,
+    "page_end": 8,
+    "text": "\u2022 transactions and/or volumes of aggregate activity inconsistent with the expected purpose of the account and expected levels and types of account activity conveyed to the financial institution by the accountholder at the time of the account opening; \u2022 beneficiaries maintaining accounts at foreign banks that have been subjects of previous SAR filings; \u2022 parties and businesses that do not meet the standards of routinely initiated due diligence and anti-money laundering oversight programs (e.g., unregistered/unlicensed businesses); \u2022 transactions seemingly designed to, or attempting to avoid reporting and recordkeeping requirements; and \u2022 correspondent accounts being utilized as \u201cpass-through\u201d points by foreign jurisdictions with subsequent outgoing funds to another foreign jurisdiction.5 How did the suspicious activity occur? Use the Narrative Section to describe the \u201cmodus operandi\u201d or the method of operation of the subject conducting the suspicious activity. In a concise, accurate and logical manner, describe how the suspect transaction or pattern of transactions was committed. Provide as completely as possible a full picture of the suspicious activity involved. For example, if ...",
+    "text_truncated": true,
+    "quotable": true,
+    "score": 0.029851,
+    "dense_score": 0.714457,
+    "bm25_score": 5.681982
+   }
+  },
+  "reg:fatf_2020_va_red_flags:p10:c16": {
+   "tool": "search_regulations",
+   "args": {
+    "query": "sequential transfers through a chain of intermediary accounts, layering of funds"
+   },
+   "output": {
+    "evidence_id": "reg:fatf_2020_va_red_flags:p10:c16",
+    "doc_id": "fatf_2020_va_red_flags",
+    "title": "Virtual Assets Red Flag Indicators of Money Laundering and Terrorist Financing",
+    "publisher": "FATF",
+    "year": 2020,
+    "jurisdiction": "FATF",
+    "page_start": 10,
+    "page_end": 11,
+    "text": "month, etc.) to the same VA account \u2013 o by more than one person; o from the same IP address by one or more persons; or o concerning large amounts. \u2022 Incoming transactions from many unrelated wallets in relatively small amounts (accumulation of funds) with subsequent transfer to another wallet or full exchange for fiat currency. Such transactions by a number of related accumulating accounts may initially use VAs instead of fiat currency. \u2022 Conducting VA-fiat currency exchange at a potential loss (e.g. when the value of VA is fluctuating, or regardless of abnormally high commission fees as compared to industry standards, and especially when the transactions have no logical business explanation). \u2022 Converting a large amount of fiat currency into VAs, or a large amount of one type of VA into other types of VAs, with no logical business explanation. Case Study 4. Transfers conducted in a recurrent time A local FI (securities firm) filed an STR regarding unauthorised payments between the VA accounts of their broker and a foreign national. The securities firm reported the activity after it determined that the foreign national intended to make transfers totalling USD 4.8 million (two ...",
+    "text_truncated": true,
+    "quotable": true,
+    "score": 0.029052,
+    "dense_score": 0.743965,
+    "bm25_score": 3.676702
+   }
+  }
+ },
+ "memo": {
+  "header": {
+   "tx_id": 69779650,
+   "time_step": 35,
+   "risk_band": "low",
+   "score": 0.000146,
+   "score_scale": "raw_lightgbm_predict_proba",
+   "calibrated_probability": 0.0,
+   "thresholds": {
+    "alert": 0.258181,
+    "high": 0.788025
+   },
+   "model_health": {
+    "status": "ok",
+    "window_recall": 0.987261,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 471
+   },
+   "generated_at": "2026-10-23T13:05:36+0530"
+  },
+  "subject": {
+   "names": "not available in dataset",
+   "addresses": "not available in dataset",
+   "amounts": "not available in dataset",
+   "dates": "not available in dataset"
+  },
+  "signal_conflict": "Signal conflict: the model score 0.000146 (risk band low; evidence score:69779650) and the structural pattern chain (evidence direction raises_risk; evidence typology:69779650) point in different directions.",
+  "signal_conflict_evidence_ids": [
+   "score:69779650",
+   "typology:69779650"
+  ],
+  "activity_description": [
+   {
+    "text": "The transaction matched a structural chain pattern with a length of 8.",
+    "evidence_ids": [
+     "typology:69779650"
+    ]
+   },
+   {
+    "text": "Model evaluation showed score 0.000146, score scale raw_lightgbm_predict_proba, calibrated probability 0.0, alert false, alert threshold 0.258181, high threshold 0.788025, and risk band low.",
+    "evidence_ids": [
+     "score:69779650"
+    ]
+   },
+   {
+    "text": "Features f5 and f52 pushed the score down; features f59, f53, and f100 pushed the score up.",
+    "evidence_ids": [
+     "score:69779650"
+    ]
+   },
+   {
+    "text": "Model health status was ok with window recall 0.987261, reference recall 0.98308, 471 illicit in window, and a lag of 2.",
+    "evidence_ids": [
+     "health:35"
+    ]
+   }
+  ],
+  "evidence_table": [
+   {
+    "evidence_id": "score:69779650",
+    "tool": "score_transaction"
+   },
+   {
+    "evidence_id": "typology:69779650",
+    "tool": "match_typology"
+   },
+   {
+    "evidence_id": "health:35",
+    "tool": "check_model_health"
+   },
+   {
+    "evidence_id": "reg:fatf_2020_va_red_flags:p8:c11",
+    "tool": "search_regulations"
+   }
+  ],
+  "regulatory_background": [
+   {
+    "paraphrase": "FATF guidance notes a case study involving multiple layering of fiat funds arranged prior to virtual asset purchases.",
+    "source_doc": "FATF 2020: Virtual Assets Red Flag Indicators of Money Laundering and Terrorist Financing",
+    "doc_id": "fatf_2020_va_red_flags",
+    "evidence_id": "reg:fatf_2020_va_red_flags:p8:c11",
+    "quotable": true,
+    "quote": null
+   }
+  ],
+  "limitations": [
+   "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+   "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+   "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+   "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+   "Structural patterns are resemblances only: Elliptic has no typology labels.",
+   "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+   "This is a draft for a human analyst. It does not decide whether a report should be filed."
+  ],
+  "recommendation": "refer for human review",
+  "status": "verified",
+  "verification": "verified",
+  "removed_claims": [],
+  "notes": []
+ },
+ "first_draft": {
+  "signal_conflict": "Signal conflict: the model score 0.000146 (risk band low; evidence score:69779650) and the structural pattern chain (evidence direction raises_risk; evidence typology:69779650) point in different directions.",
+  "activity_description": [
+   {
+    "text": "Features f5 and f52 pushed the score down; features f59, f53, and f100 pushed the score up.",
+    "evidence_ids": [
+     "score:69779650"
+    ]
+   },
+   {
+    "text": "Model health check status is ok, with window recall 0.987261, reference recall 0.98308, 471 illicit instances in window, and a lag of 2 steps.",
+    "evidence_ids": [
+     "health:35"
+    ]
+   },
+   {
+    "text": "The transaction matched a chain structural pattern with a chain length of 8, which meets or exceeds the threshold of 4.",
+    "evidence_ids": [
+     "typology:69779650"
+    ]
+   },
+   {
+    "text": "The structural pattern matched training-period data associating it with a higher illicit rate.",
+    "evidence_ids": [
+     "typology:69779650"
+    ]
+   },
+   {
+    "text": "The transaction subgraph has a radius of 2, containing 5 nodes, 4 edges, a density of 0.2, a focal in-degree of 1, a focal out-degree of 1, a maximum in-degree of 1, a maximum out-degree of 1, 0 alerted nodes, a share alerted of 0.0, a focal chain length of 8, and a weakly connected component size of 5507.",
+    "evidence_ids": [
+     "subgraph:69779650:2"
+    ]
+   }
+  ],
+  "regulatory_background": [
+   {
+    "paraphrase": "FATF guidance discusses indicators involving sequential transfers and multiple layering of funds.",
+    "evidence_id": "reg:fatf_2020_va_red_flags:p8:c11",
+    "quote": null
+   },
+   {
+    "paraphrase": "FinCEN guidance highlights unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, and jurisdictions as potential red flags.",
+    "evidence_id": "reg:fincen_2003_sar_narrative:p7:c10",
+    "quote": null
+   }
+  ]
+ },
+ "signal_conflict": "Signal conflict: the model score 0.000146 (risk band low; evidence score:69779650) and the structural pattern chain (evidence direction raises_risk; evidence typology:69779650) point in different directions.",
+ "signal_conflict_evidence_ids": [
+  "score:69779650",
+  "typology:69779650"
+ ],
+ "attempts": 1
+}

@@ -1,0 +1,107 @@
+{
+ "case": {
+  "stratum": "4 chain-flagged",
+  "tx_id": 64413379,
+  "time_step": 35,
+  "ground_truth": "licit",
+  "score": 0.000126,
+  "candidates": 6361,
+  "k": 4,
+  "note": ""
+ },
+ "metrics": {
+  "tx_id": 64413379,
+  "design": "v2",
+  "status": "verified",
+  "reached_writer": true,
+  "groundedness": {
+   "grounded": 4,
+   "total": 4,
+   "ungrounded": []
+  },
+  "completeness": {
+   "share": 0.75,
+   "elements": {
+    "score": {
+     "applicable": true,
+     "present": true
+    },
+    "band": {
+     "applicable": true,
+     "present": true
+    },
+    "health status": {
+     "applicable": true,
+     "present": true
+    },
+    "typology evidence with direction": {
+     "applicable": true,
+     "present": false
+    },
+    "neighbour summary": {
+     "applicable": true,
+     "present": false
+    },
+    "signal conflict": {
+     "applicable": true,
+     "present": true
+    },
+    "period note": {
+     "applicable": false,
+     "present": false
+    },
+    "limitations": {
+     "applicable": true,
+     "present": true
+    },
+    "subject fields": {
+     "applicable": true,
+     "present": true
+    }
+   }
+  },
+  "violations": {
+   "a_lowers_risk_called_suspicious": [],
+   "b_low_risk_while_degraded": [],
+   "c_quote_from_non_quotable": [],
+   "d_label_leak": []
+  },
+  "info_only": {
+   "quotes_not_in_stored_text": 0,
+   "claims_with_quote_field": 0
+  },
+  "tool_correctness": {
+   "r1_applicable": true,
+   "r1_ok": true,
+   "searches": 1,
+   "r2_violation": false,
+   "search_with_only_uninformative": false,
+   "search_with_lowers_risk_only": false,
+   "within_caps": true,
+   "budget_exceeded": false,
+   "agent_tool_calls": 3,
+   "invalid_argument_calls": 0
+  },
+  "critic": {
+   "rounds": 1,
+   "deterministic": {},
+   "llm": {
+    "unsupported": 0,
+    "overstated": 0
+   },
+   "false_rejection_candidates": [],
+   "rejected_items": 0
+  },
+  "sources": {
+   "code": 0,
+   "llm": 4
+  },
+  "cost": {
+   "llm_calls": 6,
+   "prompt_tokens": 11769,
+   "output_tokens": 741,
+   "wall_s": 41.685,
+   "wall_s_no_wait": 23.695
+  }
+ }
+}

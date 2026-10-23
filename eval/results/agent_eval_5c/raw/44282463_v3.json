@@ -1,0 +1,307 @@
+{
+ "tx_id": 44282463,
+ "stratum": "6 low band",
+ "status": "no_action_model_based",
+ "error": null,
+ "time_step": 39,
+ "counts": {
+  "tool_calls_investigator": 0,
+  "searches": 0,
+  "chunk_fetches": 0,
+  "llm_calls": 0,
+  "critic_loops": 0,
+  "tool_calls_total": 4
+ },
+ "latency_s": {
+  "total": 0.037,
+  "llm_throttle_wait": 0.0
+ },
+ "tokens": {
+  "prompt": 0,
+  "output": 0
+ },
+ "nodes_visited": [
+  "triage",
+  "finalize"
+ ],
+ "critic_verdicts": [],
+ "trace": [
+  {
+   "t": 0.025,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 44282463
+   },
+   "evidence_id": "score:44282463",
+   "ms": 13.8,
+   "error": null
+  },
+  {
+   "t": 0.033,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 39
+   },
+   "evidence_id": "health:39",
+   "ms": 8.1,
+   "error": null
+  },
+  {
+   "t": 0.033,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 44282463
+   },
+   "evidence_id": "typology:44282463",
+   "ms": 0.1,
+   "error": null
+  },
+  {
+   "t": 0.033,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "get_neighbors",
+   "args": {
+    "tx_id": 44282463,
+    "hops": 1,
+    "direction": "in"
+   },
+   "evidence_id": "neighbors:44282463:1:in",
+   "ms": 0.2,
+   "error": null
+  },
+  {
+   "t": 0.034,
+   "node": "triage",
+   "event": "decision",
+   "status": "no_action_model_based",
+   "risk_band": "low",
+   "health": "ok",
+   "patterns": [],
+   "signal_conflict": null
+  }
+ ],
+ "ledger": {
+  "score:44282463": {
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 44282463
+   },
+   "output": {
+    "tx_id": 44282463,
+    "time_step": 39,
+    "score": 0.129222,
+    "score_scale": "raw_lightgbm_predict_proba",
+    "calibrated_probability": 0.038462,
+    "alert": false,
+    "alert_threshold": 0.258181,
+    "high_threshold": 0.788025,
+    "risk_band": "low",
+    "reasons": [
+     {
+      "feature": "f53",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 2.092491,
+      "feature_value": -0.488294
+     },
+     {
+      "feature": "f59",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.900075,
+      "feature_value": -0.172895
+     },
+     {
+      "feature": "f55",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.562269,
+      "feature_value": -0.4675
+     },
+     {
+      "feature": "f3",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.431649,
+      "feature_value": 1.018602
+     },
+     {
+      "feature": "f2",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.415473,
+      "feature_value": -0.015038
+     }
+    ],
+    "evidence_id": "score:44282463"
+   }
+  },
+  "health:39": {
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 39
+   },
+   "output": {
+    "time_step": 39,
+    "status": "ok",
+    "window_steps": [
+     35,
+     36,
+     37
+    ],
+    "window_recall": 0.937255,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 255,
+    "lag": 2,
+    "evidence_id": "health:39"
+   }
+  },
+  "typology:44282463": {
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 44282463
+   },
+   "output": {
+    "tx_id": 44282463,
+    "time_step": 39,
+    "flags": {
+     "fan_in": false,
+     "fan_out": false,
+     "chain": false
+    },
+    "in_degree": 1,
+    "out_degree": 0,
+    "chain_len": 0,
+    "thresholds": {
+     "fan_in": 9,
+     "fan_out": 5,
+     "chain_len": 4
+    },
+    "matches": [],
+    "evidence_id": "typology:44282463"
+   }
+  },
+  "neighbors:44282463:1:in": {
+   "tool": "get_neighbors",
+   "args": {
+    "tx_id": 44282463,
+    "hops": 1,
+    "direction": "in"
+   },
+   "output": {
+    "tx_id": 44282463,
+    "time_step": 39,
+    "hops": 1,
+    "direction": "in",
+    "total_found": 1,
+    "truncated": false,
+    "neighbors": [
+     {
+      "tx_id": 2864655,
+      "hop": 1,
+      "direction": "in",
+      "score": 1e-06,
+      "alert": false
+     }
+    ],
+    "evidence_id": "neighbors:44282463:1:in"
+   }
+  }
+ },
+ "memo": {
+  "header": {
+   "tx_id": 44282463,
+   "time_step": 39,
+   "risk_band": "low",
+   "score": 0.129222,
+   "score_scale": "raw_lightgbm_predict_proba",
+   "calibrated_probability": 0.038462,
+   "thresholds": {
+    "alert": 0.258181,
+    "high": 0.788025
+   },
+   "model_health": {
+    "status": "ok",
+    "window_recall": 0.937255,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 255
+   },
+   "generated_at": "2026-10-23T13:08:26+0530"
+  },
+  "subject": {
+   "names": "not available in dataset",
+   "addresses": "not available in dataset",
+   "amounts": "not available in dataset",
+   "dates": "not available in dataset"
+  },
+  "design": "v2",
+  "signal_conflict": null,
+  "signal_conflict_evidence_ids": [],
+  "executive_summary": [],
+  "next_checks": [],
+  "activity_description": [
+   {
+    "text": "At time step 39 the model gave a raw score of 0.129222 (risk band low); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+    "evidence_ids": [
+     "score:44282463"
+    ],
+    "source": "code"
+   },
+   {
+    "text": "Model health check at time step 39: status ok; recall in the delayed-label window was 0.937255 against a reference recall of 0.98308 over 255 labeled illicit nodes.",
+    "evidence_ids": [
+     "health:39"
+    ],
+    "source": "code"
+   },
+   {
+    "text": "No structural pattern with a risk-raising direction matched this transaction.",
+    "evidence_ids": [
+     "typology:44282463"
+    ],
+    "source": "code"
+   }
+  ],
+  "evidence_table": [
+   {
+    "evidence_id": "score:44282463",
+    "tool": "score_transaction"
+   },
+   {
+    "evidence_id": "health:39",
+    "tool": "check_model_health"
+   },
+   {
+    "evidence_id": "typology:44282463",
+    "tool": "match_typology"
+   }
+  ],
+  "regulatory_background": [],
+  "limitations": [
+   "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+   "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+   "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+   "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+   "Structural patterns are resemblances only: Elliptic has no typology labels.",
+   "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+   "This is a draft for a human analyst. It does not decide whether a report should be filed."
+  ],
+  "recommendation": "no action suggested, model-based only",
+  "status": "no_action_model_based",
+  "verification": "not applicable",
+  "removed_claims": [],
+  "notes": []
+ },
+ "first_draft": null,
+ "signal_conflict": null,
+ "signal_conflict_evidence_ids": [],
+ "attempts": 1,
+ "design": "v3"
+}

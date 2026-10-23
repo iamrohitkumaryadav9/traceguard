@@ -1,0 +1,867 @@
+{
+ "tx_id": 29584495,
+ "stratum": "3 medium band",
+ "status": "partially_verified",
+ "error": null,
+ "time_step": 37,
+ "counts": {
+  "tool_calls_investigator": 2,
+  "searches": 0,
+  "chunk_fetches": 0,
+  "llm_calls": 9,
+  "critic_loops": 2,
+  "tool_calls_total": 6
+ },
+ "latency_s": {
+  "total": 47.814,
+  "llm_throttle_wait": 35.99
+ },
+ "tokens": {
+  "prompt": 10060,
+  "output": 1598
+ },
+ "nodes_visited": [
+  "triage",
+  "investigator",
+  "writer",
+  "critic",
+  "writer",
+  "critic",
+  "writer",
+  "critic",
+  "finalize"
+ ],
+ "critic_verdicts": [
+  {
+   "round": 1,
+   "item": "summary 1",
+   "text": "At time step 37 the model gave a raw score of 0.259718 placing it in the medium risk band above the alert threshold of 0.258181 and below the high risk threshold of 0.788025, driven upward by features f53, f59, and f163.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence fully supports all the stated details including time step, raw score, risk band, thresholds, and top driving features."
+  },
+  {
+   "round": 1,
+   "item": "summary 2",
+   "text": "The model health check at time step 37 status was ok with a recall of 0.971074 in the delayed label window against a reference recall of 0.98308 over 242 labeled illicit nodes.",
+   "ok": false,
+   "deterministic_reasons": [],
+   "llm_verdict": "overstated",
+   "llm_reason": "The claim specifies a delayed label window, but the cited evidence only mentions window_steps and does not state that it is a delayed label window."
+  },
+  {
+   "round": 1,
+   "item": "summary 3",
+   "text": "Neighborhood analysis found no incoming neighbours, while an undirected subgraph of radius 2 contained 5 nodes, 4 directed edges, 4 alerted nodes, and an undirected radius 2 search found 4 outgoing neighbours across up to 2 hops.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "All facts about incoming neighbors, subgraph structure, alerted nodes, and outgoing neighbors are supported by the evidence."
+  },
+  {
+   "round": 1,
+   "item": "check 1",
+   "text": "Check whether outgoing neighbours with high risk scores share common counterparties",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": null,
+   "llm_reason": null
+  },
+  {
+   "round": 1,
+   "item": "check 2",
+   "text": "Check the transactional context for the outgoing neighbours at hop 1",
+   "ok": false,
+   "deterministic_reasons": [
+    "a next-check item contains a number (it must contain no factual claim)"
+   ],
+   "llm_verdict": null,
+   "llm_reason": null
+  },
+  {
+   "round": 1,
+   "item": "check 3",
+   "text": "Check model feature weights for the listed anonymized features",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": null,
+   "llm_reason": null
+  },
+  {
+   "round": 2,
+   "item": "summary 1",
+   "text": "At time step 37 the model gave a raw score of 0.259718 placing it in the medium risk band and crossing the alert threshold of 0.258181.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence explicitly states time_step is 37, score is 0.259718, risk_band is medium, alert is true, and alert_threshold is 0.258181."
+  },
+  {
+   "round": 2,
+   "item": "summary 2",
+   "text": "Features f53, f59, and f163 pushed the score up.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence lists features f53, f59, and f163 with the direction 'raises illicit score'."
+  },
+  {
+   "round": 2,
+   "item": "summary 3",
+   "text": "The model health check at time step 37 reported status ok with a recall of 0.971074 against a reference recall of 0.98308 over 242 labeled illicit nodes.",
+   "ok": false,
+   "deterministic_reasons": [],
+   "llm_verdict": "overstated",
+   "llm_reason": "The evidence states window_recall is 0.971074, reference_recall is 0.98308, and n_illicit_in_window is 242 over window_steps [33,34,35], but the claim states these were reported over 242 labeled illicit nodes without mentioning the window steps context or misattributes window steps."
+  },
+  {
+   "round": 2,
+   "item": "check 1",
+   "text": "Check whether the outgoing neighbours share common identifiers or beneficial owners.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": null,
+   "llm_reason": null
+  },
+  {
+   "round": 2,
+   "item": "check 2",
+   "text": "Check whether the subgraph components exhibit unusual structural density.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": null,
+   "llm_reason": null
+  },
+  {
+   "round": 2,
+   "item": "check 3",
+   "text": "Check whether model feature inputs correspond to verified external data.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": null,
+   "llm_reason": null
+  },
+  {
+   "round": 3,
+   "item": "summary 1",
+   "text": "At time step 37 the model gave a raw score of 0.259718 placing it in risk band medium with features f53, f59, and f163 pushing the score up.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence shows time step 37, raw score 0.259718, risk band medium, and features f53, f59, and f163 as having directions that raise the illicit score."
+  },
+  {
+   "round": 3,
+   "item": "summary 2",
+   "text": "The model health check at time step 37 showed status ok.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": "supported",
+   "llm_reason": "The evidence explicitly states that at time step 37 the status is ok."
+  },
+  {
+   "round": 3,
+   "item": "summary 3",
+   "text": "Neighborhood analysis found no incoming neighbours and 4 outgoing neighbours.",
+   "ok": false,
+   "deterministic_reasons": [],
+   "llm_verdict": "overstated",
+   "llm_reason": "The evidence for incoming neighbors shows total_found: 0, but the evidence for outgoing neighbors is specifically for hops: 2 (total_found: 4) and does not cover all outgoing neighbors across hops, making the claim about 4 outgoing neighbours unsupported or overstated by the specific hop parameters."
+  },
+  {
+   "round": 3,
+   "item": "check 1",
+   "text": "Check whether outgoing neighbours share common identifiers or routing patterns.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": null,
+   "llm_reason": null
+  },
+  {
+   "round": 3,
+   "item": "check 2",
+   "text": "Check whether the unalerted outgoing neighbour exhibits distinct transactional characteristics.",
+   "ok": true,
+   "deterministic_reasons": [],
+   "llm_verdict": null,
+   "llm_reason": null
+  }
+ ],
+ "trace": [
+  {
+   "t": 0.027,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 29584495
+   },
+   "evidence_id": "score:29584495",
+   "ms": 14.6,
+   "error": null
+  },
+  {
+   "t": 0.036,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 37
+   },
+   "evidence_id": "health:37",
+   "ms": 9.0,
+   "error": null
+  },
+  {
+   "t": 0.036,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 29584495
+   },
+   "evidence_id": "typology:29584495",
+   "ms": 0.2,
+   "error": null
+  },
+  {
+   "t": 0.036,
+   "node": "triage",
+   "event": "tool_call",
+   "tool": "get_neighbors",
+   "args": {
+    "tx_id": 29584495,
+    "hops": 1,
+    "direction": "in"
+   },
+   "evidence_id": "neighbors:29584495:1:in",
+   "ms": 0.1,
+   "error": null
+  },
+  {
+   "t": 0.036,
+   "node": "triage",
+   "event": "decision",
+   "status": "investigating",
+   "risk_band": "medium",
+   "health": "ok",
+   "patterns": [],
+   "signal_conflict": null
+  },
+  {
+   "t": 0.043,
+   "node": "investigator",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 1.091,
+   "node": "investigator",
+   "event": "llm_result",
+   "latency_ms": 1048.6,
+   "usage": {
+    "prompt_tokens": 1096,
+    "output_tokens": 28
+   },
+   "tool_calls": [
+    "subgraph_summary"
+   ]
+  },
+  {
+   "t": 1.093,
+   "node": "investigator",
+   "event": "tool_call",
+   "tool": "subgraph_summary",
+   "args": {
+    "radius": 2,
+    "tx_id": 29584495
+   },
+   "evidence_id": "subgraph:29584495:2",
+   "ms": 1.5,
+   "error": null
+  },
+  {
+   "t": 1.093,
+   "node": "investigator",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 6.429,
+   "node": "investigator",
+   "event": "llm_result",
+   "latency_ms": 837.3,
+   "usage": {
+    "prompt_tokens": 1266,
+    "output_tokens": 38
+   },
+   "tool_calls": [
+    "get_neighbors"
+   ]
+  },
+  {
+   "t": 6.429,
+   "node": "investigator",
+   "event": "tool_call",
+   "tool": "get_neighbors",
+   "args": {
+    "hops": 2,
+    "limit": 25,
+    "tx_id": 29584495,
+    "direction": "out"
+   },
+   "evidence_id": "neighbors:29584495:2:out",
+   "ms": 0.1,
+   "error": null
+  },
+  {
+   "t": 6.429,
+   "node": "investigator",
+   "event": "llm_call",
+   "purpose": "tool loop"
+  },
+  {
+   "t": 11.844,
+   "node": "investigator",
+   "event": "llm_result",
+   "latency_ms": 914.3,
+   "usage": {
+    "prompt_tokens": 1530,
+    "output_tokens": 1
+   },
+   "tool_calls": []
+  },
+  {
+   "t": 11.845,
+   "node": "writer",
+   "event": "llm_call",
+   "purpose": "draft 1"
+  },
+  {
+   "t": 18.095,
+   "node": "writer",
+   "event": "llm_result",
+   "latency_ms": 1749.8,
+   "usage": {
+    "prompt_tokens": 871,
+    "output_tokens": 395
+   },
+   "summary_sentences": 3,
+   "next_checks": 3
+  },
+  {
+   "t": 18.096,
+   "node": "critic",
+   "event": "llm_call",
+   "purpose": "support check round 1"
+  },
+  {
+   "t": 24.018,
+   "node": "critic",
+   "event": "llm_result",
+   "latency_ms": 1422.5,
+   "usage": {
+    "prompt_tokens": 1216,
+    "output_tokens": 176
+   }
+  },
+  {
+   "t": 24.018,
+   "node": "critic",
+   "event": "verdicts",
+   "round": 1,
+   "items": 3,
+   "failed": 2,
+   "empty_draft": false,
+   "facts_ok": true
+  },
+  {
+   "t": 24.019,
+   "node": "writer",
+   "event": "llm_call",
+   "purpose": "draft 2"
+  },
+  {
+   "t": 29.801,
+   "node": "writer",
+   "event": "llm_result",
+   "latency_ms": 1282.9,
+   "usage": {
+    "prompt_tokens": 1027,
+    "output_tokens": 217
+   },
+   "summary_sentences": 3,
+   "next_checks": 3
+  },
+  {
+   "t": 29.803,
+   "node": "critic",
+   "event": "llm_call",
+   "purpose": "support check round 2"
+  },
+  {
+   "t": 35.742,
+   "node": "critic",
+   "event": "llm_result",
+   "latency_ms": 1439.3,
+   "usage": {
+    "prompt_tokens": 1046,
+    "output_tokens": 260
+   }
+  },
+  {
+   "t": 35.742,
+   "node": "critic",
+   "event": "verdicts",
+   "round": 2,
+   "items": 3,
+   "failed": 1,
+   "empty_draft": false,
+   "facts_ok": true
+  },
+  {
+   "t": 35.743,
+   "node": "writer",
+   "event": "llm_call",
+   "purpose": "draft 3"
+  },
+  {
+   "t": 41.698,
+   "node": "writer",
+   "event": "llm_result",
+   "latency_ms": 1455.4,
+   "usage": {
+    "prompt_tokens": 1042,
+    "output_tokens": 256
+   },
+   "summary_sentences": 3,
+   "next_checks": 2
+  },
+  {
+   "t": 41.699,
+   "node": "critic",
+   "event": "llm_call",
+   "purpose": "support check round 3"
+  },
+  {
+   "t": 47.812,
+   "node": "critic",
+   "event": "llm_result",
+   "latency_ms": 1613.7,
+   "usage": {
+    "prompt_tokens": 966,
+    "output_tokens": 227
+   }
+  },
+  {
+   "t": 47.812,
+   "node": "critic",
+   "event": "verdicts",
+   "round": 3,
+   "items": 3,
+   "failed": 1,
+   "empty_draft": false,
+   "facts_ok": true
+  }
+ ],
+ "ledger": {
+  "score:29584495": {
+   "tool": "score_transaction",
+   "args": {
+    "tx_id": 29584495
+   },
+   "output": {
+    "tx_id": 29584495,
+    "time_step": 37,
+    "score": 0.259718,
+    "score_scale": "raw_lightgbm_predict_proba",
+    "calibrated_probability": 0.136364,
+    "alert": true,
+    "alert_threshold": 0.258181,
+    "high_threshold": 0.788025,
+    "risk_band": "medium",
+    "reasons": [
+     {
+      "feature": "f53",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 1.223505,
+      "feature_value": -0.488343
+     },
+     {
+      "feature": "f59",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 1.166411,
+      "feature_value": -0.172892
+     },
+     {
+      "feature": "f163",
+      "group": "aggregated",
+      "direction": "raises illicit score",
+      "shap_value": 0.908055,
+      "feature_value": -0.140597
+     },
+     {
+      "feature": "f3",
+      "group": "local",
+      "direction": "raises illicit score",
+      "shap_value": 0.75365,
+      "feature_value": 1.018602
+     },
+     {
+      "feature": "f100",
+      "group": "aggregated",
+      "direction": "raises illicit score",
+      "shap_value": 0.590448,
+      "feature_value": 0.866314
+     }
+    ],
+    "evidence_id": "score:29584495"
+   }
+  },
+  "health:37": {
+   "tool": "check_model_health",
+   "args": {
+    "time_step": 37
+   },
+   "output": {
+    "time_step": 37,
+    "status": "ok",
+    "window_steps": [
+     33,
+     34,
+     35
+    ],
+    "window_recall": 0.971074,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 242,
+    "lag": 2,
+    "evidence_id": "health:37"
+   }
+  },
+  "typology:29584495": {
+   "tool": "match_typology",
+   "args": {
+    "tx_id": 29584495
+   },
+   "output": {
+    "tx_id": 29584495,
+    "time_step": 37,
+    "flags": {
+     "fan_in": false,
+     "fan_out": false,
+     "chain": false
+    },
+    "in_degree": 0,
+    "out_degree": 2,
+    "chain_len": 0,
+    "thresholds": {
+     "fan_in": 9,
+     "fan_out": 5,
+     "chain_len": 4
+    },
+    "matches": [],
+    "evidence_id": "typology:29584495"
+   }
+  },
+  "neighbors:29584495:1:in": {
+   "tool": "get_neighbors",
+   "args": {
+    "tx_id": 29584495,
+    "hops": 1,
+    "direction": "in"
+   },
+   "output": {
+    "tx_id": 29584495,
+    "time_step": 37,
+    "hops": 1,
+    "direction": "in",
+    "total_found": 0,
+    "truncated": false,
+    "neighbors": [],
+    "evidence_id": "neighbors:29584495:1:in"
+   }
+  },
+  "subgraph:29584495:2": {
+   "tool": "subgraph_summary",
+   "args": {
+    "radius": 2,
+    "tx_id": 29584495
+   },
+   "output": {
+    "tx_id": 29584495,
+    "time_step": 37,
+    "radius": 2,
+    "n_nodes": 5,
+    "n_edges": 4,
+    "density": 0.2,
+    "focal_in_degree": 0,
+    "focal_out_degree": 2,
+    "max_in_degree": 1,
+    "max_out_degree": 2,
+    "n_alerted": 4,
+    "share_alerted": 0.8,
+    "focal_chain_len": 0,
+    "wcc_size": 3306,
+    "evidence_id": "subgraph:29584495:2"
+   }
+  },
+  "neighbors:29584495:2:out": {
+   "tool": "get_neighbors",
+   "args": {
+    "hops": 2,
+    "limit": 25,
+    "tx_id": 29584495,
+    "direction": "out"
+   },
+   "output": {
+    "tx_id": 29584495,
+    "time_step": 37,
+    "hops": 2,
+    "direction": "out",
+    "total_found": 4,
+    "truncated": false,
+    "neighbors": [
+     {
+      "tx_id": 37341170,
+      "hop": 2,
+      "direction": "out",
+      "score": 0.998713,
+      "alert": true
+     },
+     {
+      "tx_id": 46290687,
+      "hop": 1,
+      "direction": "out",
+      "score": 0.962553,
+      "alert": true
+     },
+     {
+      "tx_id": 30180432,
+      "hop": 1,
+      "direction": "out",
+      "score": 0.434385,
+      "alert": true
+     },
+     {
+      "tx_id": 29784938,
+      "hop": 2,
+      "direction": "out",
+      "score": 0.036237,
+      "alert": false
+     }
+    ],
+    "evidence_id": "neighbors:29584495:2:out"
+   }
+  }
+ },
+ "memo": {
+  "header": {
+   "tx_id": 29584495,
+   "time_step": 37,
+   "risk_band": "medium",
+   "score": 0.259718,
+   "score_scale": "raw_lightgbm_predict_proba",
+   "calibrated_probability": 0.136364,
+   "thresholds": {
+    "alert": 0.258181,
+    "high": 0.788025
+   },
+   "model_health": {
+    "status": "ok",
+    "window_recall": 0.971074,
+    "reference_recall": 0.98308,
+    "n_illicit_in_window": 242
+   },
+   "generated_at": "2026-10-23T13:00:07+0530"
+  },
+  "subject": {
+   "names": "not available in dataset",
+   "addresses": "not available in dataset",
+   "amounts": "not available in dataset",
+   "dates": "not available in dataset"
+  },
+  "design": "v3",
+  "signal_conflict": null,
+  "signal_conflict_evidence_ids": [],
+  "executive_summary": [
+   {
+    "text": "At time step 37 the model gave a raw score of 0.259718 placing it in risk band medium with features f53, f59, and f163 pushing the score up.",
+    "evidence_ids": [
+     "score:29584495"
+    ],
+    "source": "llm"
+   },
+   {
+    "text": "The model health check at time step 37 showed status ok.",
+    "evidence_ids": [
+     "health:37"
+    ],
+    "source": "llm"
+   }
+  ],
+  "next_checks": [
+   "Check whether outgoing neighbours share common identifiers or routing patterns.",
+   "Check whether the unalerted outgoing neighbour exhibits distinct transactional characteristics."
+  ],
+  "activity_description": [
+   {
+    "text": "At time step 37 the model gave a raw score of 0.259718 (risk band medium); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+    "evidence_ids": [
+     "score:29584495"
+    ],
+    "source": "code"
+   },
+   {
+    "text": "Features f53, f59, f163 pushed the score up; feature names are anonymized in the dataset.",
+    "evidence_ids": [
+     "score:29584495"
+    ],
+    "source": "code"
+   },
+   {
+    "text": "Model health check at time step 37: status ok; recall in the delayed-label window was 0.971074 against a reference recall of 0.98308 over 242 labeled illicit nodes.",
+    "evidence_ids": [
+     "health:37"
+    ],
+    "source": "code"
+   },
+   {
+    "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; no incoming neighbours found.",
+    "evidence_ids": [
+     "neighbors:29584495:1:in"
+    ],
+    "source": "code"
+   },
+   {
+    "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 5 nodes, 4 directed edges, 4 alerted nodes (share 0.8); focal in-degree 0, focal out-degree 2; chain length 0; weakly connected component size 3306.",
+    "evidence_ids": [
+     "subgraph:29584495:2"
+    ],
+    "source": "code"
+   },
+   {
+    "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 4 outgoing neighbours found: 37341170 (outgoing neighbour at hop 2, score 0.998713, alerted); 46290687 (outgoing neighbour at hop 1, score 0.962553, alerted); 30180432 (outgoing neighbour at hop 1, score 0.434385, alerted); 29784938 (outgoing neighbour at hop 2, score 0.036237, not alerted).",
+    "evidence_ids": [
+     "neighbors:29584495:2:out"
+    ],
+    "source": "code"
+   }
+  ],
+  "evidence_table": [
+   {
+    "evidence_id": "score:29584495",
+    "tool": "score_transaction"
+   },
+   {
+    "evidence_id": "health:37",
+    "tool": "check_model_health"
+   },
+   {
+    "evidence_id": "neighbors:29584495:1:in",
+    "tool": "get_neighbors"
+   },
+   {
+    "evidence_id": "subgraph:29584495:2",
+    "tool": "subgraph_summary"
+   },
+   {
+    "evidence_id": "neighbors:29584495:2:out",
+    "tool": "get_neighbors"
+   }
+  ],
+  "regulatory_background": [],
+  "limitations": [
+   "The Elliptic dataset has no wallet addresses, names, amounts or dates, so none of these appear in this memo.",
+   "The model's recall collapsed after time step 43 (a dark-market shutdown), and the model-health check only detects such a collapse several steps later, so scores at later time steps may be unreliable.",
+   "Regulation retrieval is weak (hybrid hit@3 about 0.6 on a small test set): retrieved passages are leads for an analyst, not verified authorities, and text from the India document comes from OCR.",
+   "Scores are raw gradient-boosting outputs, not calibrated probabilities; the calibrated value shifts with the prevalence of illicit activity.",
+   "Structural patterns are resemblances only: Elliptic has no typology labels.",
+   "The model-health monitor uses labels with a 2-step lag and a 3-step window, so it cannot flag a collapse in its first steps. On this dataset it first flags at step 47.",
+   "This is a draft for a human analyst. It does not decide whether a report should be filed."
+  ],
+  "recommendation": "refer for human review",
+  "status": "partially_verified",
+  "verification": "partially verified",
+  "removed_claims": [
+   "summary 3: Neighborhood analysis found no incoming neighbours and 4 outgoing neighbours. (reasons: reviewer says overstated: The evidence for incoming neighbors shows total_found: 0, but the evidence for outgoing neighbors is specifically for hops: 2 (total_found: 4) and does not cover all outgoing neighbors across hops, making the claim about 4 outgoing neighbours unsupported or overstated by the specific hop parameters.)"
+  ],
+  "notes": [
+   "1 item(s) failed the critic after 2 rewrite(s) and were removed."
+  ]
+ },
+ "first_draft": {
+  "executive_summary": [
+   {
+    "text": "At time step 37 the model gave a raw score of 0.259718 placing it in the medium risk band above the alert threshold of 0.258181 and below the high risk threshold of 0.788025, driven upward by features f53, f59, and f163.",
+    "evidence_ids": [
+     "score:29584495"
+    ]
+   },
+   {
+    "text": "The model health check at time step 37 status was ok with a recall of 0.971074 in the delayed label window against a reference recall of 0.98308 over 242 labeled illicit nodes.",
+    "evidence_ids": [
+     "health:37"
+    ]
+   },
+   {
+    "text": "Neighborhood analysis found no incoming neighbours, while an undirected subgraph of radius 2 contained 5 nodes, 4 directed edges, 4 alerted nodes, and an undirected radius 2 search found 4 outgoing neighbours across up to 2 hops.",
+    "evidence_ids": [
+     "neighbors:29584495:1:in",
+     "subgraph:29584495:2",
+     "neighbors:29584495:2:out"
+    ]
+   }
+  ],
+  "next_checks": [
+   "Check whether outgoing neighbours with high risk scores share common counterparties",
+   "Check the transactional context for the outgoing neighbours at hop 1",
+   "Check model feature weights for the listed anonymized features"
+  ],
+  "facts": [
+   {
+    "text": "At time step 37 the model gave a raw score of 0.259718 (risk band medium); the alert threshold is 0.258181 and the high-risk threshold is 0.788025.",
+    "evidence_ids": [
+     "score:29584495"
+    ]
+   },
+   {
+    "text": "Features f53, f59, f163 pushed the score up; feature names are anonymized in the dataset.",
+    "evidence_ids": [
+     "score:29584495"
+    ]
+   },
+   {
+    "text": "Model health check at time step 37: status ok; recall in the delayed-label window was 0.971074 against a reference recall of 0.98308 over 242 labeled illicit nodes.",
+    "evidence_ids": [
+     "health:37"
+    ]
+   },
+   {
+    "text": "get_neighbors for this transaction: direction in (directed chains only, never mixed in-and-out paths), up to 1 hop; no incoming neighbours found.",
+    "evidence_ids": [
+     "neighbors:29584495:1:in"
+    ]
+   },
+   {
+    "text": "subgraph_summary for this transaction: undirected subgraph of radius 2 (every node within 2 steps over edges in either direction, including mixed paths, and the focal node itself): 5 nodes, 4 directed edges, 4 alerted nodes (share 0.8); focal in-degree 0, focal out-degree 2; chain length 0; weakly connected component size 3306.",
+    "evidence_ids": [
+     "subgraph:29584495:2"
+    ]
+   },
+   {
+    "text": "get_neighbors for this transaction: direction out (directed chains only, never mixed in-and-out paths), up to 2 hops; 4 outgoing neighbours found: 37341170 (outgoing neighbour at hop 2, score 0.998713, alerted); 46290687 (outgoing neighbour at hop 1, score 0.962553, alerted); 30180432 (outgoing neighbour at hop 1, score 0.434385, alerted); 29784938 (outgoing neighbour at hop 2, score 0.036237, not alerted).",
+    "evidence_ids": [
+     "neighbors:29584495:2:out"
+    ]
+   }
+  ],
+  "rendered_background": []
+ },
+ "signal_conflict": null,
+ "signal_conflict_evidence_ids": [],
+ "attempts": 1,
+ "design": "v3"
+}

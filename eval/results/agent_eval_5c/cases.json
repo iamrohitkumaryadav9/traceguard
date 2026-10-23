@@ -1,0 +1,302 @@
+[
+ {
+  "stratum": "1 high band, illicit",
+  "tx_id": 73002538,
+  "time_step": 42,
+  "ground_truth": "illicit",
+  "score": 0.999979,
+  "candidates": 769,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "1 high band, illicit",
+  "tx_id": 12664247,
+  "time_step": 41,
+  "ground_truth": "illicit",
+  "score": 0.999157,
+  "candidates": 769,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "1 high band, illicit",
+  "tx_id": 71987847,
+  "time_step": 42,
+  "ground_truth": "illicit",
+  "score": 0.999825,
+  "candidates": 769,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "1 high band, illicit",
+  "tx_id": 69662492,
+  "time_step": 35,
+  "ground_truth": "illicit",
+  "score": 0.999978,
+  "candidates": 769,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "2 high band, licit",
+  "tx_id": 149570741,
+  "time_step": 39,
+  "ground_truth": "licit",
+  "score": 0.88761,
+  "candidates": 32,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "2 high band, licit",
+  "tx_id": 71769835,
+  "time_step": 42,
+  "ground_truth": "licit",
+  "score": 0.927049,
+  "candidates": 32,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "2 high band, licit",
+  "tx_id": 73333415,
+  "time_step": 42,
+  "ground_truth": "licit",
+  "score": 0.911319,
+  "candidates": 32,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "2 high band, licit",
+  "tx_id": 97933782,
+  "time_step": 40,
+  "ground_truth": "licit",
+  "score": 0.885416,
+  "candidates": 32,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "3 medium band",
+  "tx_id": 61745735,
+  "time_step": 42,
+  "ground_truth": "unknown",
+  "score": 0.400043,
+  "candidates": 3232,
+  "k": 3,
+  "note": ""
+ },
+ {
+  "stratum": "3 medium band",
+  "tx_id": 30122458,
+  "time_step": 37,
+  "ground_truth": "unknown",
+  "score": 0.550728,
+  "candidates": 3232,
+  "k": 3,
+  "note": ""
+ },
+ {
+  "stratum": "3 medium band",
+  "tx_id": 29584495,
+  "time_step": 37,
+  "ground_truth": "unknown",
+  "score": 0.259718,
+  "candidates": 3232,
+  "k": 3,
+  "note": ""
+ },
+ {
+  "stratum": "4 chain-flagged",
+  "tx_id": 29055204,
+  "time_step": 37,
+  "ground_truth": "unknown",
+  "score": 0.000426,
+  "candidates": 6361,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "4 chain-flagged",
+  "tx_id": 200950509,
+  "time_step": 36,
+  "ground_truth": "unknown",
+  "score": 0.127512,
+  "candidates": 6361,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "4 chain-flagged",
+  "tx_id": 69779650,
+  "time_step": 35,
+  "ground_truth": "unknown",
+  "score": 0.000146,
+  "candidates": 6361,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "4 chain-flagged",
+  "tx_id": 64413379,
+  "time_step": 35,
+  "ground_truth": "licit",
+  "score": 0.000126,
+  "candidates": 6361,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "5 fan_in or fan_out flagged",
+  "tx_id": 18477792,
+  "time_step": 42,
+  "ground_truth": "unknown",
+  "score": 7e-06,
+  "candidates": 926,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "5 fan_in or fan_out flagged",
+  "tx_id": 114656654,
+  "time_step": 38,
+  "ground_truth": "licit",
+  "score": 6.2e-05,
+  "candidates": 926,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "5 fan_in or fan_out flagged",
+  "tx_id": 72097077,
+  "time_step": 42,
+  "ground_truth": "licit",
+  "score": 4e-06,
+  "candidates": 926,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "5 fan_in or fan_out flagged",
+  "tx_id": 12669334,
+  "time_step": 41,
+  "ground_truth": "licit",
+  "score": 2e-06,
+  "candidates": 926,
+  "k": 4,
+  "note": ""
+ },
+ {
+  "stratum": "6 low band",
+  "tx_id": 200638883,
+  "time_step": 36,
+  "ground_truth": "unknown",
+  "score": 0.15882,
+  "candidates": 31306,
+  "k": 3,
+  "note": ""
+ },
+ {
+  "stratum": "6 low band",
+  "tx_id": 72624896,
+  "time_step": 42,
+  "ground_truth": "unknown",
+  "score": 0.000843,
+  "candidates": 31306,
+  "k": 3,
+  "note": ""
+ },
+ {
+  "stratum": "6 low band",
+  "tx_id": 44282463,
+  "time_step": 39,
+  "ground_truth": "unknown",
+  "score": 0.129222,
+  "candidates": 31306,
+  "k": 3,
+  "note": ""
+ },
+ {
+  "stratum": "7 late steps (43-49), band at least medium",
+  "tx_id": 109871125,
+  "time_step": 44,
+  "ground_truth": "unknown",
+  "score": 0.873789,
+  "candidates": 4732,
+  "k": 8,
+  "note": ""
+ },
+ {
+  "stratum": "7 late steps (43-49), band at least medium",
+  "tx_id": 155603453,
+  "time_step": 45,
+  "ground_truth": "unknown",
+  "score": 0.609283,
+  "candidates": 4732,
+  "k": 8,
+  "note": ""
+ },
+ {
+  "stratum": "7 late steps (43-49), band at least medium",
+  "tx_id": 125406909,
+  "time_step": 47,
+  "ground_truth": "unknown",
+  "score": 0.838595,
+  "candidates": 4732,
+  "k": 8,
+  "note": ""
+ },
+ {
+  "stratum": "7 late steps (43-49), band at least medium",
+  "tx_id": 106300125,
+  "time_step": 44,
+  "ground_truth": "unknown",
+  "score": 0.999862,
+  "candidates": 4732,
+  "k": 8,
+  "note": ""
+ },
+ {
+  "stratum": "7 late steps (43-49), band at least medium",
+  "tx_id": 196092852,
+  "time_step": 46,
+  "ground_truth": "unknown",
+  "score": 0.998845,
+  "candidates": 4732,
+  "k": 8,
+  "note": ""
+ },
+ {
+  "stratum": "7 late steps (43-49), band at least medium",
+  "tx_id": 156058072,
+  "time_step": 45,
+  "ground_truth": "unknown",
+  "score": 0.999748,
+  "candidates": 4732,
+  "k": 8,
+  "note": ""
+ },
+ {
+  "stratum": "7 late steps (43-49), band at least medium",
+  "tx_id": 261387954,
+  "time_step": 44,
+  "ground_truth": "unknown",
+  "score": 0.766879,
+  "candidates": 4732,
+  "k": 8,
+  "note": ""
+ },
+ {
+  "stratum": "7 late steps (43-49), band at least medium",
+  "tx_id": 218683036,
+  "time_step": 47,
+  "ground_truth": "unknown",
+  "score": 0.981565,
+  "candidates": 4732,
+  "k": 8,
+  "note": ""
+ }
+]
