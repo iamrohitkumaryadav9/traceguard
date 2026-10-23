@@ -7,11 +7,6 @@
 
 The demo is the Streamlit Community Cloud deployment of [app/streamlit_app.py](app/streamlit_app.py). It reads the bundled [demo/memos.json](demo/memos.json) (30 pre-generated memos): no live model calls and no API key. Free-tier apps sleep when idle, so the first visit may show a "wake up" button.
 
-| | |
-|---|---|
-| _[screenshot: Examples page]_ | _[screenshot: memo with signal-conflict callout and evidence chips]_ |
-| _[screenshot: red "model cannot be relied on" banner]_ | _[screenshot: "How it was evaluated" page]_ |
-
 **Try these first** (the five nodes on the app's Examples page):
 
 | Transaction | Time step | What it shows |
