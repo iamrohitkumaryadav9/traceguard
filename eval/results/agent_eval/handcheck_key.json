@@ -357,160 +357,160 @@
   },
   "106335719-01": {
    "tx_id": 106335719,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every fact and number stated in the claim is explicitly present in the cited evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "106335719-02": {
    "tx_id": 106335719,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The evidence explicitly lists features f53, f59, f2, f100, and f5 with the direction 'raises illicit score'.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "106335719-03": {
    "tx_id": 106335719,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "All facts, numbers, and the status mentioned in the statement are explicitly present in the cited evidence.",
    "deterministic_grounded": true,
    "critic_rejected": true,
    "evidence_recorded": true
   },
   "106335719-04": {
    "tx_id": 106335719,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The evidence explicitly states that fan_in, fan_out, and chain flags are false, meaning none of them are present.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "106335719-05": {
    "tx_id": 106335719,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The statement accurately reflects the evidence showing a total of 3 neighboring nodes within two hops and a share_alerted value of 0.666667.",
    "deterministic_grounded": true,
    "critic_rejected": true,
    "evidence_recorded": true
   },
   "106335719-06": {
    "tx_id": 106335719,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The evidence explicitly lists features f53, f59, f2, f100, and f5 with the direction 'raises illicit score'.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "106335719-07": {
    "tx_id": 106335719,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "All facts and numbers stated in the claim are explicitly present in the provided evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "106335719-08": {
    "tx_id": 106335719,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The evidence explicitly states that in_degree is 1, out_degree is 1, and chain_len is 1.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "106335719-09": {
    "tx_id": 106335719,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "All details in the statement regarding the number of neighbors, hop, score, and alert status match the cited evidence exactly.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "106335719-10": {
    "tx_id": 106335719,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every fact and number stated in the claim is directly and accurately matched in the cited evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "114502915-01": {
    "tx_id": 114502915,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every fact stated in the statement is explicitly present and matches the numbers in the cited evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "114502915-02": {
    "tx_id": 114502915,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The evidence explicitly lists features f53, f2, f59, f3, and f5 with the direction 'raises illicit score'.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "114502915-03": {
    "tx_id": 114502915,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "All facts and numbers mentioned in the statement are explicitly present and accurate in the cited evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "114502915-04": {
    "tx_id": 114502915,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every fact and number stated in the claim is explicitly present in the cited evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "114502915-05": {
    "tx_id": 114502915,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "All facts stated in the statement are explicitly present and correctly matched in the cited evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "114502915-06": {
    "tx_id": 114502915,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "unsupported",
+   "judge_reason": "The statement claims that both neighbors were found at hop 2 outbound, but the evidence shows that the second neighbor was found at hop 1 outbound.",
    "deterministic_grounded": true,
    "critic_rejected": true,
    "evidence_recorded": true
   },
   "114502915-07": {
    "tx_id": 114502915,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every fact stated in the claim is explicitly supported by the values in the evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "114502915-08": {
    "tx_id": 114502915,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The cited evidence explicitly lists features f53, f2, f59, f3, and f5 as having the direction 'raises illicit score'.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "114502915-09": {
    "tx_id": 114502915,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every detail in the statement regarding model health status, time step, window steps, and window recall is explicitly and accurately reflected in the cited evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "114502915-10": {
    "tx_id": 114502915,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every value stated in the summary matches the provided evidence exactly.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
@@ -733,168 +733,168 @@
   },
   "98544621-01": {
    "tx_id": 98544621,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "All facts, values, and outcomes mentioned in the statement match the cited evidence exactly.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "98544621-02": {
    "tx_id": 98544621,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The evidence lists features f53, f90, f132, f59, and f2 as having positive SHAP values with the direction 'raises illicit score'.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "98544621-03": {
    "tx_id": 98544621,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "All stated values and statuses directly match the cited health check data at time_step 40.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "98544621-04": {
    "tx_id": 98544621,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The cited evidence directly confirms time_step 40, in_degree 1, and out_degree 0.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "98544621-05": {
    "tx_id": 98544621,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The evidence confirms 1 in-neighbor, 0 out-neighbors (focal_out_degree 0), and a radius-2 subgraph with 5 nodes and 4 edges.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "105858009-01": {
    "tx_id": 105858009,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "All values and facts in the statement directly match the cited health check evidence for time step 44.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "105858009-02": {
    "tx_id": 105858009,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The evidence directly lists f53, f59, f3, and f100 as raising the score, and f88 as lowering the score.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "105858009-03": {
    "tx_id": 105858009,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The statement accurately reflects the transaction score, score scale, and calibrated probability provided in the evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "105858009-04": {
    "tx_id": 105858009,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every detail in the statement directly matches the evidence provided.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "105858009-05": {
    "tx_id": 105858009,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The cited evidence explicitly lists 'unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions'.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "105858009-06": {
    "tx_id": 105858009,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The statement accurately reflects the evidence, which states that multiple layering of fiat funds was arranged prior to the VA purchase by mules.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "115924670-01": {
    "tx_id": 115924670,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every detail in the statement, including the raw LightGBM predict proba score, the calibrated probability, the risk band, and the alert status, is explicitly and accurately reflected in the cited evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "115924670-02": {
    "tx_id": 115924670,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The evidence explicitly lists features f53, f59, f3, f163, and f100 with the direction 'raises illicit score'.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "115924670-03": {
    "tx_id": 115924670,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The statement accurately reflects the time step, status, and window recall values explicitly provided in the evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "115924670-04": {
    "tx_id": 115924670,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every fact and number stated in the claim is explicitly present in the provided evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "115924670-05": {
    "tx_id": 115924670,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "unsupported",
+   "judge_reason": "The evidence shows that the incoming neighbor has an alert status and the outgoing neighbor has a score of 0.999983, but the statement reverses the directions for these attributes.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "148546737-01": {
    "tx_id": 148546737,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "All values and facts stated in the claim are explicitly present in the provided evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "148546737-02": {
    "tx_id": 148546737,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "The evidence explicitly lists features f53, f132, f90, f59, and f2 with the direction 'raises illicit score'.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "148546737-03": {
    "tx_id": 148546737,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every fact and number stated in the claim is explicitly present in the provided evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "148546737-04": {
    "tx_id": 148546737,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every fact and number stated in the claim matches the provided evidence exactly.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true
   },
   "148546737-05": {
    "tx_id": 148546737,
-   "judge": null,
-   "judge_reason": null,
+   "judge": "supported",
+   "judge_reason": "Every fact stated in the claim regarding the outgoing connections, hops, transactions, and scores is explicitly present and matches the numbers in the cited evidence.",
    "deterministic_grounded": true,
    "critic_rejected": false,
    "evidence_recorded": true

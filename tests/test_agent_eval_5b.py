@@ -299,6 +299,32 @@ def test_rebuilding_the_sheet_never_overwrites_human_entries(raws):
     assert all(v["judge"] == "supported" for v in key.values() if v["evidence_recorded"])
 
 
+def test_report_section_b_is_computed_from_the_filled_sheet(raws):
+    r, tmp = raws
+    verdicts = {k: {"verdict": "unsupported" if "0.99" in it["text"] else "supported", "reason": "judge reason", "model": "m"}
+                for k, it in judge.collect_items(r).items()}
+    handcheck.build(tmp, judge_verdicts=verdicts)
+    rows = list(csv.DictReader(open(tmp / "handcheck.csv", encoding="utf-8")))
+    for x in rows:  # the human marks the fan_in claim overstated and the tampered number unsupported, the rest supported
+        x["human_verdict"] = "unsupported" if "0.99" in x["claim"] else "overstated" if "fan_in" in x["claim"] else "supported"
+        x["notes"] = "human note" if x["human_verdict"] != "supported" else ""
+    with open(tmp / "handcheck.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=handcheck.FIELDS)
+        w.writeheader()
+        w.writerows(rows)
+    (tmp / "judge").mkdir(exist_ok=True)
+    (tmp / "judge" / "verdicts.json").write_text(json.dumps(verdicts), encoding="utf-8")
+    text = report5b.build_report(tmp)
+    assert "to be filled in" not in text and "B. Hand-check results (human)" in text
+    assert "The human flagged 2 of" in text and "(1 unsupported, 1 overstated)" in text
+    assert "The critic rejected 1 claims (the human agrees with 1) and missed 1 of the 2." in text
+    assert "The judge caught 1 of the 2" in text and "The deterministic metric caught 1 of the 2" in text
+    table = [x for x in text.splitlines() if x.startswith("| ") and "human" not in x.split("|")[1] and ": " in x.split("|")[1]]
+    assert len(table) == 2 and any("| yes | yes (unsupported) | yes |" in x for x in table)  # the tampered claim: critic, judge and metric all flag it
+    assert any("| no | no | no |" in x for x in table)  # the overstated fan_in claim: nobody flags it
+    assert "Disclosure" in text and "73002915" in text and "Limitations of the hand check" in text
+
+
 def test_report_5b_builds_from_saved_results(raws):
     r, tmp = raws
     llm = FakeLLM(structured_scripts={"judge": lambda p: judge.JudgeOut(verdict="supported", reason="ok"),

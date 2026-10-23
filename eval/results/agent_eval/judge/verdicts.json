@@ -543,5 +543,315 @@
   "verdict": "supported",
   "reason": "All values mentioned in the statement match the values provided in the subgraph summary evidence.",
   "model": "gemini-3.8-flash"
+ },
+ "9af06c726f678f14": {
+  "verdict": "supported",
+  "reason": "The cited evidence directly confirms 1 outgoing connection at hop 1 with a score of 0.016913, and 2 outgoing connections up to hop 2 with scores of 0.016913 and 0.005557.",
+  "model": "gemini-3.8-flash"
+ },
+ "c265a43c3c59deb1": {
+  "verdict": "supported",
+  "reason": "All facts, values, and outcomes mentioned in the statement match the cited evidence exactly.",
+  "model": "gemini-3.8-flash"
+ },
+ "cbd54a3b417516be": {
+  "verdict": "supported",
+  "reason": "The evidence lists features f53, f90, f132, f59, and f2 as having positive SHAP values with the direction 'raises illicit score'.",
+  "model": "gemini-3.8-flash"
+ },
+ "f23f4cd39f578e7a": {
+  "verdict": "supported",
+  "reason": "All stated values and statuses directly match the cited health check data at time_step 40.",
+  "model": "gemini-3.8-flash"
+ },
+ "69ab030ccf18f804": {
+  "verdict": "supported",
+  "reason": "The cited evidence directly confirms time_step 40, in_degree 1, and out_degree 0.",
+  "model": "gemini-3.8-flash"
+ },
+ "6ffd8eaee4749873": {
+  "verdict": "supported",
+  "reason": "The evidence confirms 1 in-neighbor, 0 out-neighbors (focal_out_degree 0), and a radius-2 subgraph with 5 nodes and 4 edges.",
+  "model": "gemini-3.8-flash"
+ },
+ "d994a34971b5f8a9": {
+  "verdict": "supported",
+  "reason": "All stated values and facts, including the score, score scale, calibrated probability, medium risk band, and alert status, match the cited evidence exactly.",
+  "model": "gemini-3.8-flash"
+ },
+ "d5b0fec084c70293": {
+  "verdict": "supported",
+  "reason": "The cited evidence lists features f53, f3, f55, f163, and f59 with each having the direction 'raises illicit score'.",
+  "model": "gemini-3.8-flash"
+ },
+ "aa6bbe5ad6f3fcb3": {
+  "verdict": "supported",
+  "reason": "All stated values and facts match the evidence exactly.",
+  "model": "gemini-3.8-flash"
+ },
+ "ae50710d95d3712b": {
+  "verdict": "supported",
+  "reason": "All listed metrics match the cited subgraph summary exactly.",
+  "model": "gemini-3.8-flash"
+ },
+ "3bf73f7ab94cae40": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly confirms a neighbor at 1 hop in with an alert status set to true.",
+  "model": "gemini-3.8-flash"
+ },
+ "9fba1ee76002dd8d": {
+  "verdict": "supported",
+  "reason": "All values and facts in the statement directly match the cited health check evidence for time step 44.",
+  "model": "gemini-3.8-flash"
+ },
+ "ec12eb2882064cce": {
+  "verdict": "supported",
+  "reason": "The evidence directly lists f53, f59, f3, and f100 as raising the score, and f88 as lowering the score.",
+  "model": "gemini-3.8-flash"
+ },
+ "2cf9866b3fec5f91": {
+  "verdict": "supported",
+  "reason": "The statement accurately reflects the transaction score, score scale, and calibrated probability provided in the evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "4d3bd1d4fbd7ae2d": {
+  "verdict": "supported",
+  "reason": "Every detail in the statement directly matches the evidence provided.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "8fd6b118acb1d506": {
+  "verdict": "supported",
+  "reason": "The cited evidence explicitly lists 'unusually complex series of transactions indicative of layering activity involving multiple accounts, banks, parties, jurisdictions'.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "ec53acb703544b3b": {
+  "verdict": "supported",
+  "reason": "The statement accurately reflects the evidence, which states that multiple layering of fiat funds was arranged prior to the VA purchase by mules.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "06fa858d5c6a6c94": {
+  "verdict": "supported",
+  "reason": "Every fact and number stated in the claim is explicitly present in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "7fd657c3c16742e9": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly lists features f53, f59, f2, f100, and f5 with the direction 'raises illicit score'.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "0d4aa50cc92c3ff8": {
+  "verdict": "supported",
+  "reason": "All facts, numbers, and the status mentioned in the statement are explicitly present in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "1559ae715642ba58": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly states that fan_in, fan_out, and chain flags are false, meaning none of them are present.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "f5579b8a8095b649": {
+  "verdict": "supported",
+  "reason": "The statement accurately reflects the evidence showing a total of 3 neighboring nodes within two hops and a share_alerted value of 0.666667.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "eaf170fe8695a99b": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly lists features f53, f59, f2, f100, and f5 with the direction 'raises illicit score'.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "e2eb6ed0f08d881c": {
+  "verdict": "supported",
+  "reason": "All facts and numbers stated in the claim are explicitly present in the provided evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "4493ec9bec5608cf": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly states that in_degree is 1, out_degree is 1, and chain_len is 1.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "50ee108d83af7b71": {
+  "verdict": "supported",
+  "reason": "All details in the statement regarding the number of neighbors, hop, score, and alert status match the cited evidence exactly.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "627984985383e0d6": {
+  "verdict": "supported",
+  "reason": "Every fact and number stated in the claim is directly and accurately matched in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "bf0744c1c41c1950": {
+  "verdict": "supported",
+  "reason": "Every fact stated in the statement is explicitly present and matches the numbers in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "3d0a40cd570cd7a7": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly lists features f53, f2, f59, f3, and f5 with the direction 'raises illicit score'.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "903d3ed1d6379b98": {
+  "verdict": "supported",
+  "reason": "All facts and numbers mentioned in the statement are explicitly present and accurate in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "7f5ba19a483d3cef": {
+  "verdict": "supported",
+  "reason": "Every fact and number stated in the claim is explicitly present in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "d5093ad742123acf": {
+  "verdict": "supported",
+  "reason": "All facts stated in the statement are explicitly present and correctly matched in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "0cbebdaaa66ed982": {
+  "verdict": "unsupported",
+  "reason": "The statement claims that both neighbors were found at hop 2 outbound, but the evidence shows that the second neighbor was found at hop 1 outbound.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "c544b7b7673364a9": {
+  "verdict": "supported",
+  "reason": "Every fact stated in the claim is explicitly supported by the values in the evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "c001c0b5dcc4acef": {
+  "verdict": "supported",
+  "reason": "The cited evidence explicitly lists features f53, f2, f59, f3, and f5 as having the direction 'raises illicit score'.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "cdf2dde1ffa1ec5a": {
+  "verdict": "supported",
+  "reason": "Every detail in the statement regarding model health status, time step, window steps, and window recall is explicitly and accurately reflected in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "4b6204f0efc5a82a": {
+  "verdict": "supported",
+  "reason": "Every value stated in the summary matches the provided evidence exactly.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "fcc3145e79296ad1": {
+  "verdict": "supported",
+  "reason": "Every detail in the statement, including the raw LightGBM predict proba score, the calibrated probability, the risk band, and the alert status, is explicitly and accurately reflected in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "d0987258d82f4c5d": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly lists features f53, f59, f3, f163, and f100 with the direction 'raises illicit score'.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "0e5de4e8fe7ae2ad": {
+  "verdict": "supported",
+  "reason": "The statement accurately reflects the time step, status, and window recall values explicitly provided in the evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "bb1a551868f1c625": {
+  "verdict": "supported",
+  "reason": "Every fact and number stated in the claim is explicitly present in the provided evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "049fdb3fbec7bb96": {
+  "verdict": "unsupported",
+  "reason": "The evidence shows that the incoming neighbor has an alert status and the outgoing neighbor has a score of 0.999983, but the statement reverses the directions for these attributes.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "b9d1b6af315b7093": {
+  "verdict": "supported",
+  "reason": "Every fact, number, and condition stated in the claim directly matches the values provided in the evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "e281bd94d7f86049": {
+  "verdict": "supported",
+  "reason": "The cited evidence explicitly lists features f53, f2, f59, f90, and f3 with the direction 'raises illicit score'.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "cc348d2ed6ffbd4f": {
+  "verdict": "supported",
+  "reason": "All facts and numbers mentioned in the statement are explicitly present in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "2dde91ab913c61fd": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly states that in_degree is 2, out_degree is 1, and total_found neighbors is 3 with 2 incoming and 1 outgoing.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "f54f30f9af30d11e": {
+  "verdict": "supported",
+  "reason": "All values and facts stated in the claim are explicitly present in the provided evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "7a4ee87d373d7cab": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly lists features f53, f132, f90, f59, and f2 with the direction 'raises illicit score'.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "b4b091cf58d38cc1": {
+  "verdict": "supported",
+  "reason": "Every fact and number stated in the claim is explicitly present in the provided evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "37868b9eabb8dfb0": {
+  "verdict": "supported",
+  "reason": "Every fact and number stated in the claim matches the provided evidence exactly.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "b32cd92ebf66e4d7": {
+  "verdict": "supported",
+  "reason": "Every fact stated in the claim regarding the outgoing connections, hops, transactions, and scores is explicitly present and matches the numbers in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "198efa725f703e96": {
+  "verdict": "supported",
+  "reason": "Every fact and number stated in the claim is explicitly present in the provided evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "8837c801b64bfacc": {
+  "verdict": "supported",
+  "reason": "All values and facts in the statement are explicitly matched in the provided evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "148934388e6d0f75": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly lists features f53 and f59 as raising the illicit score, and features f18, f52, and f132 as lowering the illicit score.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "88750926762b1a78": {
+  "verdict": "supported",
+  "reason": "The statement accurately reflects the cited text which states that multiple layering of fiat funds was arranged prior to the VA purchase by mules.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "78ed5d7ca3c10ae4": {
+  "verdict": "supported",
+  "reason": "The statement directly quotes and accurately reflects the text from the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "c96a6fa0f39bbd1b": {
+  "verdict": "supported",
+  "reason": "Every detail in the statement matches the provided evidence exactly.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "ebfbca773e5212d2": {
+  "verdict": "supported",
+  "reason": "The evidence lists features f53, f59, f3, f52, and f100 with the direction 'raises illicit score', confirming they pushed the score up.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "b3f9ff507936ea89": {
+  "verdict": "supported",
+  "reason": "Every fact stated in the claim is explicitly present and matches the numbers in the cited evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "9a683606e6181324": {
+  "verdict": "supported",
+  "reason": "The statement accurately reflects the transaction's in_degree, threshold, and matched fan_in structural pattern as provided in the evidence.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "3ac2d53391b086d0": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly states that in training-period data the fan_in pattern was associated with a lower illicit rate than the baseline and indicates a lowers_risk direction.",
+  "model": "gemini-3.5-flash-lite"
+ },
+ "c2a10690acff3ad7": {
+  "verdict": "supported",
+  "reason": "The evidence explicitly shows total_found: 11 for incoming neighbors.",
+  "model": "gemini-3.5-flash-lite"
  }
 }
