@@ -31,6 +31,20 @@ class WriterOutput(BaseModel):
     regulatory_background: List[RegReference] = Field(default_factory=list)
 
 
+class SummaryDraft(BaseModel):
+    """What the v3 writer LLM fills in (the ONLY fields offered to it): everything else is rendered by code."""
+    executive_summary: List[Claim]
+    next_checks: List[str] = Field(default_factory=list)
+
+
+class DraftV3(BaseModel):
+    """The v3 draft the critic checks: the LLM's summary and next checks plus the code-built parts attached by code."""
+    executive_summary: List[Claim] = Field(default_factory=list)
+    next_checks: List[str] = Field(default_factory=list)
+    facts: List[Claim] = Field(default_factory=list)  # code-built activity claims
+    rendered_background: List[RegReference] = Field(default_factory=list)  # code-rendered excerpts or labels
+
+
 class CriticVerdict(BaseModel):
     round: int
     item: str  # "claim 1", "reference 2"
@@ -56,6 +70,8 @@ class AgentState(BaseModel):
     memo: Optional[SARMemo] = None
     draft: Optional[WriterOutput] = None
     first_draft: Optional[WriterOutput] = None  # the writer's round-0 draft, recorded for the evaluation (arm A1)
+    draft3: Optional[DraftV3] = None  # design v3 draft
+    first_draft3: Optional[DraftV3] = None
     critic_verdicts: List[CriticVerdict] = Field(default_factory=list)
     critic_feedback: List[str] = Field(default_factory=list)
     trace: List[dict] = Field(default_factory=list)

@@ -38,6 +38,20 @@ leave quote null.
 - Do not state a name, address, amount or date (none exist), do not give a recommendation, and never say a report should be filed.
 - If the model-health or score entries show a limitation, state it plainly."""
 
+WRITER_V3 = """You help a human analyst read a draft suspicious-activity memo. The memo's FACTS (score, health, patterns, neighbours, \
+regulatory excerpts) are already written by code from tool outputs and appear in it exactly as listed below. You write only two things. \
+Return JSON with executive_summary and next_checks.
+1. executive_summary: AT MOST 3 sentences that restate the listed facts. Each sentence is {{text, evidence_ids}}; evidence_ids are the \
+evidence ids shown in square brackets after the facts the sentence restates, copied exactly. Every number in a sentence must be copied \
+from the listed facts. Do not add any fact that is not listed. Do not use quotation marks. Features f1..f165 are anonymized: write only \
+"feature f57 pushed the score up" (or down), never what a feature means. A structural pattern with direction lowers_risk must NEVER be \
+described as suspicious or risk-raising; you may say it matched and lowers the illicit rate relative to the baseline. A pattern with \
+direction uninformative carries no risk signal. If a SIGNAL CONFLICT is listed, the summary must not hide it. Never give a recommendation \
+and never say a report should be filed. A neighbour fact and a subgraph fact count different things (directed chains versus an undirected \
+radius that includes the focal node): never add them up or compare their counts.
+2. next_checks: a short list of things a human analyst could check next, each an action phrase (for example "Check whether ..."). No factual \
+claims, no numbers, no evidence ids, no names, addresses, amounts or dates."""
+
 JUDGE = """You are a strict reviewer. For each numbered item you get a claim and the evidence it cites. Decide whether the \
 cited evidence actually supports the claim.
 - supported: every fact in the claim is stated by the cited evidence.

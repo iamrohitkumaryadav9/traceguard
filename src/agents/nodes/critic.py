@@ -43,7 +43,7 @@ def judge_prompt(items, ledger):
     return "\n\n".join(lines)
 
 
-def critic(state: AgentState, deps: Deps) -> AgentState:
+def critic_v2(state: AgentState, deps: Deps) -> AgentState:
     state.nodes_visited.append("critic")
     rnd = state.critic_loops + 1
     fetch = make_fetch_chunk(deps)
@@ -127,3 +127,104 @@ def finish(state: AgentState, deps: Deps, kept_items, removed, status, verificat
     state.memo = assemble(state, deps.now_iso(), status, claims, refs, verification=verification, removed=removed, notes=notes)
     state.status = status
     return state
+
+
+# ---------- design v3: facts rendered by code; the critic checks the summary and verifies the code-built parts ----------
+def finish_v3(state: AgentState, deps: Deps, draft, kept_summary, kept_checks, removed, problems, expected_facts, expected_bg):
+    """Memo = the code-built facts and background (restored from the ledger if the draft's copy was altered) plus the
+    summary sentences and next checks that survived the critic."""
+    from src.agents.state import Claim
+
+    clean = not removed and not problems
+    status, verification = ("verified", "verified") if clean else ("partially_verified", "partially verified")
+    notes = []
+    if removed:
+        notes.append(f"{len(removed)} item(s) failed the critic after {state.critic_loops} rewrite(s) and were removed.")
+    if problems:
+        notes.append("the code-built claims or the rendered regulatory background in the draft were altered or incomplete; the memo "
+                     "contains the versions recomputed by code from the evidence ledger (" + "; ".join(problems)[:300] + ")")
+    if not draft.executive_summary:
+        notes.append("the writer produced no executive summary")
+    facts = [MemoClaim(text=c.text, evidence_ids=list(c.evidence_ids), source="code") for c in expected_facts]
+    summary = [MemoClaim(text=c.text, evidence_ids=list(c.evidence_ids), source="llm") for c in kept_summary]
+    state.memo = assemble(state, deps.now_iso(), status, facts, expected_bg, verification=verification, removed=removed,
+                          notes=notes, executive_summary=summary, next_checks=list(kept_checks), design="v3")
+    state.status = status
+    return state
+
+
+def critic_v3(state: AgentState, deps: Deps) -> AgentState:
+    from src.agents.checks import next_check_reasons
+    from src.agents.facts import code_built_claims, facts_problems, render_background
+    from src.agents.state import Claim
+
+    state.nodes_visited.append("critic")
+    rnd = state.critic_loops + 1
+    fetch = make_fetch_chunk(deps)
+    draft = state.draft3
+    expected_facts = [Claim(text=c.text, evidence_ids=list(c.evidence_ids)) for c in code_built_claims(state)]
+    expected_bg = render_background(state, fetch)
+    problems = facts_problems(draft.facts, expected_facts, draft.rendered_background, expected_bg)
+
+    items = [("summary", c.text, c.evidence_ids) for c in draft.executive_summary]
+    det = [check_item(text, eids, None, state.ledger, fetch, allow_quotes=False) for _, text, eids in items]
+    for i in range(config.MAX_SUMMARY_SENTENCES, len(items)):
+        det[i].append(f"the executive summary may have at most {config.MAX_SUMMARY_SENTENCES} sentences")
+    check_reasons = [next_check_reasons(t, state.ledger) for t in draft.next_checks]
+
+    passing = [i for i, r in enumerate(det) if not r]
+    judged = {}
+    if passing:  # the LLM only looks at summary sentences that survived the deterministic checks
+        count_llm_call(state, deps, "critic", purpose=f"support check round {rnd}")
+        jp = judge_prompt([(items[i][0], items[i][1], items[i][2]) for i in passing], state.ledger)
+        out, info = deps.llm.structured(prompts.JUDGE, jp, JudgeOutput, purpose="critic")
+        log(state, deps, "critic", "llm_result", latency_ms=round(info.get("latency_ms", 0), 1), usage=info.get("usage", {}))
+        by_index = {v.index: v for v in out.verdicts}
+        for n, i in enumerate(passing):
+            v = by_index.get(n)
+            judged[i] = (v.verdict, v.reason) if v else ("unsupported", "the reviewer returned no verdict for this item")
+
+    def reasons_for(i):
+        extra = [f"reviewer says {judged[i][0]}: {judged[i][1]}"] if i in judged and judged[i][0] != "supported" else []
+        return det[i] + extra
+
+    verdicts, failed_summary, failed_checks = [], [], []
+    for i, (kind, text, eids) in enumerate(items):
+        lv, lr = judged.get(i, (None, None))
+        ok = not det[i] and lv == "supported"
+        verdicts.append(CriticVerdict(round=rnd, item=f"summary {i + 1}", text=text, ok=ok, deterministic_reasons=det[i],
+                                      llm_verdict=lv, llm_reason=lr))
+        if not ok:
+            failed_summary.append(i)
+    for j, (t, r) in enumerate(zip(draft.next_checks, check_reasons)):
+        verdicts.append(CriticVerdict(round=rnd, item=f"check {j + 1}", text=t, ok=not r, deterministic_reasons=r))
+        if r:
+            failed_checks.append(j)
+    if problems:  # not something the writer can fix: it did not write these parts
+        verdicts.append(CriticVerdict(round=rnd, item="code-built facts", text="; ".join(problems)[:500], ok=False,
+                                      deterministic_reasons=problems))
+    state.critic_verdicts += verdicts
+    empty = not draft.executive_summary
+    log(state, deps, "critic", "verdicts", round=rnd, items=len(items), failed=len(failed_summary) + len(failed_checks),
+        empty_draft=empty, facts_ok=not problems)
+
+    if not (failed_summary or failed_checks or empty):
+        return finish_v3(state, deps, draft, draft.executive_summary, draft.next_checks, [], problems, expected_facts, expected_bg)
+    if state.critic_loops < config.MAX_CRITIC_LOOPS:
+        fb = [f"summary {i + 1}: {items[i][1][:160]!r} -> " + "; ".join(reasons_for(i)) for i in failed_summary]
+        fb += [f"check {j + 1}: {draft.next_checks[j][:120]!r} -> " + "; ".join(check_reasons[j]) for j in failed_checks]
+        if empty:
+            fb.append("the draft contained no executive summary; write at most 3 sentences restating the listed facts")
+        state.critic_feedback = fb
+        state.critic_loops += 1
+        state.status = "rewriting"
+        return state
+    removed = [f"summary {i + 1}: {items[i][1]} (reasons: {'; '.join(reasons_for(i))})" for i in failed_summary]
+    removed += [f"check {j + 1}: {draft.next_checks[j]} (reasons: {'; '.join(check_reasons[j])})" for j in failed_checks]
+    kept_summary = [c for i, c in enumerate(draft.executive_summary) if i not in failed_summary]
+    kept_checks = [t for j, t in enumerate(draft.next_checks) if j not in failed_checks]
+    return finish_v3(state, deps, draft, kept_summary, kept_checks, removed, problems, expected_facts, expected_bg)
+
+
+def critic(state: AgentState, deps: Deps) -> AgentState:
+    return critic_v3(state, deps) if config.DESIGN == "v3" else critic_v2(state, deps)

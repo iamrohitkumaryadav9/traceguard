@@ -112,6 +112,22 @@ def signal_conflict_reasons(expected: Optional[str], actual: Optional[str]) -> L
     return []
 
 
+def next_check_reasons(text: str, ledger: Dict[str, LedgerEntry]) -> List[str]:
+    """A 'what a human analyst could check next' item must contain no factual claim: no numbers, no evidence ids, short,
+    and it may not call a lowers_risk pattern suspicious."""
+    reasons = []
+    if re.search(r"\d", text):
+        reasons.append("a next-check item contains a number (it must contain no factual claim)")
+    if re.search(r"\b(score|typology|health|neighbors|subgraph|reg):", text):
+        reasons.append("a next-check item contains an evidence id")
+    if len(text.split()) > 30:
+        reasons.append("a next-check item is longer than 30 words")
+    for pattern in lowers_risk_patterns(ledger):
+        if PATTERN_TERMS[pattern].search(text) and SUSPICIOUS.search(text) and not NEGATION.search(text):
+            reasons.append(f"a next-check item describes the lowers_risk pattern {pattern} as suspicious")
+    return reasons
+
+
 def find_quotes(text, quote: Optional[str]):
     quotes = [q.strip() for q in QUOTED.findall(text or "")]
     if quote:

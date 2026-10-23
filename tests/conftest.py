@@ -6,6 +6,17 @@ from src.tools.context import build_context, set_context
 ALERT, HIGH = 0.5, 0.8
 
 
+@pytest.fixture(autouse=True)
+def agent_design(request):
+    """Tests written for the v2 agent design keep running against it; only tests/test_agents_v3.py uses design v3."""
+    from src.agents import config
+
+    old = config.DESIGN
+    config.DESIGN = "v3" if request.module.__name__.endswith("test_agents_v3") else "v2"
+    yield
+    config.DESIGN = old
+
+
 def fake_explain(tx_id, top_n=5):
     return [
         {"feature": f"f{k}", "group": "local", "value": 0.1 * k, "shap": 1.0 / k,

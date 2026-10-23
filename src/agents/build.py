@@ -63,6 +63,8 @@ def deterministic_claims(state: AgentState, include_score=True) -> List[MemoClai
                      f"training period had an illicit rate of {m['observed_illicit_rate']} against a baseline of "
                      f"{m['baseline_illicit_rate']}, so {tail}.",
                 evidence_ids=[o["evidence_id"]]))
+    for c in claims:
+        c.source = "code"  # these templates are filled by code from the ledger
     return claims
 
 
@@ -95,7 +97,7 @@ def evidence_table(state: AgentState, claims, refs, extra_ids=()) -> List[Eviden
     return rows
 
 
-def regulatory_background(state: AgentState, refs) -> List[RegulatoryBackground]:
+def regulatory_background(state: AgentState, refs, source="llm") -> List[RegulatoryBackground]:
     out = []
     for r in refs:
         e = state.ledger.get(r.evidence_id)
@@ -105,22 +107,25 @@ def regulatory_background(state: AgentState, refs) -> List[RegulatoryBackground]
         out.append(RegulatoryBackground(
             paraphrase=r.paraphrase, source_doc=f"{o.get('publisher')} {o.get('year')}: {o.get('title')}",
             doc_id=o.get("doc_id", ""), evidence_id=r.evidence_id, quotable=bool(o.get("quotable", True)),
-            quote=r.quote))
+            quote=r.quote, source=source))
     return out
 
 
 def assemble(state: AgentState, now_iso, status, claims, refs, verification="not applicable", removed=None,
-             notes=None, rated=True, recommendation=RECOMMEND_REVIEW) -> SARMemo:
+             notes=None, rated=True, recommendation=RECOMMEND_REVIEW, executive_summary=None, next_checks=None,
+             design="v2") -> SARMemo:
     limitations = list(LIMITATIONS)
     if state.time_step is not None and state.time_step >= SHUTDOWN_STEP:
         limitations.append(PERIOD_NOTE)  # text only; gating is unchanged
+    summary = list(executive_summary or [])
     return SARMemo(
-        header=make_header(state, now_iso, rated),
+        header=make_header(state, now_iso, rated), design=design,
         signal_conflict=state.signal_conflict if rated else None,
         signal_conflict_evidence_ids=state.signal_conflict_evidence_ids if rated else [],
+        executive_summary=summary, next_checks=list(next_checks or []),
         activity_description=list(claims),
-        evidence_table=evidence_table(state, claims, refs, state.signal_conflict_evidence_ids if rated else ()),
-        regulatory_background=regulatory_background(state, refs),
+        evidence_table=evidence_table(state, list(claims) + summary, refs, state.signal_conflict_evidence_ids if rated else ()),
+        regulatory_background=regulatory_background(state, refs, "code" if design == "v3" else "llm"),
         limitations=limitations, recommendation=recommendation, status=status, verification=verification,
         removed_claims=removed or [], notes=notes or [])
 
@@ -132,7 +137,7 @@ def deterministic_memo(state: AgentState, now_iso, status, notes=None) -> SARMem
         text = (f"The model cannot be relied on at time step {state.time_step}: in the delayed-label window its recall was "
                 f"{health['window_recall']} against a reference of {health['reference_recall']}, so no risk assessment is given "
                 f"for this transaction.")
-        claims = [MemoClaim(text=text, evidence_ids=[health["evidence_id"]])]
+        claims = [MemoClaim(text=text, evidence_ids=[health["evidence_id"]], source="code")]
         return assemble(state, now_iso, status, claims, [], notes=notes, rated=False, recommendation=RECOMMEND_REVIEW)
     if status == "no_action_model_based":
         claims = deterministic_claims(state)
@@ -141,7 +146,7 @@ def deterministic_memo(state: AgentState, now_iso, status, notes=None) -> SARMem
         claims = [c for c in claims if "Feature" not in c.text]  # keep the memo short
         claims.append(MemoClaim(
             text="No structural pattern with a risk-raising direction matched this transaction.",
-            evidence_ids=[typ.output["evidence_id"]] if typ else [score["evidence_id"]]))
+            evidence_ids=[typ.output["evidence_id"]] if typ else [score["evidence_id"]], source="code"))
         return assemble(state, now_iso, status, claims, [], notes=notes, recommendation=RECOMMEND_NO_ACTION)
     # budget_exceeded, agent_error, unknown_transaction: whatever the ledger already supports
     claims = deterministic_claims(state)

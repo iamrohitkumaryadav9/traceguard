@@ -35,7 +35,7 @@ class FakeLLM:
         return FakeChat(self, purpose)
 
     def structured(self, system, prompt, schema, purpose=""):
-        self.calls.append({"kind": "structured", "purpose": purpose, "prompt": prompt})
+        self.calls.append({"kind": "structured", "purpose": purpose, "prompt": prompt, "schema": schema})
         script = self.structured_scripts.get(purpose)
         if callable(script):
             out = script(prompt)

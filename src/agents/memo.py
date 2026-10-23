@@ -40,6 +40,7 @@ class SubjectFields(BaseModel):
 class MemoClaim(BaseModel):
     text: str
     evidence_ids: List[str]
+    source: Literal["code", "llm"] = "llm"  # "code": rendered by code from tool outputs; "llm": written by the writer
 
 
 class EvidenceRow(BaseModel):
@@ -56,6 +57,7 @@ class RegulatoryBackground(BaseModel):
     evidence_id: str
     quotable: bool
     quote: Optional[str] = None
+    source: Literal["code", "llm"] = "llm"  # v3: "code" (label and verbatim excerpt rendered by code)
 
 
 class MemoHeader(BaseModel):
@@ -73,8 +75,11 @@ class MemoHeader(BaseModel):
 class SARMemo(BaseModel):
     header: MemoHeader
     subject: SubjectFields = Field(default_factory=SubjectFields)
+    design: str = "v2"
     signal_conflict: Optional[str] = None  # fixed template sentence, built by code from evidence; null when signals agree
     signal_conflict_evidence_ids: List[str] = Field(default_factory=list)
+    executive_summary: List[MemoClaim] = Field(default_factory=list)  # v3: at most 3 sentences written by the writer
+    next_checks: List[str] = Field(default_factory=list)  # v3: what a human analyst could check next (no factual claims)
     activity_description: List[MemoClaim]
     evidence_table: List[EvidenceRow]
     regulatory_background: List[RegulatoryBackground]
@@ -97,7 +102,10 @@ def memo_to_markdown(m: SARMemo):
         f"- subject fields: names / addresses / amounts / dates = {m.subject.names}", ""]
     if m.signal_conflict:
         lines += [f"**{m.signal_conflict}** `[{', '.join(m.signal_conflict_evidence_ids)}]`", ""]
-    lines += ["**Activity description**", ""]
+    if m.executive_summary:
+        lines += ["**Executive summary (written by the writer; restates the facts below)**", ""]
+        lines += [f"{i}. {c.text} `[{', '.join(c.evidence_ids)}]`" for i, c in enumerate(m.executive_summary, 1)] + [""]
+    lines += ["**Activity description**" + (" (rendered by code from the tool outputs)" if m.design == "v3" else ""), ""]
     for i, c in enumerate(m.activity_description, 1):
         lines.append(f"{i}. {c.text} `[{', '.join(c.evidence_ids)}]`")
     if not m.activity_description:
@@ -108,6 +116,8 @@ def memo_to_markdown(m: SARMemo):
         lines.append(f"- {r.paraphrase}{q} ({r.source_doc}; `{r.evidence_id}`; quotable: {r.quotable})")
     if not m.regulatory_background:
         lines.append("- none")
+    if m.next_checks:
+        lines += ["", "**What a human analyst could check next**", ""] + [f"- {x}" for x in m.next_checks]
     lines += ["", "**Evidence table**", ""] + [f"- `{e.evidence_id}` from {e.tool}" for e in m.evidence_table]
     if m.removed_claims:
         lines += ["", "**Removed by the critic**", ""] + [f"- {x}" for x in m.removed_claims]
