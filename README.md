@@ -90,10 +90,12 @@ The per-phase design notes, commit hashes and caveats are in [docs/PHASE_NOTES.m
 **Prerequisites.** Python 3.14 (the version in [the CI workflow](.github/workflows/ci.yml)), git, a Kaggle account for the dataset, and for live mode and the evaluations a Gemini API key (free tier; the model is set in [src/agents/config.py](src/agents/config.py)). Docker is optional.
 
 ```
-python -m venv .venv
+py -3.14 -m venv .venv            # Linux/macOS: python3.14 -m venv .venv
 .venv\Scripts\activate            # Linux/macOS: source .venv/bin/activate
 pip install -r requirements.txt
 ```
+
+Use Python 3.14 explicitly: a newer default interpreter (3.15 was tried) fails at install because `faiss-cpu` has no wheel for it. On a clean clone this installs, and `pytest` passes, with no data, key or `.env`.
 
 **Tests** need no data, key or network (the agent tests use a scripted fake LLM): `pytest`.
 
@@ -101,17 +103,17 @@ pip install -r requirements.txt
 1. Download the Elliptic dataset from Kaggle (`kaggle datasets download -d ellipticco/elliptic-data-set`, or the web page) and put the three files `elliptic_txs_features.csv`, `elliptic_txs_classes.csv` and `elliptic_txs_edgelist.csv` in `data/raw/`.
 2. `python -m src.split` writes `data/processed/nodes.parquet` and `edges.parquet`.
 3. Regulation PDFs go in `data/raw/regulations/` under the file names in [src/rag/SOURCES.md](src/rag/SOURCES.md); then `python -m src.rag.ocr` (the India document is a scan) and `python -m src.rag.ingest`.
-4. Train the model and the artefacts the tools read (`models/`, `eval/results/threshold.json`): `python -m src.ml.graph_features`, `python -m src.ml.baselines`, then `python -m src.ml.phase2b --final "LightGBM (165 original)" --md phase2c.md --tag _2c`. The `data/` and `models/` folders are not in the repository.
+4. Train the model and the artefacts the tools read (`models/`, `eval/results/threshold.json`): `python -m src.ml.graph_features`, then `python -m src.ml.phase2b --final "LightGBM (165 original)" --md phase2c.md --title "Phase 2c results (final model: 165 original features)" --tag _2c`. This overwrites `models/`, `eval/results/threshold.json`, `eval/results/phase2c.md` and the `_2c` figures. The flags were checked against `--help`; the command itself was not re-run. The `data/` and `models/` folders are not in the repository.
 
 **API key.** Copy `.env.example` to `.env` and set `GEMINI_API_KEY`. The key is read at run time with python-dotenv and never printed; `.env` is gitignored.
 
 **One investigation from the command line:** `python -m src.agents.run <tx_id>`.
 
 **API** ([src/api/main.py](src/api/main.py); endpoints `GET /health`, `POST /investigate`, `GET /memo/{tx_id}`, `GET /examples`, `GET /memos`; docs at `/docs`).
-- *Demo mode* (default, no data, model or key): `pip install -r requirements-api.txt`, then `TRACEGUARD_MODE=demo uvicorn src.api.main:app --port 8000`. It serves only the pre-computed memos in `demo/memos.json` and cannot run the agent.
-- *Live mode*: `TRACEGUARD_MODE=live uvicorn src.api.main:app --port 8000`. Guardrails, set by environment variable ([src/api/settings.py](src/api/settings.py)): 6 live runs per client IP per hour, a global budget of 400 LLM calls per day, a 240 s request timeout, one run at a time, provider quota errors as HTTP 503 with `Retry-After`.
+- *Demo mode* (default, no data, model or key): `pip install -r requirements-api.txt`, then `TRACEGUARD_MODE=demo uvicorn src.api.main:app --port 8000` (PowerShell: `$env:TRACEGUARD_MODE="demo"; uvicorn src.api.main:app --port 8000`). It serves only the pre-computed memos in `demo/memos.json` and cannot run the agent.
+- *Live mode*: `TRACEGUARD_MODE=live uvicorn src.api.main:app --port 8000` (PowerShell: set `$env:TRACEGUARD_MODE="live"` first; not run in the fresh-clone check, which had no data or key). Guardrails, set by environment variable ([src/api/settings.py](src/api/settings.py)): 6 live runs per client IP per hour, a global budget of 400 LLM calls per day, a 240 s request timeout, one run at a time, provider quota errors as HTTP 503 with `Retry-After`.
 
-**Streamlit app** ([app/streamlit_app.py](app/streamlit_app.py)): `pip install -r requirements-demo.txt`, then `streamlit run app/streamlit_app.py`. It reads `demo/memos.json` directly; set `API_URL` to use the API instead. Deployment to Streamlit Community Cloud or a Hugging Face Space (demo mode) is described in [docs/PHASE_NOTES.md](docs/PHASE_NOTES.md#phase-6b-streamlit-ui).
+**Streamlit app** ([app/streamlit_app.py](app/streamlit_app.py)): `pip install -r requirements-demo.txt` (streamlit only; enough on its own), then `streamlit run app/streamlit_app.py` (add `--server.headless true` on a server). It reads `demo/memos.json` directly; set `API_URL` to use the API instead. Deployment to Streamlit Community Cloud or a Hugging Face Space (demo mode) is described in [docs/PHASE_NOTES.md](docs/PHASE_NOTES.md#phase-6b-streamlit-ui).
 
 **Docker** ([Dockerfile](Dockerfile), [docker-compose.yml](docker-compose.yml)): `docker compose --profile demo up --build` (small image, no data) or `docker compose --profile live up --build` (mounts `./data` and `./models` read-only; needs `.env`). These images have not been built or run in the environment this was written in.
 
@@ -158,7 +160,8 @@ All commands run from the repository root with the data, models and `.env` in pl
 
 | Experiment | Command |
 |---|---|
-| Model, cost threshold, calibration | `python -m src.ml.phase2b --final "LightGBM (165 original)" --md phase2c.md --tag _2c` |
+| Phase 2a baselines | `python -m src.ml.baselines` |
+| Final model, cost threshold, calibration | `python -m src.ml.phase2b --final "LightGBM (165 original)" --md phase2c.md --title "Phase 2c results (final model: 165 original features)" --tag _2c` (needs `python -m src.ml.graph_features` first) |
 | Drift monitor and health monitor | `python -m src.ml.drift`, `python -m eval.health_eval` |
 | Typology check | `python -m eval.typology_check` |
 | Retrieval | `python -m eval.retrieval_eval`, `python -m eval.retrieval_final` |
