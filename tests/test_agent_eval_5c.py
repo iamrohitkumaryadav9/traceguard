@@ -1,4 +1,4 @@
-"""Phase 5c evaluation tooling, end to end with FakeLLM only (no network, no Gemini). The v2 arm is run in process here
+﻿"""Phase 5c evaluation tooling, end to end with FakeLLM only (no network, no Gemini). The v2 arm is run in process here
 through the worker's own run() function; in the real run it is a subprocess in the worktree of the tag agent-v2."""
 import csv
 import json
@@ -238,7 +238,7 @@ def test_handcheck_scoring_gives_wilson_intervals_per_source_and_the_report_show
     assert (s["llm_summary"]["errors"], s["llm_summary"]["n"]) == (1, 4) and s["code_built"]["errors"] == 0
     assert 0 < s["llm_summary"]["lo"] < 0.25 < s["llm_summary"]["hi"] < 0.75 and s["code_built"]["lo"] == 0
     text = report_5c.build_report(out)
-    assert "1/4 = 25%" in text and "Wilson" in text
+    assert "1/4 = 25.0%" in text and "Wilson" in text
     rows[0]["human_verdict"] = "maybe"
     with open(out / "handcheck_5c.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))

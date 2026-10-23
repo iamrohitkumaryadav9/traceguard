@@ -1,0 +1,28 @@
+{
+ "rows_filled": 81,
+ "code_built": {
+  "errors": 0,
+  "n": 20,
+  "rate": 0.0,
+  "lo": 0.0,
+  "hi": 0.16113012549493322,
+  "by_verdict": {
+   "supported": 20,
+   "unsupported": 0,
+   "overstated": 0
+  }
+ },
+ "llm_summary": {
+  "errors": 1,
+  "n": 61,
+  "rate": 0.01639344262295082,
+  "lo": 0.002899656114363977,
+  "hi": 0.08719065627768062,
+  "by_verdict": {
+   "supported": 60,
+   "unsupported": 0,
+   "overstated": 1
+  }
+ },
+ "deterministic_grounded_but_human_not_supported": 1
+}

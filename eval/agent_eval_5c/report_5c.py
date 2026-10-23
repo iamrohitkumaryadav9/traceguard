@@ -109,8 +109,22 @@ def handcheck_block(result_dir):
     for k, label in (("code_built", "(a) code-built claims whose text disagrees with their cited evidence"),
                      ("llm_summary", "(b) LLM-authored executive-summary sentences with an error")):
         r = s.get(k)
-        lines.append(f"- {label}: {r['errors']}/{r['n']} = {100 * r['rate']:.0f}%, 95% Wilson interval [{100 * r['lo']:.0f}%, {100 * r['hi']:.0f}%]"
+        lines.append(f"- {label}: {r['errors']}/{r['n']} = {100 * r['rate']:.1f}%, 95% Wilson interval [{100 * r['lo']:.1f}%, {100 * r['hi']:.1f}%]"
                      if r and r["n"] else f"- {label}: no rows filled in")
+    lines.append(f"- The deterministic consistency metric called {s.get('deterministic_grounded_but_human_not_supported', 0)} of the "
+                 "sentences the human did not mark supported grounded.")
+    key_p, csv_p = Path(result_dir) / "handcheck_5c_key.json", Path(result_dir) / "handcheck_5c.csv"
+    if key_p.exists() and csv_p.exists():
+        import csv
+
+        key = json.loads(key_p.read_text(encoding="utf-8"))["items"]
+        for row in csv.DictReader(open(csv_p, encoding="utf-8")):
+            if row["human_verdict"].strip().lower() not in ("", "supported"):
+                lines.append(f"- {row['item_id']} ({key[row['item_id']]['claim_source']}-authored, {row['human_verdict']}): "
+                             f"\"{row['claim']}\" Reader's note: {row['notes']}")
+    lines += ["", "These rates are not comparable to the Phase 5b development-set rate (3 of 79). No claim is made that v3 is more accurate than "
+              "v2; the finding is only that two error classes (a count wording that merges neighbour and subgraph counts, and a paraphrase "
+              "of tool facts) cannot occur in v3 by construction. One human read the sheet, blinded to the claim source."]
     return lines
 
 
@@ -163,6 +177,9 @@ def build_report(result_dir=RESULT_DIR):
               "Small n (30 nodes, 3 to 8 per stratum), so intervals are wide. One LLM acts as investigator, writer and reviewer. "
               "Metrics are rules written by the system's author. Completeness for v3 is guaranteed by construction (see the caveat). "
               "The deterministic consistency metric shares a blind spot with the critic; the hand-check is the independent measure."]
+    posthoc = Path(result_dir) / "posthoc_decision.md"  # kept in its own file so regenerating the report does not drop it
+    if posthoc.exists():
+        lines += ["", posthoc.read_text(encoding="utf-8").strip()]
     return "\n".join(lines) + "\n"
 
 

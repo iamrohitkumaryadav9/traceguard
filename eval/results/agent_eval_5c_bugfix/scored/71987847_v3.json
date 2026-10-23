@@ -1,0 +1,95 @@
+{
+ "tx_id": 71987847,
+ "design": "v3",
+ "status": "verified",
+ "reached_writer": true,
+ "groundedness": {
+  "grounded": 9,
+  "total": 9,
+  "ungrounded": []
+ },
+ "completeness": {
+  "share": 1.0,
+  "elements": {
+   "score": {
+    "applicable": true,
+    "present": true
+   },
+   "band": {
+    "applicable": true,
+    "present": true
+   },
+   "health status": {
+    "applicable": true,
+    "present": true
+   },
+   "typology evidence with direction": {
+    "applicable": false,
+    "present": false
+   },
+   "neighbour summary": {
+    "applicable": true,
+    "present": true
+   },
+   "signal conflict": {
+    "applicable": true,
+    "present": true
+   },
+   "period note": {
+    "applicable": false,
+    "present": false
+   },
+   "limitations": {
+    "applicable": true,
+    "present": true
+   },
+   "subject fields": {
+    "applicable": true,
+    "present": true
+   }
+  }
+ },
+ "violations": {
+  "a_lowers_risk_called_suspicious": [],
+  "b_low_risk_while_degraded": [],
+  "c_quote_from_non_quotable": [],
+  "d_label_leak": []
+ },
+ "info_only": {
+  "quotes_not_in_stored_text": 0,
+  "claims_with_quote_field": 0
+ },
+ "tool_correctness": {
+  "r1_applicable": false,
+  "r1_ok": null,
+  "searches": 0,
+  "r2_violation": false,
+  "search_with_only_uninformative": false,
+  "search_with_lowers_risk_only": false,
+  "within_caps": true,
+  "budget_exceeded": false,
+  "agent_tool_calls": 2,
+  "invalid_argument_calls": 0
+ },
+ "critic": {
+  "rounds": 1,
+  "deterministic": {},
+  "llm": {
+   "unsupported": 0,
+   "overstated": 0
+  },
+  "false_rejection_candidates": [],
+  "rejected_items": 0
+ },
+ "sources": {
+  "code": 6,
+  "llm": 3
+ },
+ "cost": {
+  "llm_calls": 5,
+  "prompt_tokens": 5911,
+  "output_tokens": 603,
+  "wall_s": 27.941,
+  "wall_s_no_wait": 5.551
+ }
+}
