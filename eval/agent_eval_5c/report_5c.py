@@ -123,8 +123,8 @@ def handcheck_block(result_dir):
                 lines.append(f"- {row['item_id']} ({key[row['item_id']]['claim_source']}-authored, {row['human_verdict']}): "
                              f"\"{row['claim']}\" Reader's note: {row['notes']}")
     lines += ["", "These rates are not comparable to the Phase 5b development-set rate (3 of 79). No claim is made that v3 is more accurate than "
-              "v2; the finding is only that two error classes (a count wording that merges neighbour and subgraph counts, and a paraphrase "
-              "of tool facts) cannot occur in v3 by construction. One human read the sheet, blinded to the claim source."]
+              "v2; the finding is only that two error classes (neighbour and subgraph counts merged or missing hop and direction, and an LLM paraphrase "
+              "of regulation text) cannot occur in v3 by construction. One human read the sheet, blinded to the claim source."]
     return lines
 
 

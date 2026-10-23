@@ -56,7 +56,7 @@ Violation details:
 - The deterministic consistency metric called 1 of the sentences the human did not mark supported grounded.
 - H042 (llm-authored, overstated): "Feature f59 pushed the score up and features f5, f52 pushed the score down, presenting a signal conflict with the structural pattern chain which raises risk with an illicit rate of 0.257318 against a baseline of 0.115809." Reader's note: Directions of f59/f5/f52 are correct, but the claim attributes the 'signal conflict' to the mixed feature contributions; the evidence only supports a conflict between the low score (0.000146, not stated) and the chain pattern. f53 and f100 also raised the score.
 
-These rates are not comparable to the Phase 5b development-set rate (3 of 79). No claim is made that v3 is more accurate than v2; the finding is only that two error classes (a count wording that merges neighbour and subgraph counts, and a paraphrase of tool facts) cannot occur in v3 by construction. One human read the sheet, blinded to the claim source.
+These rates are not comparable to the Phase 5b development-set rate (3 of 79). No claim is made that v3 is more accurate than v2; the finding is only that two error classes (neighbour and subgraph counts merged or missing hop and direction, and an LLM paraphrase of regulation text) cannot occur in v3 by construction. One human read the sheet, blinded to the claim source.
 
 ## Selected cases
 
@@ -117,4 +117,4 @@ The rule outcome above stands unchanged: the pre-registered keep rule was **not 
 - The hand-check has one human reader, 20 code-built claims and 61 summary sentences; its rates are not comparable to the Phase 5b rate (3 of 79, development set), and it cannot show that v3 is more accurate than v2.
 - n = 30, of which 9 nodes take the deterministic path where the two designs are identical by construction, so the comparison rests on 21 nodes; the interval on the completeness gain, [0.01, 0.06], straddles the threshold.
 
-**Decision.** Phase 6 builds on agent-v3.1. This is a judgement, not a test result: the reasons are the by-construction removal of two error classes and the lower cost, not a measured accuracy gain.
+**Decision.** Phase 6 builds on agent-v3.1. This is a judgement, not a test result: the reasons are the by-construction removal of two error classes (neighbour and subgraph counts merged or missing hop and direction, and LLM paraphrase of regulation text) and the lower cost, not a measured accuracy gain.

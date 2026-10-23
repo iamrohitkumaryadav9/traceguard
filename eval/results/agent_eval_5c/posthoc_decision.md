@@ -18,4 +18,4 @@ The rule outcome above stands unchanged: the pre-registered keep rule was **not 
 - The hand-check has one human reader, 20 code-built claims and 61 summary sentences; its rates are not comparable to the Phase 5b rate (3 of 79, development set), and it cannot show that v3 is more accurate than v2.
 - n = 30, of which 9 nodes take the deterministic path where the two designs are identical by construction, so the comparison rests on 21 nodes; the interval on the completeness gain, [0.01, 0.06], straddles the threshold.
 
-**Decision.** Phase 6 builds on agent-v3.1. This is a judgement, not a test result: the reasons are the by-construction removal of two error classes and the lower cost, not a measured accuracy gain.
+**Decision.** Phase 6 builds on agent-v3.1. This is a judgement, not a test result: the reasons are the by-construction removal of two error classes (neighbour and subgraph counts merged or missing hop and direction, and LLM paraphrase of regulation text) and the lower cost, not a measured accuracy gain.
